@@ -21,6 +21,7 @@ export default async function LoginPage({
           alt="Morada.ai"
           width={140}
           height={26}
+          style={{ height: "auto" }}
           priority
         />
 

@@ -12,7 +12,7 @@ export function ContinueTrackCard({
   return (
     <Link
       href={`/trilhas/${track.id}`}
-      className="flex flex-col gap-3 rounded-xl border border-border bg-card p-[18px] shadow-xs transition-colors hover:border-neutral-300"
+      className="flex flex-col gap-3 rounded-xl border border-border bg-card p-[18px] shadow-xs outline-none transition-colors hover:border-neutral-300 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50"
     >
       <div className="flex items-center gap-1.5">
         <span

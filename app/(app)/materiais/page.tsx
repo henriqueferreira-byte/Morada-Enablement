@@ -36,7 +36,7 @@ export default async function MateriaisPage({
           <Link
             key={product.id}
             href={`/materiais/${product.id}`}
-            className="relative flex flex-col gap-3 rounded-xl border border-border bg-card p-5 shadow-xs transition-colors hover:border-neutral-300"
+            className="relative flex flex-col gap-3 rounded-xl border border-border bg-card p-5 shadow-xs outline-none transition-colors hover:border-neutral-300 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50"
           >
             {product.hasNew && (
               <span className="absolute right-4 top-4 rounded-full border border-primary/25 bg-primary/10 px-1.5 py-0.5 text-[9px] font-bold text-primary">

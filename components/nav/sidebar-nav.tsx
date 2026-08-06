@@ -46,7 +46,7 @@ export function SidebarNav({
       <SidebarPanel open className="border-r border-border">
         <SidebarPanelHeader>
           <Link href="/" className="flex items-center pl-2" tabIndex={-1}>
-            <Image src="/logos/logo-blue.svg" alt="Morada.ai" width={96} height={22} />
+            <Image src="/logos/logo-blue.svg" alt="Morada.ai" width={96} height={22} style={{ height: "auto" }} />
           </Link>
         </SidebarPanelHeader>
 

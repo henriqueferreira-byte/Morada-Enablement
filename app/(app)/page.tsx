@@ -115,7 +115,7 @@ export default async function HomePage() {
                   <li key={item.id} className="border-b border-neutral-100 last:border-b-0">
                     <Link
                       href={item.href}
-                      className="flex items-center gap-3 px-[18px] py-3.5 hover:bg-neutral-50"
+                      className="flex items-center gap-3 px-[18px] py-3.5 outline-none hover:bg-neutral-50 focus-visible:bg-neutral-50 focus-visible:ring-3 focus-visible:ring-ring/50"
                     >
                       <span
                         className="h-full w-[3px] shrink-0 self-stretch rounded-full"
@@ -159,7 +159,7 @@ export default async function HomePage() {
                 <Link
                   key={track.id}
                   href={`/trilhas/${track.id}`}
-                  className="rounded-xl border border-border bg-card px-[18px] py-4 shadow-xs hover:border-neutral-300"
+                  className="rounded-xl border border-border bg-card px-[18px] py-4 shadow-xs outline-none hover:border-neutral-300 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50"
                 >
                   <span className="text-[11px] font-bold uppercase tracking-wide text-neutral-500">
                     {track.product.name}
@@ -186,7 +186,7 @@ export default async function HomePage() {
                   <li key={material.id}>
                     <Link
                       href={`/materiais/${material.feature.product.id}/${material.feature.id}`}
-                      className="flex items-center gap-3 px-[18px] py-3 hover:bg-neutral-50"
+                      className="flex items-center gap-3 px-[18px] py-3 outline-none hover:bg-neutral-50 focus-visible:bg-neutral-50 focus-visible:ring-3 focus-visible:ring-ring/50"
                     >
                       <span className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-primary/[0.08] text-primary">
                         <IconFileText className="size-4" />
