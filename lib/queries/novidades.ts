@@ -28,6 +28,7 @@ export async function getNovidades(
         `id, title, kind, published_at, track_id,
          track:tracks!lessons_track_id_fkey ( id, owner_name, product:products!tracks_product_id_fkey ( name, accent ) )`,
       )
+      .eq("is_highlight", true)
       .gte("published_at", new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString())
       .order("published_at", { ascending: false })
       .limit(limit),
