@@ -1,0 +1,115 @@
+import type { SupabaseClient } from "@supabase/supabase-js";
+import type { Product } from "./catalog";
+
+export type LessonKind = "video" | "artigo" | "deck" | "quiz" | "template" | "link";
+
+export type LessonRow = {
+  id: string;
+  track_id: string;
+  position: number;
+  title: string;
+  kind: LessonKind;
+  duration_min: number;
+  source_label: string | null;
+  storage_path: string | null;
+  external_url: string | null;
+  published_at: string;
+};
+
+export type TrackRow = {
+  id: string;
+  title: string;
+  description: string | null;
+  level: string;
+  audience: string | null;
+  owner_id: string | null;
+  owner_name: string | null;
+  owner_role: string | null;
+  updated_at: string;
+  product: Product;
+  lessons: LessonRow[];
+};
+
+export async function getTracksWithLessons(supabase: SupabaseClient): Promise<TrackRow[]> {
+  const { data } = await supabase
+    .from("tracks")
+    .select(
+      `id, title, description, level, audience, owner_id, owner_name, owner_role, updated_at,
+       product:products!tracks_product_id_fkey (id, name, accent, description, position),
+       lessons ( id, track_id, position, title, kind, duration_min, source_label, storage_path, external_url, published_at )`,
+    )
+    .order("position");
+
+  return ((data ?? []) as unknown as TrackRow[]).map((track) => ({
+    ...track,
+    lessons: [...track.lessons].sort((a, b) => a.position - b.position),
+  }));
+}
+
+export async function getTrackWithLessons(
+  supabase: SupabaseClient,
+  trackId: string,
+): Promise<TrackRow | null> {
+  const { data } = await supabase
+    .from("tracks")
+    .select(
+      `id, title, description, level, audience, owner_id, owner_name, owner_role, updated_at,
+       product:products!tracks_product_id_fkey (id, name, accent, description, position),
+       lessons ( id, track_id, position, title, kind, duration_min, source_label, storage_path, external_url, published_at )`,
+    )
+    .eq("id", trackId)
+    .maybeSingle();
+
+  if (!data) return null;
+  const track = data as unknown as TrackRow;
+  return { ...track, lessons: [...track.lessons].sort((a, b) => a.position - b.position) };
+}
+
+export async function getCompletedLessonIds(
+  supabase: SupabaseClient,
+  userId: string,
+): Promise<Set<string>> {
+  const { data } = await supabase
+    .from("lesson_progress")
+    .select("lesson_id")
+    .eq("user_id", userId);
+
+  return new Set((data ?? []).map((row) => row.lesson_id as string));
+}
+
+export type LessonRating = { avgStars: number; ratingsCount: number };
+
+export async function getLessonRatings(
+  supabase: SupabaseClient,
+): Promise<Map<string, LessonRating>> {
+  const { data } = await supabase.from("lesson_ratings").select("lesson_id, avg_stars, ratings_count");
+  const map = new Map<string, LessonRating>();
+  for (const row of data ?? []) {
+    map.set(row.lesson_id, { avgStars: Number(row.avg_stars), ratingsCount: row.ratings_count });
+  }
+  return map;
+}
+
+export type TrackStatus = "concluida" | "andamento" | "nao_iniciada";
+
+export type TrackProgress = {
+  done: number;
+  total: number;
+  pct: number;
+  status: TrackStatus;
+  nextLesson: LessonRow | null;
+  durationMin: number;
+};
+
+export function computeTrackProgress(
+  track: TrackRow,
+  completedLessonIds: Set<string>,
+): TrackProgress {
+  const total = track.lessons.length;
+  const done = track.lessons.filter((l) => completedLessonIds.has(l.id)).length;
+  const pct = total === 0 ? 0 : Math.round((done / total) * 100);
+  const status: TrackStatus = pct === 100 ? "concluida" : pct > 0 ? "andamento" : "nao_iniciada";
+  const nextLesson = track.lessons.find((l) => !completedLessonIds.has(l.id)) ?? null;
+  const durationMin = track.lessons.reduce((sum, l) => sum + l.duration_min, 0);
+  return { done, total, pct, status, nextLesson, durationMin };
+}
