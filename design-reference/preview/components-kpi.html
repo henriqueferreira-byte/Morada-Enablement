@@ -1,0 +1,73 @@
+<!doctype html>
+<!-- @dsCard group="Components" name="KPI cards" subtitle="Dashboard KPI tile — icon + delta + value + subtitle" viewport="700x200" -->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>KPI cards</title>
+<link rel="stylesheet" href="../colors_and_type.css" />
+<link rel="stylesheet" href="../components.css" />
+<style>
+  body { margin: 0; padding: 18px 20px; background: var(--background); }
+  .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+  .tone-success .nm-kpi__icon { background: color-mix(in srgb, var(--success) 12%, transparent); color: var(--success); }
+  .tone-success .nm-kpi__delta { color: var(--success); font-weight: 600; }
+  .tone-warning .nm-kpi__icon { background: color-mix(in srgb, var(--warning) 15%, transparent); color: var(--warning-text); }
+  .tone-warning .nm-kpi__delta { color: var(--warning-text); font-weight: 600; }
+  .tone-info    .nm-kpi__icon { background: color-mix(in srgb, var(--morada-cyan) 18%, transparent); color: var(--cyan-8); }
+  .tone-info    .nm-kpi__delta { color: var(--cyan-8); font-weight: 600; }
+  .tone-primary .nm-kpi__delta { color: var(--primary); font-weight: 600; }
+  .arrow { display: inline-block; margin-right: 2px; }
+</style>
+</head>
+<body>
+<div class="grid">
+  <div class="nm-kpi tone-primary">
+    <div class="nm-kpi__head">
+      <div class="nm-kpi__icon">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 20l1.3-3.9A8 8 0 113 20z"/></svg>
+      </div>
+      <span class="nm-kpi__delta"><span class="arrow">↑</span>+12%</span>
+    </div>
+    <div class="nm-kpi__label">Conversas em andamento</div>
+    <div class="nm-kpi__value">47</div>
+    <div class="nm-kpi__subtitle">8 atribuídas a você</div>
+  </div>
+
+  <div class="nm-kpi tone-warning">
+    <div class="nm-kpi__head">
+      <div class="nm-kpi__icon">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8v4l3 2"/></svg>
+      </div>
+      <span class="nm-kpi__delta"><span class="arrow">↓</span>-4</span>
+    </div>
+    <div class="nm-kpi__label">Aguardando atendimento</div>
+    <div class="nm-kpi__value">12</div>
+    <div class="nm-kpi__subtitle">Tempo médio: 3m 12s</div>
+  </div>
+
+  <div class="nm-kpi tone-info">
+    <div class="nm-kpi__head">
+      <div class="nm-kpi__icon">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="9" r="3"/><circle cx="17" cy="11" r="2"/><path d="M3 20a6 6 0 0112 0"/><path d="M14 20a4 4 0 017-2.6"/></svg>
+      </div>
+      <span class="nm-kpi__delta"><span class="arrow">↑</span>+1</span>
+    </div>
+    <div class="nm-kpi__label">Filas ativas</div>
+    <div class="nm-kpi__value">5</div>
+    <div class="nm-kpi__subtitle">DEMO MG mais cheia</div>
+  </div>
+
+  <div class="nm-kpi tone-success">
+    <div class="nm-kpi__head">
+      <div class="nm-kpi__icon">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 14a8 8 0 0116 0"/><path d="M12 14v4"/><circle cx="12" cy="20" r="1"/></svg>
+      </div>
+      <span class="nm-kpi__delta"><span class="arrow">↑</span>92%</span>
+    </div>
+    <div class="nm-kpi__label">Atendentes online</div>
+    <div class="nm-kpi__value">18</div>
+    <div class="nm-kpi__subtitle">3 em pausa</div>
+  </div>
+</div>
+</body>
+</html>

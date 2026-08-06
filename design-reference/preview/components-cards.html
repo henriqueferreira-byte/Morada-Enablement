@@ -1,0 +1,41 @@
+<!doctype html>
+<!-- @dsCard group="Components" name="Card variants" subtitle="Default · Plain · Glass (home)" viewport="700x180" -->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Cards</title>
+<link rel="stylesheet" href="../colors_and_type.css" />
+<link rel="stylesheet" href="../components.css" />
+<style>
+  body { margin: 0; padding: 18px 20px; background: var(--background); }
+  .grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+  .nm-card h3, .nm-card--glass h3, .nm-card--plain h3 { font-family: var(--font-heading); font-size: 16px; font-weight: 600; margin: 0 0 6px; }
+  .nm-card p, .nm-card--glass p, .nm-card--plain p { font-size: 13px; color: var(--text-secondary); margin: 0; line-height: 1.5; }
+  .sky {
+    background:
+      radial-gradient(60% 50% at 80% 15%, rgba(255,245,215,0.35) 0%, transparent 70%),
+      radial-gradient(120% 90% at 50% 0%, #ffffff 0%, #eef6ff 30%, #d8e8fa 70%, #bcd5f1 100%);
+    padding: 18px 20px;
+    border-radius: var(--radius-xl);
+  }
+</style>
+</head>
+<body>
+<div class="grid">
+  <div class="nm-card">
+    <h3>Default card</h3>
+    <p>Borda 1px + shadow-xs. Usada em 90% das superfícies da plataforma.</p>
+  </div>
+  <div class="nm-card nm-card--plain">
+    <h3>Plain card</h3>
+    <p>Sem borda, apenas shadow-sm. Para superfícies sobre fundos com textura.</p>
+  </div>
+  <div class="sky">
+    <div class="nm-card--glass" style="padding: 20px;">
+      <h3>Glass card</h3>
+      <p>backdrop-blur + bg branco translúcido. Apenas na Home, sobre o céu.</p>
+    </div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,231 @@
+/*
+ * Morada.ai Design System — Semantic Tokens (Light Modes)
+ *
+ * Maps primitive tokens to semantic roles.
+ * Two theme schemes: gray (default) and black.
+ */
+
+/* ========================================
+ * Gray Theme — Light Mode (Default)
+ * ======================================== */
+:root,
+.theme-gray {
+  /* -- Surfaces -- */
+  --background: var(--neutral-50);
+  --foreground: var(--neutral-900);
+  --card: #ffffff;
+  --card-foreground: var(--neutral-900);
+  --popover: #ffffff;
+  --popover-foreground: var(--neutral-900);
+  --muted: var(--neutral-100);
+  --muted-foreground: var(--neutral-500);
+
+  /* -- Primary (Brand Blue) -- */
+  --primary: var(--blue-6);
+  --primary-foreground: #ffffff;
+  --primary-hover: var(--blue-7);
+  --primary-active: var(--blue-8);
+
+  /* -- Secondary (morada-cya) -- */
+  --secondary: var(--cya-2);
+  --secondary-foreground: var(--cya-9);
+  --secondary-hover: var(--cya-3);
+  --secondary-active: var(--cya-4);
+
+  /* -- Tertiary (morada-orange) -- */
+  --tertiary: var(--orange-2);
+  --tertiary-foreground: var(--orange-9);
+  --tertiary-hover: var(--orange-3);
+  --tertiary-active: var(--orange-4);
+
+  /* -- Accent -- */
+  --accent: var(--neutral-100);
+  --accent-foreground: var(--neutral-900);
+  --accent-hover: var(--neutral-200);
+
+  /* -- Destructive -- */
+  --destructive: var(--danger-6);
+  --destructive-foreground: #ffffff;
+  --destructive-hover: var(--danger-7);
+  --destructive-active: var(--danger-8);
+  --destructive-background: var(--danger-1);
+  --destructive-border: var(--danger-3);
+  --destructive-text: var(--danger-8);
+
+  /* -- Success (Emerald) -- */
+  --success: var(--green-6);
+  --success-foreground: #ffffff;
+  --success-hover: var(--green-7);
+  --success-active: var(--green-8);
+  --success-background: var(--green-1);
+  --success-border: var(--green-3);
+  --success-text: var(--green-8);
+
+  /* -- Warning -- */
+  --warning: var(--warning-6);
+  --warning-foreground: #ffffff;
+  --warning-hover: var(--warning-7);
+  --warning-active: var(--warning-8);
+  --warning-background: var(--warning-1);
+  --warning-border: var(--warning-3);
+  --warning-text: var(--warning-8);
+
+  /* -- Info -- */
+  --info: var(--info-6);
+  --info-foreground: #ffffff;
+  --info-hover: var(--info-7);
+  --info-active: var(--info-8);
+  --info-background: var(--info-1);
+  --info-border: var(--info-3);
+  --info-text: var(--info-8);
+
+  /* -- Text -- */
+  --text-primary: var(--neutral-900);
+  --text-secondary: var(--neutral-600);
+  --text-tertiary: var(--neutral-400);
+  --text-disabled: var(--neutral-300);
+  --text-inverse: #ffffff;
+  --text-on-color: #ffffff;
+  --text-link: var(--blue-6);
+  --text-link-hover: var(--blue-7);
+
+  /* -- Borders -- */
+  --border: var(--neutral-200);
+  --border-hover: var(--neutral-300);
+  --border-focus: var(--blue-6);
+  --input: var(--neutral-200);
+  --input-hover: var(--neutral-300);
+  --ring: var(--blue-6);
+
+  /* -- Radius (base value, variants derived via calc) -- */
+  --radius: 12px;
+
+  /* -- Sidebar -- */
+  --sidebar-background: var(--neutral-50);
+  --sidebar-foreground: var(--neutral-600);
+  --sidebar-primary: var(--blue-6);
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: var(--neutral-100);
+  --sidebar-accent-foreground: var(--neutral-900);
+  --sidebar-border: var(--neutral-200);
+  --sidebar-ring: var(--blue-6);
+
+  /* -- Chart Colors -- */
+  --chart-1: var(--blue-6);
+  --chart-2: var(--green-6);
+  --chart-3: var(--warning-6);
+  --chart-4: var(--morada-cya);
+  --chart-5: var(--morada-coral);
+}
+
+/* ========================================
+ * Black Theme — Light Mode
+ * ======================================== */
+.theme-black {
+  /* -- Surfaces -- */
+  --background: #ffffff;
+  --foreground: var(--morada-black);
+  --card: #ffffff;
+  --card-foreground: var(--morada-black);
+  --popover: #ffffff;
+  --popover-foreground: var(--morada-black);
+  --muted: var(--neutral-100);
+  --muted-foreground: var(--neutral-500);
+
+  /* -- Primary (Brand Blue) -- */
+  --primary: var(--morada-black);
+  --primary-foreground: #ffffff;
+  --primary-hover: var(--neutral-800);
+  --primary-active: var(--neutral-700);
+
+  /* -- Secondary (morada-cya) -- */
+  --secondary: var(--cya-2);
+  --secondary-foreground: var(--cya-9);
+  --secondary-hover: var(--cya-3);
+  --secondary-active: var(--cya-4);
+
+  /* -- Tertiary (morada-orange) -- */
+  --tertiary: var(--orange-2);
+  --tertiary-foreground: var(--orange-9);
+  --tertiary-hover: var(--orange-3);
+  --tertiary-active: var(--orange-4);
+
+  /* -- Accent -- */
+  --accent: var(--neutral-100);
+  --accent-foreground: var(--morada-black);
+  --accent-hover: var(--neutral-200);
+
+  /* -- Destructive -- */
+  --destructive: var(--danger-6);
+  --destructive-foreground: #ffffff;
+  --destructive-hover: var(--danger-7);
+  --destructive-active: var(--danger-8);
+  --destructive-background: var(--danger-1);
+  --destructive-border: var(--danger-3);
+  --destructive-text: var(--danger-8);
+
+  /* -- Success (Emerald) -- */
+  --success: var(--green-6);
+  --success-foreground: #ffffff;
+  --success-hover: var(--green-7);
+  --success-active: var(--green-8);
+  --success-background: var(--green-1);
+  --success-border: var(--green-3);
+  --success-text: var(--green-8);
+
+  /* -- Warning -- */
+  --warning: var(--warning-6);
+  --warning-foreground: #ffffff;
+  --warning-hover: var(--warning-7);
+  --warning-active: var(--warning-8);
+  --warning-background: var(--warning-1);
+  --warning-border: var(--warning-3);
+  --warning-text: var(--warning-8);
+
+  /* -- Info -- */
+  --info: var(--info-6);
+  --info-foreground: #ffffff;
+  --info-hover: var(--info-7);
+  --info-active: var(--info-8);
+  --info-background: var(--info-1);
+  --info-border: var(--info-3);
+  --info-text: var(--info-8);
+
+  /* -- Text -- */
+  --text-primary: var(--morada-black);
+  --text-secondary: var(--neutral-600);
+  --text-tertiary: var(--neutral-400);
+  --text-disabled: var(--neutral-300);
+  --text-inverse: #ffffff;
+  --text-on-color: #ffffff;
+  --text-link: var(--blue-6);
+  --text-link-hover: var(--blue-7);
+
+  /* -- Borders -- */
+  --border: var(--neutral-200);
+  --border-hover: var(--neutral-300);
+  --border-focus: var(--morada-black);
+  --input: var(--neutral-200);
+  --input-hover: var(--neutral-300);
+  --ring: var(--morada-black);
+
+  /* -- Radius -- */
+  --radius: 12px;
+
+  /* -- Sidebar -- */
+  --sidebar-background: var(--morada-black);
+  --sidebar-foreground: var(--neutral-300);
+  --sidebar-primary: #ffffff;
+  --sidebar-primary-foreground: var(--morada-black);
+  --sidebar-accent: var(--neutral-800);
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: var(--neutral-700);
+  --sidebar-ring: #ffffff;
+
+  /* -- Chart Colors -- */
+  --chart-1: var(--blue-6);
+  --chart-2: var(--green-6);
+  --chart-3: var(--warning-6);
+  --chart-4: var(--morada-cya);
+  --chart-5: var(--morada-coral);
+}

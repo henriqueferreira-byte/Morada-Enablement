@@ -1,0 +1,11 @@
+/* Design tokens and base body (no @import "tailwindcss" here — that lives in your app
+   so `tailwindcss` resolves from the app’s node_modules; see styles/globals.css). */
+@import "../tokens/index.css";
+
+@layer base {
+  body {
+    font-family: var(--font-body);
+    color: var(--foreground);
+    background: var(--background);
+  }
+}

@@ -1,0 +1,41 @@
+<!doctype html>
+<!-- @dsCard group="Type" name="Body — Lato" subtitle="Body L / Body / Body S / Label / Caption" viewport="700x360" -->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Type — Lato body</title>
+<link rel="stylesheet" href="../colors_and_type.css" />
+<style>
+  body { margin: 0; padding: 18px 20px; background: var(--card); }
+  .stack { display: flex; flex-direction: column; gap: 14px; }
+  .row { display: flex; gap: 14px; align-items: flex-start; padding-bottom: 12px; border-bottom: 1px dashed var(--border); }
+  .row:last-child { border: 0; padding-bottom: 0; }
+  .specimen { font-family: var(--font-body); color: var(--text-primary); flex: 1; }
+  .meta { font-family: var(--font-mono); font-size: 10px; color: var(--text-tertiary); white-space: nowrap; padding-top: 4px; }
+</style>
+</head>
+<body>
+  <div class="stack">
+    <div class="row">
+      <div class="specimen" style="font-size:18px; font-weight:400; line-height:1.6;">Lead text para descrições de seção e introduções de página em densidade confortável.</div>
+      <div class="meta">Body L · 18 · 400</div>
+    </div>
+    <div class="row">
+      <div class="specimen" style="font-size:16px; font-weight:400; line-height:1.5;">Corpo padrão — usado em descrições de cards e texto explicativo dentro da plataforma.</div>
+      <div class="meta">Body · 16 · 400</div>
+    </div>
+    <div class="row">
+      <div class="specimen" style="font-size:14px; font-weight:400; line-height:1.5; color: var(--text-secondary);">Texto secundário — metadados, sub-rótulos, descrições em tabelas e empty states.</div>
+      <div class="meta">Body S · 14 · 400</div>
+    </div>
+    <div class="row">
+      <div class="specimen" style="font-size:14px; font-weight:600; line-height:1.25;">Rótulo de formulário</div>
+      <div class="meta">Label · 14 · 600</div>
+    </div>
+    <div class="row">
+      <div class="specimen" style="font-size:12px; font-weight:400; line-height:1.5; color: var(--text-tertiary);">Caption — texto de ajuda, timestamps relativos como “há 12 min”.</div>
+      <div class="meta">Caption · 12 · 400</div>
+    </div>
+  </div>
+</body>
+</html>

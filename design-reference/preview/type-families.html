@@ -1,0 +1,40 @@
+<!doctype html>
+<!-- @dsCard group="Type" name="Type families" subtitle="Outfit headings · Lato body · JetBrains Mono code" viewport="700x320" -->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Type — Families</title>
+<link rel="stylesheet" href="../colors_and_type.css" />
+<style>
+  body { margin: 0; padding: 18px 20px; background: var(--card); }
+  .card { display: grid; grid-template-columns: 80px 1fr; gap: 14px; align-items: baseline; padding: 14px 16px; border: 1px solid var(--border); border-radius: var(--radius-xl); margin-bottom: 10px; }
+  .lbl  { font-family: var(--font-mono); font-size: 11px; color: var(--text-tertiary); text-align: right; }
+  .lbl b { display: block; color: var(--text-primary); font-family: var(--font-heading); font-size: 12px; font-weight: 600; margin-bottom: 2px; }
+  .specimen { color: var(--text-primary); font-size: 28px; line-height: 1.1; letter-spacing: -0.01em; }
+  .alpha { font-size: 14px; color: var(--text-secondary); margin-top: 4px; }
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="lbl"><b>Outfit</b>headings</div>
+    <div>
+      <div class="specimen" style="font-family: var(--font-heading); font-weight: 700;">Aa Bb Cc 0123</div>
+      <div class="alpha" style="font-family: var(--font-heading);">400 · 500 · 600 · 700 — Google Fonts</div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="lbl"><b>Lato</b>body</div>
+    <div>
+      <div class="specimen" style="font-family: var(--font-body); font-weight: 700;">Aa Bb Cc 0123</div>
+      <div class="alpha" style="font-family: var(--font-body);">300 · 400 · 700 · 900 — Google Fonts</div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="lbl"><b>JetBrains Mono</b>code</div>
+    <div>
+      <div class="specimen" style="font-family: var(--font-mono); font-weight: 500;">Aa Bb Cc 0123</div>
+      <div class="alpha" style="font-family: var(--font-mono);">400 · 500 — Google Fonts</div>
+    </div>
+  </div>
+</body>
+</html>

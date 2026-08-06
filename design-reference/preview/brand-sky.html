@@ -1,0 +1,26 @@
+<!doctype html>
+<!-- @dsCard group="Brand" name="Home sky — time-of-day" subtitle="Signature home background, 6 phases" viewport="700x200" -->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Home sky — time-of-day palette</title>
+<link rel="stylesheet" href="../colors_and_type.css" />
+<style>
+  body { margin: 0; padding: 0; background: var(--card); }
+  .grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 0; }
+  .cell { position: relative; aspect-ratio: 4/5; overflow: hidden; }
+  .lbl { position: absolute; bottom: 8px; left: 10px; font-family: var(--font-heading); font-size: 11px; font-weight: 600; padding: 2px 8px; background: rgba(255,255,255,.65); color: var(--text-primary); border-radius: 9999px; backdrop-filter: blur(8px); }
+  .lbl.on-dark { background: rgba(255,255,255,.12); color: #fff; border: 1px solid rgba(255,255,255,.2); }
+</style>
+</head>
+<body>
+<div class="grid">
+  <div class="cell" style="background: radial-gradient(120% 90% at 50% 0%, #fdeede 0%, #f9d9c8 25%, #e6c4d5 55%, #c9c2e0 100%);"><span class="lbl">dawn</span></div>
+  <div class="cell" style="background: radial-gradient(120% 90% at 50% 0%, #ffffff 0%, #eef6ff 30%, #d8e8fa 70%, #bcd5f1 100%);"><span class="lbl">morning</span></div>
+  <div class="cell" style="background: radial-gradient(120% 90% at 50% 0%, #f5faff 0%, #dfecfb 40%, #b8d4f1 90%);"><span class="lbl">midday</span></div>
+  <div class="cell" style="background: radial-gradient(120% 90% at 50% 0%, #fff1e0 0%, #ffd6b0 20%, #ffb38a 45%, #d98aa8 75%, #6b5a98 100%);"><span class="lbl">sunset</span></div>
+  <div class="cell" style="background: radial-gradient(120% 90% at 50% 0%, #2c2a52 0%, #1f2247 35%, #131638 70%, #0a0d24 100%);"><span class="lbl on-dark">dusk</span></div>
+  <div class="cell" style="background: radial-gradient(120% 90% at 50% 0%, #0e1226 0%, #080a1a 50%, #04050e 100%);"><span class="lbl on-dark">night</span></div>
+</div>
+</body>
+</html>

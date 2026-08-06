@@ -1,0 +1,92 @@
+/*
+ * Third-party CSS compatibility — defends niemeyer components against
+ * unlayered Tailwind v3 universal resets shipped by some third-party
+ * libraries (e.g. @novu/js@2.x, older shadcn-based widgets).
+ *
+ * The problem:
+ *   Tailwind v3 emits an unlayered universal selector that resets
+ *   `--tw-shadow`, `--tw-translate-x`, `--tw-translate-y`,
+ *   `--tw-ring-shadow`, etc. to zero on every element. Per CSS layer
+ *   rules, unlayered rules win over `@layer utilities` (where Tailwind 4
+ *   keeps its `shadow-*`, `-translate-*`, `ring-*` utilities). Result:
+ *   our utilities lose their --tw-* values globally and dialogs render
+ *   uncentered without shadows, dropdowns lose their elevation, cards
+ *   look flat against the page background, etc.
+ *
+ * The fix:
+ *   Write unlayered overrides keyed off niemeyer's data-slot attributes
+ *   that bake the values directly into `box-shadow` / `transform`
+ *   properties — referencing the package's `--shadow-*` tokens (set in
+ *   @theme so they live on :root, not on `--tw-*`). Can't be reset by a
+ *   third party's universal selector.
+ *
+ *   Specificity (0,0,1,0 for [attr]) beats `*` (0,0,0,0). Same layer
+ *   level (unlayered = top of the cascade), so we win on order of
+ *   appearance after Novu's runtime-injected stylesheet.
+ *
+ * Adding a new entry:
+ *   1. Identify the affected primitive — anything that uses Tailwind 4
+ *      `shadow-*` / `ring-*` / `translate-*` and breaks visually after
+ *      importing a v3 library on the same page.
+ *   2. Match the package's actual utility (e.g. if `card.tsx` uses
+ *      `shadow-xs`, write `box-shadow: var(--shadow-xs)`).
+ *   3. Use the `data-slot` attribute on the component's root — every
+ *      niemeyer primitive sets one.
+ *
+ * Remove these overrides if all bundled third parties move to Tailwind
+ * 4-compatible CSS or stop emitting universal resets.
+ */
+
+/* ─── Card ───────────────────────────────────────────────── */
+/* The two variants in card.tsx: `default` adds border + shadow-xs;
+ * `plain` adds shadow-sm only. Without these overrides cards lose all
+ * elevation on pages that load a v3 stylesheet. */
+[data-slot="card"][data-variant="default"] {
+    box-shadow: var(--shadow-xs);
+}
+[data-slot="card"][data-variant="plain"] {
+    box-shadow: var(--shadow-sm);
+}
+
+/* ─── Dialog ─────────────────────────────────────────────── */
+/* DialogContent uses `shadow-xl` for elevation and Tailwind's
+ * `-translate-x-1/2 -translate-y-1/2` utilities for centering, both
+ * of which a v3 universal reset wipes (`--tw-shadow`,
+ * `--tw-translate-x`, `--tw-translate-y` all set to 0).
+ *
+ * We restore both by pinning the same Tailwind-internal custom
+ * properties at the dialog level — higher specificity than the v3 `*`
+ * reset, so our values win and the dialog re-centers with shadow.
+ * The dialog component reads these via its existing utility classes;
+ * the compat is the floor value when nothing else sets them. */
+[data-slot="dialog-content"] {
+    --tw-translate-x: -50%;
+    --tw-translate-y: -50%;
+    box-shadow: var(--shadow-xl);
+}
+
+/* ─── Dropdown menu ──────────────────────────────────────── */
+/* dropdown-menu-content → shadow-md; sub-content → shadow-lg. */
+[data-slot="dropdown-menu-content"] {
+    box-shadow: var(--shadow-md);
+}
+[data-slot="dropdown-menu-sub-content"] {
+    box-shadow: var(--shadow-lg);
+}
+
+/* ─── Popover ────────────────────────────────────────────── */
+[data-slot="popover-content"] {
+    box-shadow: var(--shadow-md);
+}
+
+/* ─── Select ─────────────────────────────────────────────── */
+[data-slot="select-content"] {
+    box-shadow: var(--shadow-md);
+}
+
+/* ─── Sheet ──────────────────────────────────────────────── */
+/* sheet.tsx uses `shadow-xl` (heavier elevation since the sheet covers
+ * a larger surface). */
+[data-slot="sheet-content"] {
+    box-shadow: var(--shadow-xl);
+}

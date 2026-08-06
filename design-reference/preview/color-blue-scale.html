@@ -1,0 +1,36 @@
+<!doctype html>
+<!-- @dsCard group="Colors" name="Blue scale" subtitle="Primary scale 1–10 · #0073FF at step 6" viewport="700x160" -->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Color — Blue scale</title>
+<link rel="stylesheet" href="../colors_and_type.css" />
+<style>
+  body { margin: 0; padding: 16px; background: var(--card); font-family: var(--font-body); }
+  .row { display: grid; grid-template-columns: repeat(10, 1fr); gap: 6px; }
+  .swatch { border-radius: 6px; overflow: hidden; border: 1px solid var(--border); }
+  .chip { height: 62px; }
+  .lbl  { padding: 4px 6px; font-family: var(--font-mono); font-size: 10px; line-height: 1.2; color: var(--text-secondary); background: var(--card); text-align: center; }
+  .step { font-family: var(--font-heading); font-size: 11px; font-weight: 600; color: var(--text-primary); }
+  .title { font-family: var(--font-heading); font-weight: 600; font-size: 13px; margin: 0 0 10px; color: var(--text-primary); }
+  .row + .title { margin-top: 14px; }
+</style>
+</head>
+<body>
+  <p class="title">Blue — primary scale</p>
+  <div class="row" id="blue"></div>
+<script>
+  const blueSteps = [
+    ['1','#f0f7ff'],['2','#e0efff'],['3','#b8dbff'],['4','#85c1ff'],['5','#4da3ff'],
+    ['6','#0073ff'],['7','#005ecc'],['8','#004a99'],['9','#003566'],['10','#001f3d'],
+  ];
+  const root = document.getElementById('blue');
+  for (const [n,hex] of blueSteps) {
+    const el = document.createElement('div');
+    el.className = 'swatch';
+    el.innerHTML = `<div class="chip" style="background:${hex}"></div><div class="lbl"><div class="step">${n}</div>${hex}</div>`;
+    root.appendChild(el);
+  }
+</script>
+</body>
+</html>

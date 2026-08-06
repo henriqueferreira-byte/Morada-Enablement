@@ -1,0 +1,27 @@
+<!doctype html>
+<!-- @dsCard group="Spacing" name="Radii" subtitle="0 / 4 / 6 / 8 / 12 (base) / full" viewport="700x180" -->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Radii</title>
+<link rel="stylesheet" href="../colors_and_type.css" />
+<style>
+  body { margin: 0; padding: 18px 20px; background: var(--card); font-family: var(--font-body); }
+  .row { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; }
+  .item { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+  .swatch { width: 100%; aspect-ratio: 1.4/1; background: var(--blue-1); border: 1px solid var(--blue-3); }
+  .name { font-family: var(--font-heading); font-size: 12px; font-weight: 600; color: var(--text-primary); }
+  .px   { font-family: var(--font-mono); font-size: 10px; color: var(--text-tertiary); }
+</style>
+</head>
+<body>
+  <div class="row">
+    <div class="item"><div class="swatch" style="border-radius: 0;"></div><div class="name">none</div><div class="px">0px</div></div>
+    <div class="item"><div class="swatch" style="border-radius: 4px;"></div><div class="name">sm</div><div class="px">4px</div></div>
+    <div class="item"><div class="swatch" style="border-radius: 6px;"></div><div class="name">md</div><div class="px">6px</div></div>
+    <div class="item"><div class="swatch" style="border-radius: 8px;"></div><div class="name">lg</div><div class="px">8px</div></div>
+    <div class="item"><div class="swatch" style="border-radius: 12px;"></div><div class="name">xl · base</div><div class="px">12px</div></div>
+    <div class="item"><div class="swatch" style="border-radius: 9999px;"></div><div class="name">full</div><div class="px">9999px</div></div>
+  </div>
+</body>
+</html>

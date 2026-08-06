@@ -1,0 +1,12 @@
+/*
+ * Morada.ai Design System — Token Entry Point
+ *
+ * Import this file to get all design tokens.
+ * Usage: @import '@morada/design-system/tokens';
+ */
+
+@import './primitives.css';
+@import './typography.css';
+@import './effects.css';
+@import './semantic-light.css';
+@import './semantic-dark.css';

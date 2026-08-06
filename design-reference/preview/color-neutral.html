@@ -1,0 +1,38 @@
+<!doctype html>
+<!-- @dsCard group="Colors" name="Neutral scale" subtitle="Cool blue-gray neutrals · base #606A80" viewport="700x190" -->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Color — Neutral scale</title>
+<link rel="stylesheet" href="../colors_and_type.css" />
+<style>
+  body { margin: 0; padding: 16px; background: var(--card); font-family: var(--font-body); }
+  .row { display: grid; grid-template-columns: repeat(13, 1fr); gap: 4px; }
+  .swatch { border-radius: 6px; overflow: hidden; border: 1px solid var(--border); }
+  .chip { height: 62px; }
+  .lbl  { padding: 4px 4px; font-family: var(--font-mono); font-size: 9px; line-height: 1.2; color: var(--text-secondary); background: var(--card); text-align: center; }
+  .step { font-family: var(--font-heading); font-size: 10px; font-weight: 600; color: var(--text-primary); }
+  .title { font-family: var(--font-heading); font-weight: 600; font-size: 13px; margin: 0 0 10px; color: var(--text-primary); }
+  .sub { font-family: var(--font-body); font-size: 11px; color: var(--text-tertiary); margin: 4px 0 10px; }
+</style>
+</head>
+<body>
+  <p class="title">Neutral — cool blue-gray, base #606A80</p>
+  <p class="sub">Foundation of every surface, border, and body-text color in the system.</p>
+  <div class="row" id="neutral"></div>
+<script>
+  const steps = [
+    ['50','#F7F8FA'],['100','#ECEEF3'],['150','#E1E4EA'],['200','#D3D7E0'],['300','#B4BAC8'],
+    ['400','#8D95A8'],['500','#606A80'],['600','#4E5668'],['700','#3C4354'],['800','#2B303E'],
+    ['850','#232836'],['900','#1A1E2B'],['950','#10131C'],
+  ];
+  const root = document.getElementById('neutral');
+  for (const [n,hex] of steps) {
+    const el = document.createElement('div');
+    el.className = 'swatch';
+    el.innerHTML = `<div class="chip" style="background:${hex}"></div><div class="lbl"><div class="step">${n}</div>${hex}</div>`;
+    root.appendChild(el);
+  }
+</script>
+</body>
+</html>

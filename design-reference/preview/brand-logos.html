@@ -1,0 +1,29 @@
+<!doctype html>
+<!-- @dsCard group="Brand" name="Logo lockups" subtitle="Wordmark on white / paper / blue / dark" viewport="700x280" -->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Logos — full lockups</title>
+<link rel="stylesheet" href="../colors_and_type.css" />
+<style>
+  body { margin: 0; padding: 18px 20px; background: var(--card); }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .cell { display: flex; flex-direction: column; gap: 6px; }
+  .panel { display: flex; align-items: center; justify-content: center; padding: 22px 18px; border-radius: var(--radius-xl); border: 1px solid var(--border); min-height: 80px; }
+  .panel--white   { background: #ffffff; }
+  .panel--paper   { background: var(--neutral-50); }
+  .panel--blue    { background: var(--blue-6); border-color: transparent; }
+  .panel--dark    { background: var(--morada-black); border-color: transparent; }
+  .panel img { max-height: 28px; width: auto; }
+  .meta { font-family: var(--font-mono); font-size: 10px; color: var(--text-tertiary); }
+</style>
+</head>
+<body>
+<div class="grid">
+  <div class="cell"><div class="panel panel--white"><img src="../assets/logos/logo-color.svg" alt="logo color" /></div><div class="meta">logo-color.svg · default on white</div></div>
+  <div class="cell"><div class="panel panel--paper"><img src="../assets/logos/logo-blue.svg" alt="logo blue" /></div><div class="meta">logo-blue.svg · all-blue lockup</div></div>
+  <div class="cell"><div class="panel panel--white"><img src="../assets/logos/logo-mono-dark.svg" alt="logo mono dark" /></div><div class="meta">logo-mono-dark.svg · monochrome</div></div>
+  <div class="cell"><div class="panel panel--dark"><img src="../assets/logos/logo-white.svg" alt="logo white" /></div><div class="meta">logo-white.svg · on dark / photography</div></div>
+</div>
+</body>
+</html>

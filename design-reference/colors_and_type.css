@@ -1,0 +1,276 @@
+/* ============================================================================
+ * Niemeyer — Morada.ai Design System
+ * Consolidated base + semantic tokens (Light theme, "gray" scheme)
+ *
+ * Source of truth: tokens/primitives.css, tokens/typography.css,
+ * tokens/semantic-light.css, tokens/effects.css.
+ *
+ * This file is the **flat, copy-paste friendly** version for static HTML
+ * artifacts that don't run Tailwind. Production apps consume the source
+ * tokens under tokens/ via `@morada-ai/niemeyer/styles`.
+ * ============================================================================ */
+
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Lato:wght@300;400;700;900&family=JetBrains+Mono:wght@400;500&display=swap");
+
+:root {
+  /* ---------------------------------------------------------------------------
+   * BRAND COLORS (raw)
+   * ------------------------------------------------------------------------- */
+  --morada-black: #1d1d1b;
+  --morada-blue: #0073ff;        /* primary brand */
+  --morada-cyan: #02cfff;
+  --morada-cya: #00ffe0;         /* secondary brand — "cya" (sic) */
+  --morada-dark-purple: #38384d;
+  --morada-coral: #f27d82;
+  --morada-orange: #f7b87d;      /* tertiary brand */
+  --morada-light-orange: #fad499;
+  --morada-yellow: #fcf2a3;
+
+  /* ---------------------------------------------------------------------------
+   * NEUTRAL SCALE — cool blue-gray, based on #606A80
+   * ------------------------------------------------------------------------- */
+  --neutral-50:  #F7F8FA;
+  --neutral-100: #ECEEF3;
+  --neutral-150: #E1E4EA;
+  --neutral-200: #D3D7E0;
+  --neutral-300: #B4BAC8;
+  --neutral-400: #8D95A8;
+  --neutral-500: #606A80;
+  --neutral-600: #4E5668;
+  --neutral-700: #3C4354;
+  --neutral-800: #2B303E;
+  --neutral-850: #232836;
+  --neutral-900: #1A1E2B;
+  --neutral-950: #10131C;
+
+  /* ---------------------------------------------------------------------------
+   * BLUE SCALE (primary)
+   * ------------------------------------------------------------------------- */
+  --blue-1: #f0f7ff; --blue-2: #e0efff; --blue-3: #b8dbff; --blue-4: #85c1ff;
+  --blue-5: #4da3ff; --blue-6: #0073ff; --blue-7: #005ecc; --blue-8: #004a99;
+  --blue-9: #003566; --blue-10: #001f3d;
+
+  /* CYAN — accent / data viz */
+  --cyan-1: #ECFDFF; --cyan-2: #D4F9FF; --cyan-3: #A8F0FF; --cyan-4: #6BE4FF;
+  --cyan-5: #2FD6FF; --cyan-6: #02CFFF; --cyan-7: #00AEDB; --cyan-8: #008DB2;
+  --cyan-9: #006D8A; --cyan-10: #004D63;
+
+  /* CYA — secondary brand */
+  --cya-1: #ebfffc; --cya-2: #c5fff5; --cya-3: #9cfde9; --cya-4: #52fadb;
+  --cya-5: #19ffec; --cya-6: #00ffe0; --cya-7: #00ccb3; --cya-8: #009987;
+  --cya-9: #006659; --cya-10: #003d35;
+
+  /* ORANGE — tertiary brand */
+  --orange-1: #fff5ec; --orange-2: #ffe4cc; --orange-3: #fccda0; --orange-4: #fac085;
+  --orange-5: #f7b87d; --orange-6: #f2a05c; --orange-7: #e07c2a; --orange-8: #c05e16;
+  --orange-9: #9a460d; --orange-10: #6b2e07;
+
+  /* GREEN — success (emerald) */
+  --green-1: #ecfdf5; --green-2: #d1fae5; --green-3: #a7f3d0; --green-4: #6ee7b7;
+  --green-5: #34d399; --green-6: #10b981; --green-7: #059669; --green-8: #047857;
+  --green-9: #065f46; --green-10: #064e3b;
+
+  /* DANGER — destructive (red) */
+  --danger-1: #fef2f2; --danger-2: #fee2e2; --danger-3: #fecaca; --danger-4: #fca5a5;
+  --danger-5: #f87171; --danger-6: #ef4444; --danger-7: #dc2626; --danger-8: #b91c1c;
+  --danger-9: #991b1b; --danger-10: #7f1d1d;
+
+  /* WARNING — amber */
+  --warning-1: #fffbeb; --warning-2: #fef3c7; --warning-3: #fde68a; --warning-4: #fcd34d;
+  --warning-5: #fbbf24; --warning-6: #f59e0b; --warning-7: #d97706; --warning-8: #b45309;
+  --warning-9: #92400e; --warning-10: #78350f;
+
+  /* INFO — cyan-ish */
+  --info-1: #ecfeff; --info-2: #cffafe; --info-3: #a5f3fc; --info-4: #67e8f9;
+  --info-5: #22d3ee; --info-6: #06b6d4; --info-7: #0891b2; --info-8: #0e7490;
+  --info-9: #155e75; --info-10: #164e63;
+
+  /* ---------------------------------------------------------------------------
+   * SEMANTIC SURFACE / TEXT TOKENS (light gray theme, default)
+   * ------------------------------------------------------------------------- */
+  --background: var(--neutral-50);
+  --foreground: var(--neutral-900);
+  --card: #ffffff;
+  --card-foreground: var(--neutral-900);
+  --popover: #ffffff;
+  --popover-foreground: var(--neutral-900);
+  --muted: var(--neutral-100);
+  --muted-foreground: var(--neutral-500);
+  --accent: var(--neutral-100);
+  --accent-foreground: var(--neutral-900);
+  --accent-hover: var(--neutral-200);
+
+  /* Primary (brand blue) */
+  --primary: var(--blue-6);
+  --primary-foreground: #ffffff;
+  --primary-hover: var(--blue-7);
+  --primary-active: var(--blue-8);
+
+  /* Secondary (cya) */
+  --secondary: var(--cya-2);
+  --secondary-foreground: var(--cya-9);
+  --secondary-hover: var(--cya-3);
+  --secondary-active: var(--cya-4);
+
+  /* Tertiary (orange) */
+  --tertiary: var(--orange-2);
+  --tertiary-foreground: var(--orange-9);
+  --tertiary-hover: var(--orange-3);
+  --tertiary-active: var(--orange-4);
+
+  /* Status — soft background + bordered text variant */
+  --success: var(--green-6);            --success-foreground: #fff;
+  --success-background: var(--green-1); --success-border: var(--green-3); --success-text: var(--green-8);
+
+  --warning: var(--warning-6);            --warning-foreground: #fff;
+  --warning-background: var(--warning-1); --warning-border: var(--warning-3); --warning-text: var(--warning-8);
+
+  --destructive: var(--danger-6);             --destructive-foreground: #fff;
+  --destructive-background: var(--danger-1);  --destructive-border: var(--danger-3); --destructive-text: var(--danger-8);
+
+  --info: var(--info-6);            --info-foreground: #fff;
+  --info-background: var(--info-1); --info-border: var(--info-3); --info-text: var(--info-8);
+
+  /* Text */
+  --text-primary:   var(--neutral-900);
+  --text-secondary: var(--neutral-600);
+  --text-tertiary:  var(--neutral-400);
+  --text-disabled:  var(--neutral-300);
+  --text-inverse:   #ffffff;
+  --text-on-color:  #ffffff;
+  --text-link:      var(--blue-6);
+  --text-link-hover:var(--blue-7);
+
+  /* Borders */
+  --border: var(--neutral-200);
+  --border-hover: var(--neutral-300);
+  --border-focus: var(--blue-6);
+  --input: var(--neutral-200);
+  --input-hover: var(--neutral-300);
+  --ring: var(--blue-6);
+
+  /* Sidebar — used by AppShell / SidebarShell */
+  --sidebar-background: var(--neutral-50);
+  --sidebar-foreground: var(--neutral-600);
+  --sidebar-primary: var(--blue-6);
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: var(--neutral-100);
+  --sidebar-accent-foreground: var(--neutral-900);
+  --sidebar-border: var(--neutral-200);
+  --sidebar-ring: var(--blue-6);
+
+  /* Charts — order matters; canonical 5-color sequence for data viz */
+  --chart-1: var(--blue-6);
+  --chart-2: var(--green-6);
+  --chart-3: var(--warning-6);
+  --chart-4: var(--morada-cya);
+  --chart-5: var(--morada-coral);
+
+  /* ---------------------------------------------------------------------------
+   * RADII
+   * Card / popover / button rounding is built on top of these. `--radius` (12px)
+   * is the base; pills use 9999px; chips/badges 6–8px.
+   * ------------------------------------------------------------------------- */
+  --radius: 12px;
+  --radius-none: 0px;
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
+  --radius-2xl: 16px;
+  --radius-full: 9999px;
+
+  /* ---------------------------------------------------------------------------
+   * SHADOWS — soft / low-elevation; the system relies on borders + tinted
+   * surfaces more than shadow. The "glass" home-page card uses a custom
+   * stronger blue-tinted shadow (see --shadow-glass).
+   * ------------------------------------------------------------------------- */
+  --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.03);
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  --shadow-ring: 0 0 0 2px var(--background), 0 0 0 4px var(--ring);
+  --shadow-glass: 0 8px 30px rgba(15, 30, 80, 0.08);
+  --shadow-hero:  0 10px 40px -12px rgba(15, 30, 80, 0.25);
+
+  /* ---------------------------------------------------------------------------
+   * MOTION
+   * Soft, restrained. Default ease, 100–300ms.
+   * ------------------------------------------------------------------------- */
+  --duration-fast:   100ms;
+  --duration-normal: 200ms;
+  --duration-slow:   300ms;
+  --duration-slower: 500ms;
+  --ease-default:    cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-out:        cubic-bezier(0, 0, 0.2, 1);
+  --ease-spring:     cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* ---------------------------------------------------------------------------
+   * TYPOGRAPHY — families
+   * Outfit (headings) · Lato (body) · JetBrains Mono (code)
+   * ------------------------------------------------------------------------- */
+  --font-heading: "Outfit", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-body:    "Lato", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono:    "JetBrains Mono", ui-monospace, "Fira Code", monospace;
+
+  /* Sizes */
+  --text-xs:  12px;
+  --text-sm:  14px;
+  --text-base:16px;
+  --text-lg:  18px;
+  --text-xl:  20px;
+  --text-2xl: 24px;
+  --text-3xl: 32px;
+
+  /* Weights */
+  --font-light: 300;
+  --font-regular: 400;
+  --font-medium: 500;
+  --font-semibold: 600;
+  --font-bold: 700;
+  --font-black: 900;
+
+  /* Spacing scale — standard Tailwind ladder (n × 4px). Load-bearing sizes
+   * referenced across the system: 24, 32, 40, 48, 64. */
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-5:  20px;
+  --space-6:  24px;
+  --space-8:  32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+}
+
+/* ===========================================================================
+ * SEMANTIC TYPE PRESETS
+ * Drop these classes on elements when you need a quick canonical preset.
+ * Production apps use `<Heading level=…>` and Tailwind utilities instead.
+ * =========================================================================== */
+.nm-h1 { font-family: var(--font-heading); font-size: var(--text-3xl); font-weight: var(--font-bold);     line-height: 1.25; letter-spacing: -0.025em; }
+.nm-h2 { font-family: var(--font-heading); font-size: var(--text-2xl); font-weight: var(--font-semibold); line-height: 1.25; letter-spacing: -0.025em; }
+.nm-h3 { font-family: var(--font-heading); font-size: var(--text-xl);  font-weight: var(--font-semibold); line-height: 1.25; }
+.nm-h4 { font-family: var(--font-heading); font-size: var(--text-lg);  font-weight: var(--font-medium);   line-height: 1.25; }
+.nm-h5 { font-family: var(--font-heading); font-size: var(--text-base);font-weight: var(--font-medium);   line-height: 1.25; }
+.nm-h6 { font-family: var(--font-heading); font-size: var(--text-sm);  font-weight: var(--font-semibold); line-height: 1.25; letter-spacing: 0.025em; }
+.nm-eyebrow { font-family: var(--font-heading); font-size: var(--text-xs); font-weight: var(--font-semibold); line-height: 1.25; letter-spacing: 0.05em; text-transform: uppercase; color: var(--text-secondary); }
+
+.nm-body    { font-family: var(--font-body); font-size: var(--text-base); font-weight: var(--font-regular); line-height: 1.5; }
+.nm-body-sm { font-family: var(--font-body); font-size: var(--text-sm);   font-weight: var(--font-regular); line-height: 1.5; }
+.nm-body-xs { font-family: var(--font-body); font-size: var(--text-xs);   font-weight: var(--font-regular); line-height: 1.5; }
+.nm-label   { font-family: var(--font-body); font-size: var(--text-sm);   font-weight: var(--font-semibold); line-height: 1.25; }
+.nm-caption { font-family: var(--font-body); font-size: var(--text-xs);   font-weight: var(--font-regular); line-height: 1.5; color: var(--text-secondary); }
+.nm-mono    { font-family: var(--font-mono); font-size: var(--text-sm);   font-weight: var(--font-regular); }
+
+/* Base body defaults for static demos */
+html, body {
+  font-family: var(--font-body);
+  color: var(--text-primary);
+  background: var(--background);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

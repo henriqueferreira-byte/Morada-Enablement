@@ -1,0 +1,231 @@
+/*
+ * Morada.ai Design System — Semantic Tokens (Dark Modes)
+ *
+ * Dark mode variants for gray and black themes.
+ * Activated via .dark class on the root element.
+ */
+
+/* ========================================
+ * Gray Theme — Dark Mode
+ * ======================================== */
+.dark,
+.theme-gray.dark {
+  /* -- Surfaces -- */
+  --background: var(--neutral-900);
+  --foreground: var(--neutral-50);
+  --card: var(--neutral-850);
+  --card-foreground: var(--neutral-50);
+  --popover: var(--neutral-850);
+  --popover-foreground: var(--neutral-50);
+  --muted: var(--neutral-800);
+  --muted-foreground: var(--neutral-400);
+
+  /* -- Primary (Brand Blue) -- */
+  --primary: var(--blue-5);
+  --primary-foreground: #ffffff;
+  --primary-hover: var(--blue-4);
+  --primary-active: var(--blue-3);
+
+  /* -- Secondary (morada-cya) -- */
+  --secondary: var(--cya-9);
+  --secondary-foreground: var(--cya-2);
+  --secondary-hover: var(--cya-8);
+  --secondary-active: var(--cya-7);
+
+  /* -- Tertiary (morada-orange) -- */
+  --tertiary: var(--orange-9);
+  --tertiary-foreground: var(--orange-2);
+  --tertiary-hover: var(--orange-8);
+  --tertiary-active: var(--orange-7);
+
+  /* -- Accent -- */
+  --accent: var(--neutral-800);
+  --accent-foreground: var(--neutral-50);
+  --accent-hover: var(--neutral-700);
+
+  /* -- Destructive -- */
+  --destructive: var(--danger-5);
+  --destructive-foreground: #ffffff;
+  --destructive-hover: var(--danger-4);
+  --destructive-active: var(--danger-3);
+  --destructive-background: rgba(239, 68, 68, 0.1);
+  --destructive-border: var(--danger-8);
+  --destructive-text: var(--danger-4);
+
+  /* -- Success (Emerald) -- */
+  --success: var(--green-5);
+  --success-foreground: #ffffff;
+  --success-hover: var(--green-4);
+  --success-active: var(--green-3);
+  --success-background: rgba(16, 185, 129, 0.1);
+  --success-border: var(--green-8);
+  --success-text: var(--green-4);
+
+  /* -- Warning -- */
+  --warning: var(--warning-5);
+  --warning-foreground: var(--neutral-900);
+  --warning-hover: var(--warning-4);
+  --warning-active: var(--warning-3);
+  --warning-background: rgba(245, 158, 11, 0.1);
+  --warning-border: var(--warning-8);
+  --warning-text: var(--warning-4);
+
+  /* -- Info -- */
+  --info: var(--info-5);
+  --info-foreground: #ffffff;
+  --info-hover: var(--info-4);
+  --info-active: var(--info-3);
+  --info-background: rgba(6, 182, 212, 0.1);
+  --info-border: var(--info-8);
+  --info-text: var(--info-4);
+
+  /* -- Text -- */
+  --text-primary: var(--neutral-50);
+  --text-secondary: var(--neutral-400);
+  --text-tertiary: var(--neutral-600);
+  --text-disabled: var(--neutral-700);
+  --text-inverse: var(--neutral-900);
+  --text-on-color: #ffffff;
+  --text-link: var(--blue-4);
+  --text-link-hover: var(--blue-3);
+
+  /* -- Borders -- */
+  --border: var(--neutral-700);
+  --border-hover: var(--neutral-600);
+  --border-focus: var(--blue-4);
+  --input: var(--neutral-700);
+  --input-hover: var(--neutral-600);
+  --ring: var(--blue-5);
+
+  /* -- Radius -- */
+  --radius: 12px;
+
+  /* -- Sidebar -- */
+  --sidebar-background: var(--neutral-900);
+  --sidebar-foreground: var(--neutral-400);
+  --sidebar-primary: var(--blue-5);
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: var(--neutral-800);
+  --sidebar-accent-foreground: var(--neutral-50);
+  --sidebar-border: var(--neutral-700);
+  --sidebar-ring: var(--blue-5);
+
+  /* -- Chart Colors -- */
+  --chart-1: var(--blue-4);
+  --chart-2: var(--green-4);
+  --chart-3: var(--warning-4);
+  --chart-4: var(--morada-cya);
+  --chart-5: var(--morada-coral);
+}
+
+/* ========================================
+ * Black Theme — Dark Mode
+ * ======================================== */
+.theme-black.dark {
+  /* -- Surfaces -- */
+  --background: var(--neutral-950);
+  --foreground: var(--neutral-50);
+  --card: var(--neutral-900);
+  --card-foreground: var(--neutral-50);
+  --popover: var(--neutral-900);
+  --popover-foreground: var(--neutral-50);
+  --muted: var(--neutral-800);
+  --muted-foreground: var(--neutral-400);
+
+  /* -- Primary -- */
+  --primary: #ffffff;
+  --primary-foreground: var(--neutral-950);
+  --primary-hover: var(--neutral-200);
+  --primary-active: var(--neutral-300);
+
+  /* -- Secondary (morada-cya) -- */
+  --secondary: var(--cya-9);
+  --secondary-foreground: var(--cya-2);
+  --secondary-hover: var(--cya-8);
+  --secondary-active: var(--cya-7);
+
+  /* -- Tertiary (morada-orange) -- */
+  --tertiary: var(--orange-9);
+  --tertiary-foreground: var(--orange-2);
+  --tertiary-hover: var(--orange-8);
+  --tertiary-active: var(--orange-7);
+
+  /* -- Accent -- */
+  --accent: var(--neutral-800);
+  --accent-foreground: var(--neutral-50);
+  --accent-hover: var(--neutral-700);
+
+  /* -- Destructive -- */
+  --destructive: var(--danger-5);
+  --destructive-foreground: #ffffff;
+  --destructive-hover: var(--danger-4);
+  --destructive-active: var(--danger-3);
+  --destructive-background: rgba(239, 68, 68, 0.1);
+  --destructive-border: var(--danger-8);
+  --destructive-text: var(--danger-4);
+
+  /* -- Success (Emerald) -- */
+  --success: var(--green-5);
+  --success-foreground: #ffffff;
+  --success-hover: var(--green-4);
+  --success-active: var(--green-3);
+  --success-background: rgba(16, 185, 129, 0.1);
+  --success-border: var(--green-8);
+  --success-text: var(--green-4);
+
+  /* -- Warning -- */
+  --warning: var(--warning-5);
+  --warning-foreground: var(--neutral-900);
+  --warning-hover: var(--warning-4);
+  --warning-active: var(--warning-3);
+  --warning-background: rgba(245, 158, 11, 0.1);
+  --warning-border: var(--warning-8);
+  --warning-text: var(--warning-4);
+
+  /* -- Info -- */
+  --info: var(--info-5);
+  --info-foreground: #ffffff;
+  --info-hover: var(--info-4);
+  --info-active: var(--info-3);
+  --info-background: rgba(6, 182, 212, 0.1);
+  --info-border: var(--info-8);
+  --info-text: var(--info-4);
+
+  /* -- Text -- */
+  --text-primary: var(--neutral-50);
+  --text-secondary: var(--neutral-400);
+  --text-tertiary: var(--neutral-600);
+  --text-disabled: var(--neutral-700);
+  --text-inverse: var(--neutral-950);
+  --text-on-color: #ffffff;
+  --text-link: var(--blue-4);
+  --text-link-hover: var(--blue-3);
+
+  /* -- Borders -- */
+  --border: var(--neutral-800);
+  --border-hover: var(--neutral-700);
+  --border-focus: #ffffff;
+  --input: var(--neutral-800);
+  --input-hover: var(--neutral-700);
+  --ring: #ffffff;
+
+  /* -- Radius -- */
+  --radius: 12px;
+
+  /* -- Sidebar -- */
+  --sidebar-background: var(--neutral-950);
+  --sidebar-foreground: var(--neutral-400);
+  --sidebar-primary: #ffffff;
+  --sidebar-primary-foreground: var(--neutral-950);
+  --sidebar-accent: var(--neutral-800);
+  --sidebar-accent-foreground: var(--neutral-50);
+  --sidebar-border: var(--neutral-800);
+  --sidebar-ring: #ffffff;
+
+  /* -- Chart Colors -- */
+  --chart-1: var(--blue-4);
+  --chart-2: var(--green-4);
+  --chart-3: var(--warning-4);
+  --chart-4: var(--morada-cya);
+  --chart-5: var(--morada-coral);
+}

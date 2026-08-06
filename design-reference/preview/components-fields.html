@@ -1,0 +1,37 @@
+<!doctype html>
+<!-- @dsCard group="Components" name="Form fields" subtitle="Input · Select · helper text" viewport="700x160" -->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Form fields</title>
+<link rel="stylesheet" href="../colors_and_type.css" />
+<link rel="stylesheet" href="../components.css" />
+<style>
+  body { margin: 0; padding: 18px 20px; background: var(--card); }
+  .row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 18px; }
+  .field { display: block; }
+</style>
+</head>
+<body>
+  <div class="row">
+    <div class="field">
+      <label class="nm-label">Nome do empreendimento</label>
+      <input class="nm-input" placeholder="Ex.: Vista Sul Reserva" />
+      <span class="nm-helper">Aparece para o lead durante o atendimento.</span>
+    </div>
+    <div class="field">
+      <label class="nm-label">Fila</label>
+      <select class="nm-input" style="appearance: auto;">
+        <option>DEMO MG — Vendas</option>
+        <option>Suporte Geral</option>
+        <option>Pós-vendas</option>
+      </select>
+      <span class="nm-helper">Onde os novos leads cairão.</span>
+    </div>
+    <div class="field">
+      <label class="nm-label">Buscar</label>
+      <input class="nm-input" placeholder="Buscar corretor, lead, empreendimento…" />
+    </div>
+  </div>
+</body>
+</html>

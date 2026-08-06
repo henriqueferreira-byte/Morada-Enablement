@@ -1,0 +1,1230 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/niemeyer-morada-ai-design-system-316818b4-35bc-4e1f-8b85-d1c4a6b52afe/tokens/primitives.css">
+<link rel="stylesheet" href="_ds/niemeyer-morada-ai-design-system-316818b4-35bc-4e1f-8b85-d1c4a6b52afe/tokens/typography.css">
+<link rel="stylesheet" href="_ds/niemeyer-morada-ai-design-system-316818b4-35bc-4e1f-8b85-d1c4a6b52afe/tokens/semantic-light.css">
+<link rel="stylesheet" href="_ds/niemeyer-morada-ai-design-system-316818b4-35bc-4e1f-8b85-d1c4a6b52afe/tokens/semantic-dark.css">
+<link rel="stylesheet" href="_ds/niemeyer-morada-ai-design-system-316818b4-35bc-4e1f-8b85-d1c4a6b52afe/tokens/effects.css">
+<link rel="stylesheet" href="_ds/niemeyer-morada-ai-design-system-316818b4-35bc-4e1f-8b85-d1c4a6b52afe/tokens/index.css">
+<link rel="stylesheet" href="_ds/niemeyer-morada-ai-design-system-316818b4-35bc-4e1f-8b85-d1c4a6b52afe/styles/foundation.css">
+<link rel="stylesheet" href="_ds/niemeyer-morada-ai-design-system-316818b4-35bc-4e1f-8b85-d1c4a6b52afe/styles/theme.css">
+<link rel="stylesheet" href="_ds/niemeyer-morada-ai-design-system-316818b4-35bc-4e1f-8b85-d1c4a6b52afe/styles/third-party-compat.css">
+<link rel="stylesheet" href="_ds/niemeyer-morada-ai-design-system-316818b4-35bc-4e1f-8b85-d1c4a6b52afe/styles/globals.css">
+<link rel="stylesheet" href="_ds/niemeyer-morada-ai-design-system-316818b4-35bc-4e1f-8b85-d1c4a6b52afe/colors_and_type.css">
+<link rel="stylesheet" href="_ds/niemeyer-morada-ai-design-system-316818b4-35bc-4e1f-8b85-d1c4a6b52afe/components.css">
+<link rel="stylesheet" href="_ds/niemeyer-morada-ai-design-system-316818b4-35bc-4e1f-8b85-d1c4a6b52afe/styles.css">
+<script src="_ds/niemeyer-morada-ai-design-system-316818b4-35bc-4e1f-8b85-d1c4a6b52afe/_ds_bundle.js"></script>
+<style>
+  body { margin: 0; background: var(--neutral-50); font-family: var(--font-body); }
+  a { color: var(--primary); text-decoration: none; }
+  a:hover { color: var(--primary-hover); text-decoration: underline; }
+  button { font-family: inherit; }
+  @keyframes hubGlow { from { transform: translate3d(0,0,0) scale(1); } to { transform: translate3d(-30px,10px,0) scale(1.12); } }
+</style>
+</helmet>
+
+<sc-if value="{{ isLogin }}" hint-placeholder-val="{{ false }}">
+  <div style="min-height:100vh; display:flex; align-items:center; justify-content:center; padding:32px; background:radial-gradient(at top,#0073ff,#001f3d); font-family:var(--font-body);">
+    <div style="width:100%; max-width:420px; display:flex; flex-direction:column; gap:24px;">
+      <img src="assets/logo-white.svg" alt="Morada" style="height:26px; width:auto; align-self:center;">
+      <div style="background:#fff; border-radius:16px; box-shadow:0 20px 50px -12px rgba(0,20,60,.45); padding:32px; display:flex; flex-direction:column; gap:20px;">
+        <div>
+          <p style="margin:0 0 8px; font-family:var(--font-heading); font-size:12px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:var(--neutral-500);">Hub de enablement</p>
+          <h1 style="margin:0 0 8px; font-family:var(--font-heading); font-size:24px; font-weight:600; letter-spacing:-.02em;">Entrar</h1>
+          <p style="margin:0; font-size:14px; color:var(--neutral-600); line-height:1.5;">Use sua conta Google da Morada para acessar as trilhas, os materiais e o seu progresso.</p>
+        </div>
+        <button type="button" onClick="{{ signIn }}" style="display:flex; align-items:center; justify-content:center; gap:10px; height:48px; border-radius:9999px; border:1px solid var(--neutral-200); background:#fff; cursor:pointer; font-family:var(--font-heading); font-size:15px; font-weight:600; color:var(--neutral-900);" style-hover="background:var(--neutral-50); border-color:var(--neutral-300);">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.788 5.108A9 9 0 1 0 21 12h-8"></path></svg>
+          Entrar com Google
+        </button>
+        <div style="display:flex; gap:10px; align-items:flex-start; border:1px solid var(--neutral-150); background:var(--neutral-50); border-radius:8px; padding:12px 14px;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8D95A8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:0 0 16px; margin-top:2px;"><path d="M12 9h.01M11 12h1v4h1M12 3a9 9 0 1 0 0 18a9 9 0 0 0 0-18z"></path></svg>
+          <p style="margin:0; font-size:12px; color:var(--neutral-600); line-height:1.5;">Acesso restrito a contas <strong style="font-weight:700;">@morada.ai</strong>. Contas pessoais são recusadas no login. Precisa de acesso? Fale com o time de enablement.</p>
+        </div>
+      </div>
+      <p style="margin:0; text-align:center; font-size:12px; color:rgba(255,255,255,.72);">Morada.ai · uso interno</p>
+    </div>
+  </div>
+</sc-if>
+
+<sc-if value="{{ isApp }}" hint-placeholder-val="{{ true }}">
+<div style="display:flex; align-items:stretch; min-height:100vh; background:var(--neutral-50); color:var(--neutral-900); font-family:var(--font-body);">
+
+  <aside style="width:248px; flex:0 0 248px; background:#fff; border-right:1px solid var(--neutral-200); padding:20px 16px; display:flex; flex-direction:column; gap:28px; position:sticky; top:0; height:100vh; box-sizing:border-box;">
+    <div style="display:flex; align-items:center; gap:10px; padding:0 8px;">
+      <img src="assets/logo-blue.svg" alt="Morada" style="height:22px; width:auto;">
+    </div>
+
+    <div style="display:flex; flex-direction:column; gap:20px;">
+      <div style="display:flex; flex-direction:column; gap:4px;">
+        <p style="margin:0 8px 6px; font-family:var(--font-heading); font-size:11px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:var(--neutral-400);">Hub de enablement</p>
+
+        <button type="button" onClick="{{ goHome }}" style="position:relative; display:flex; align-items:center; gap:10px; height:40px; padding:0 12px; border:0; background:transparent; border-radius:8px; cursor:pointer; text-align:left; font-size:14px; font-weight:600; color:var(--neutral-800);" style-hover="background:var(--neutral-100);">
+          <sc-if value="{{ navHome }}" hint-placeholder-val="{{ true }}"><span style="position:absolute; left:0; top:8px; bottom:8px; width:3px; border-radius:0 3px 3px 0; background:var(--primary);"></span></sc-if>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12H3l9-9l9 9h-2M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"></path></svg>
+          Home
+        </button>
+
+        <button type="button" onClick="{{ goTrilhas }}" style="position:relative; display:flex; align-items:center; gap:10px; height:40px; padding:0 12px; border:0; background:transparent; border-radius:8px; cursor:pointer; text-align:left; font-size:14px; font-weight:600; color:var(--neutral-800);" style-hover="background:var(--neutral-100);">
+          <sc-if value="{{ navTrilhas }}" hint-placeholder-val="{{ false }}"><span style="position:absolute; left:0; top:8px; bottom:8px; width:3px; border-radius:0 3px 3px 0; background:var(--primary);"></span></sc-if>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 19a9 9 0 0 1 9 0a9 9 0 0 1 9 0M3 6a9 9 0 0 1 9 0a9 9 0 0 1 9 0M3 6v13M12 6v13M21 6v13"></path></svg>
+          Trilhas
+        </button>
+
+        <button type="button" onClick="{{ goMateriais }}" style="position:relative; display:flex; align-items:center; gap:10px; height:40px; padding:0 12px; border:0; background:transparent; border-radius:8px; cursor:pointer; text-align:left; font-size:14px; font-weight:600; color:var(--neutral-800);" style-hover="background:var(--neutral-100);">
+          <sc-if value="{{ navMateriais }}" hint-placeholder-val="{{ false }}"><span style="position:absolute; left:0; top:8px; bottom:8px; width:3px; border-radius:0 3px 3px 0; background:var(--primary);"></span></sc-if>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6a2 2 0 0 1 2-2h3l2 2h5a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z"></path></svg>
+          Materiais
+        </button>
+
+        <sc-if value="{{ isAdmin }}" hint-placeholder-val="{{ true }}">
+          <button type="button" onClick="{{ goAdmin }}" style="position:relative; display:flex; align-items:center; gap:10px; height:40px; padding:0 12px; border:0; background:transparent; border-radius:8px; cursor:pointer; text-align:left; font-size:14px; font-weight:600; color:var(--neutral-800);" style-hover="background:var(--neutral-100);">
+            <sc-if value="{{ navAdmin }}" hint-placeholder-val="{{ false }}"><span style="position:absolute; left:0; top:8px; bottom:8px; width:3px; border-radius:0 3px 3px 0; background:var(--primary);"></span></sc-if>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16a4 4 0 1 0 0-8a4 4 0 0 0 0 8z"></path><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-2.82 1.17V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.6 15H4.5a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 6 9.4L5.67 9a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 11 4.6V4.5a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 2.82 1.17l.06-.06a2 2 0 1 1 2.83 2.83L20.73 9A1.65 1.65 0 0 0 21 11h.5a2 2 0 1 1 0 4H21z"></path></svg>
+            Gerenciar
+          </button>
+        </sc-if>
+
+        <button type="button" onClick="{{ goProgresso }}" style="position:relative; display:flex; align-items:center; gap:10px; height:40px; padding:0 12px; border:0; background:transparent; border-radius:8px; cursor:pointer; text-align:left; font-size:14px; font-weight:600; color:var(--neutral-800);" style-hover="background:var(--neutral-100);">
+          <sc-if value="{{ navProgresso }}" hint-placeholder-val="{{ false }}"><span style="position:absolute; left:0; top:8px; bottom:8px; width:3px; border-radius:0 3px 3px 0; background:var(--primary);"></span></sc-if>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15a5 5 0 1 0 0-10a5 5 0 0 0 0 10zM8 14l-2 7l6-3l6 3l-2-7"></path></svg>
+          Meu progresso
+        </button>
+      </div>
+
+      <div style="display:flex; flex-direction:column; gap:4px;">
+        <p style="margin:0 8px 6px; font-family:var(--font-heading); font-size:11px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:var(--neutral-400);">Módulos</p>
+        <sc-for list="{{ moduleNav }}" as="m" hint-placeholder-count="3">
+          <button type="button" onClick="{{ m.open }}" style="display:flex; align-items:center; gap:10px; height:36px; padding:0 12px; border:0; background:transparent; border-radius:8px; cursor:pointer; text-align:left; font-size:13px; font-weight:400; color:var(--neutral-700);" style-hover="background:var(--neutral-100);">
+            <span style="width:8px; height:8px; border-radius:9999px; background:{{ m.accent }};"></span>
+            {{ m.name }}
+          </button>
+        </sc-for>
+      </div>
+    </div>
+
+    <div style="margin-top:auto; border:1px solid var(--neutral-150); background:var(--neutral-50); border-radius:12px; padding:14px;">
+      <p style="margin:0 0 4px; font-family:var(--font-heading); font-size:13px; font-weight:600; color:var(--neutral-900);">Ofensiva de {{ streak }} dias</p>
+      <p style="margin:0 0 10px; font-size:12px; color:var(--neutral-500);">Estude 1 aula por dia para manter.</p>
+      <div style="display:flex; gap:5px;">
+        <sc-for list="{{ streakDays }}" as="d" hint-placeholder-count="7">
+          <sc-if value="{{ d.on }}" hint-placeholder-val="{{ true }}"><span style="flex:1; height:24px; border-radius:6px; background:var(--primary); color:#fff; font-size:10px; font-weight:700; display:flex; align-items:center; justify-content:center;">{{ d.label }}</span></sc-if>
+          <sc-if value="{{ d.off }}" hint-placeholder-val="{{ false }}"><span style="flex:1; height:24px; border-radius:6px; background:var(--neutral-150); color:var(--neutral-400); font-size:10px; font-weight:700; display:flex; align-items:center; justify-content:center;">{{ d.label }}</span></sc-if>
+        </sc-for>
+      </div>
+    </div>
+  </aside>
+
+  <main style="flex:1; min-width:0; display:flex; flex-direction:column;">
+    <header style="height:56px; flex:0 0 56px; background:rgba(255,255,255,.92); backdrop-filter:blur(8px); border-bottom:1px solid var(--neutral-200); display:flex; align-items:center; gap:16px; padding:0 24px; position:sticky; top:0; z-index:5;">
+      <div style="display:flex; align-items:center; gap:8px; height:36px; padding:0 12px; border:1px solid var(--neutral-200); background:#fff; border-radius:9999px; width:340px; max-width:40%;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8D95A8" stroke-width="2" stroke-linecap="round"><circle cx="10" cy="10" r="7"></circle><path d="M21 21l-6-6"></path></svg>
+        <input type="text" placeholder="Buscar aula, trilha ou template" value="{{ q }}" onChange="{{ onSearch }}" style="border:0; outline:none; background:transparent; font-family:var(--font-body); font-size:14px; color:var(--neutral-900); width:100%;">
+      </div>
+      <div style="margin-left:auto; display:flex; align-items:center; gap:12px;">
+        <span style="display:inline-flex; align-items:center; gap:6px; height:28px; padding:0 10px; border-radius:9999px; background:rgba(247,184,125,.18); border:1px solid rgba(247,184,125,.5); font-size:12px; font-weight:700; color:#8a4b12;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 12c2-2.96 0-7-1-8 0 3.038-1.773 4.741-3 6-1.226 1.26-2 3.24-2 5a6 6 0 1 0 12 0c0-1.532-1.056-3.94-2-5-1.786 3-2.791 3-4 2z"></path></svg>
+          {{ streak }} dias
+        </span>
+        <span style="font-size:13px; color:var(--neutral-600);">Henrique · Vendas</span>
+        <x-import component-from-global-scope="NiemeyerMoradaAiDesignSystem_316818.Avatar" initials="HN" size="32" hint-size="32px,32px"></x-import>
+        <button type="button" onClick="{{ signOut }}" style="border:0; background:transparent; padding:0; cursor:pointer; font-family:inherit; font-size:13px; font-weight:700; color:var(--neutral-500);" style-hover="color:var(--primary);">Sair</button>
+      </div>
+    </header>
+
+    <div style="flex:1; width:100%; max-width:1160px; margin:0 auto; box-sizing:border-box; padding:24px 24px 56px; display:flex; flex-direction:column; gap:28px;">
+
+      <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+        <section style="position:relative; overflow:hidden; border-radius:16px; background:linear-gradient(135deg,#00224d 0%,#0058c4 45%,#0aa6f0 100%); padding:32px; color:#fff; display:grid; grid-template-columns:minmax(0,1.25fr) minmax(0,1fr); gap:32px; align-items:center;">
+          <div style="position:absolute; width:420px; height:420px; right:-80px; top:-160px; border-radius:9999px; background:radial-gradient(circle,rgba(0,255,224,.32),transparent 62%); filter:blur(20px); animation:hubGlow 28s ease-in-out infinite alternate; pointer-events:none;"></div>
+          <div style="position:relative;">
+            <p style="margin:0 0 12px; font-family:var(--font-heading); font-size:12px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:rgba(255,255,255,.75);">Hub de enablement · Morada</p>
+            <h1 style="margin:0 0 12px; font-family:var(--font-heading); font-size:44px; font-weight:600; line-height:1.05; letter-spacing:-.025em;">Bom dia, Henrique</h1>
+            <p style="margin:0 0 24px; font-size:16px; line-height:1.5; color:rgba(255,255,255,.82); max-width:52ch; text-wrap:pretty;">Tudo o que subiu de novo em Morada Vendas e Morada Relacionamento fica aqui. Você tem {{ pendingCount }} aulas pendentes nas trilhas que já começou.</p>
+            <div style="display:flex; gap:12px; flex-wrap:wrap;">
+              <x-import component-from-global-scope="NiemeyerMoradaAiDesignSystem_316818.Button" onClick="{{ resumeNext }}" hint-size="auto,40px">Continuar de onde parei</x-import>
+              <x-import component-from-global-scope="NiemeyerMoradaAiDesignSystem_316818.Button" variant="outline" onClick="{{ goTrilhas }}" hint-size="auto,40px">Ver todas as trilhas</x-import>
+            </div>
+          </div>
+          <div style="position:relative; background:rgba(255,255,255,.82); backdrop-filter:blur(18px); border:1px solid rgba(255,255,255,.4); box-shadow:0 8px 30px rgba(15,30,80,.18); border-radius:16px; padding:20px; color:var(--neutral-900);">
+            <p style="margin:0 0 14px; font-family:var(--font-heading); font-size:12px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:var(--neutral-500);">Sua semana</p>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+              <div>
+                <p style="margin:0; font-family:var(--font-heading); font-size:28px; font-weight:600; line-height:1;">{{ doneCount }}</p>
+                <p style="margin:4px 0 0; font-size:12px; color:var(--neutral-500);">aulas concluídas</p>
+              </div>
+              <div>
+                <p style="margin:0; font-family:var(--font-heading); font-size:28px; font-weight:600; line-height:1;">{{ inProgressCount }}</p>
+                <p style="margin:4px 0 0; font-size:12px; color:var(--neutral-500);">trilhas em andamento</p>
+              </div>
+              <div>
+                <p style="margin:0; font-family:var(--font-heading); font-size:28px; font-weight:600; line-height:1;">{{ novosCount }}</p>
+                <p style="margin:4px 0 0; font-size:12px; color:var(--neutral-500);">conteúdos novos</p>
+              </div>
+              <div>
+                <p style="margin:0; font-family:var(--font-heading); font-size:28px; font-weight:600; line-height:1;">{{ certCount }}</p>
+                <p style="margin:4px 0 0; font-size:12px; color:var(--neutral-500);">certificados</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section style="display:flex; flex-direction:column; gap:14px;">
+          <div style="display:flex; align-items:baseline; justify-content:space-between; gap:16px;">
+            <h2 style="margin:0; font-family:var(--font-heading); font-size:20px; font-weight:600; letter-spacing:-.02em;">Continue de onde parou</h2>
+            <a href="#" onClick="{{ goTrilhas }}" style="font-size:13px; font-weight:700;">Ver tudo</a>
+          </div>
+          <div style="display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px;">
+            <sc-for list="{{ continueCards }}" as="c" hint-placeholder-count="3">
+              <div onClick="{{ c.open }}" style="cursor:pointer; background:#fff; border:1px solid var(--neutral-200); border-radius:12px; box-shadow:var(--shadow-xs); padding:18px; display:flex; flex-direction:column; gap:12px;" style-hover="border-color:var(--neutral-300);">
+                <div style="display:flex; align-items:center; gap:8px;">
+                  <span style="width:8px; height:8px; border-radius:9999px; background:{{ c.accent }};"></span>
+                  <span style="font-size:11px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--neutral-500);">{{ c.moduleName }}</span>
+                </div>
+                <p style="margin:0; font-family:var(--font-heading); font-size:16px; font-weight:600; line-height:1.3; text-wrap:pretty;">{{ c.title }}</p>
+                <p style="margin:0; font-size:13px; color:var(--neutral-600); line-height:1.45;">Próxima aula: {{ c.nextTitle }}</p>
+                <div style="margin-top:auto; display:flex; flex-direction:column; gap:6px;">
+                  <div style="display:flex; justify-content:space-between; font-size:12px; color:var(--neutral-500);">
+                    <span>{{ c.countLabel }}</span>
+                    <span style="font-weight:700; color:var(--neutral-700);">{{ c.pctLabel }}</span>
+                  </div>
+                  <div style="height:6px; border-radius:9999px; background:var(--neutral-150); overflow:hidden;">
+                    <div style="height:100%; border-radius:9999px; background:var(--primary); width:{{ c.pct }}%;"></div>
+                  </div>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </section>
+
+        <section style="display:grid; grid-template-columns:minmax(0,1.5fr) minmax(0,1fr); gap:20px; align-items:start;">
+          <div style="display:flex; flex-direction:column; gap:14px;">
+            <h2 style="margin:0; font-family:var(--font-heading); font-size:20px; font-weight:600; letter-spacing:-.02em;">Novidades no hub</h2>
+            <div style="background:#fff; border:1px solid var(--neutral-200); border-radius:12px; box-shadow:var(--shadow-xs); overflow:hidden;">
+              <sc-for list="{{ novidades }}" as="n" hint-placeholder-count="5">
+                <div onClick="{{ n.open }}" style="cursor:pointer; display:flex; align-items:center; gap:14px; padding:14px 18px; border-bottom:1px solid var(--neutral-100);" style-hover="background:var(--neutral-50);">
+                  <span style="width:3px; align-self:stretch; border-radius:9999px; background:{{ n.accent }};"></span>
+                  <div style="min-width:0; flex:1;">
+                    <div style="display:flex; align-items:center; gap:8px; margin-bottom:3px;">
+                      <p style="margin:0; font-family:var(--font-heading); font-size:15px; font-weight:600; line-height:1.3;">{{ n.title }}</p>
+                      <sc-if value="{{ n.isNew }}" hint-placeholder-val="{{ true }}"><span style="font-size:10px; font-weight:700; letter-spacing:.06em; padding:2px 7px; border-radius:9999px; background:rgba(0,115,255,.1); color:var(--primary); border:1px solid rgba(0,115,255,.25);">NOVO</span></sc-if>
+                    </div>
+                    <p style="margin:0; font-size:12px; color:var(--neutral-500);">{{ n.meta }}</p>
+                  </div>
+                  <x-import component-from-global-scope="NiemeyerMoradaAiDesignSystem_316818.Badge" tone="{{ n.tone }}" shape="chip" hint-size="auto,22px">{{ n.typeLabel }}</x-import>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+
+          <div style="display:flex; flex-direction:column; gap:14px;">
+            <div style="display:flex; align-items:baseline; justify-content:space-between; gap:12px;">
+              <h2 style="margin:0; font-family:var(--font-heading); font-size:20px; font-weight:600; letter-spacing:-.02em;">Materiais recentes</h2>
+              <a href="#" onClick="{{ goMateriais }}" style="font-size:13px; font-weight:700;">Biblioteca</a>
+            </div>
+            <div style="background:#fff; border:1px solid var(--neutral-200); border-radius:12px; box-shadow:var(--shadow-xs); overflow:hidden;">
+              <sc-for list="{{ materiaisRecentes }}" as="m" hint-placeholder-count="3">
+                <div onClick="{{ m.open }}" style="cursor:pointer; display:flex; align-items:center; gap:12px; padding:12px 16px; border-bottom:1px solid var(--neutral-100);" style-hover="background:var(--neutral-50);">
+                  <span style="flex:0 0 32px; width:32px; height:32px; border-radius:8px; background:rgba(0,115,255,.08); color:var(--primary); font-family:var(--font-mono); font-size:9px; font-weight:700; display:flex; align-items:center; justify-content:center;">{{ m.ext }}</span>
+                  <div style="min-width:0; flex:1;">
+                    <p style="margin:0 0 2px; font-size:13px; font-weight:700; line-height:1.3;">{{ m.title }}</p>
+                    <p style="margin:0; font-size:11px; color:var(--neutral-500);">{{ m.cat }} · {{ m.updated }}</p>
+                  </div>
+                  <sc-if value="{{ m.isNew }}" hint-placeholder-val="{{ true }}"><span style="font-size:10px; font-weight:700; padding:2px 7px; border-radius:9999px; background:rgba(0,115,255,.1); color:var(--primary); border:1px solid rgba(0,115,255,.25);">NOVO</span></sc-if>
+                </div>
+              </sc-for>
+            </div>
+
+            <h2 style="margin:0; font-family:var(--font-heading); font-size:20px; font-weight:600; letter-spacing:-.02em;">Recomendado para Vendas</h2>
+            <sc-for list="{{ recomendadas }}" as="r" hint-placeholder-count="2">
+              <div onClick="{{ r.open }}" style="cursor:pointer; background:#fff; border:1px solid var(--neutral-200); border-radius:12px; box-shadow:var(--shadow-xs); padding:16px 18px; display:flex; flex-direction:column; gap:6px;" style-hover="border-color:var(--neutral-300);">
+                <span style="font-size:11px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--neutral-500);">{{ r.moduleName }}</span>
+                <p style="margin:0; font-family:var(--font-heading); font-size:15px; font-weight:600; line-height:1.3;">{{ r.title }}</p>
+                <p style="margin:0; font-size:12px; color:var(--neutral-500);">{{ r.countLabel }} · {{ r.durLabel }}</p>
+              </div>
+            </sc-for>
+            <div style="background:var(--neutral-100); border:1px solid var(--neutral-150); border-radius:12px; padding:16px 18px;">
+              <p style="margin:0 0 6px; font-family:var(--font-heading); font-size:14px; font-weight:600;">Faltou algum conteúdo?</p>
+              <p style="margin:0 0 12px; font-size:13px; color:var(--neutral-600); line-height:1.45;">Peça um material novo para o time de enablement — respondemos em até 2 dias.</p>
+              <x-import component-from-global-scope="NiemeyerMoradaAiDesignSystem_316818.Button" variant="outline" size="sm" hint-size="auto,32px">Solicitar conteúdo</x-import>
+            </div>
+          </div>
+        </section>
+      </sc-if>
+
+      <sc-if value="{{ isTrilhas }}" hint-placeholder-val="{{ false }}">
+        <section style="display:flex; flex-direction:column; gap:18px;">
+          <div>
+            <h1 style="margin:0 0 6px; font-family:var(--font-heading); font-size:28px; font-weight:600; letter-spacing:-.025em;">Trilhas</h1>
+            <p style="margin:0; font-size:14px; color:var(--neutral-600);">{{ resultLabel }}</p>
+          </div>
+          <div style="display:flex; flex-wrap:wrap; gap:8px; align-items:center;">
+            <sc-for list="{{ chips }}" as="c" hint-placeholder-count="7">
+              <sc-if value="{{ c.active }}" hint-placeholder-val="{{ false }}"><button type="button" onClick="{{ c.onClick }}" style="height:32px; padding:0 14px; border-radius:9999px; border:1px solid var(--primary); background:var(--primary); color:#fff; font-size:13px; font-weight:700; cursor:pointer;">{{ c.label }}</button></sc-if>
+              <sc-if value="{{ c.inactive }}" hint-placeholder-val="{{ true }}"><button type="button" onClick="{{ c.onClick }}" style="height:32px; padding:0 14px; border-radius:9999px; border:1px solid var(--neutral-200); background:#fff; color:var(--neutral-700); font-size:13px; font-weight:400; cursor:pointer;" style-hover="border-color:var(--neutral-300); background:var(--neutral-50);">{{ c.label }}</button></sc-if>
+            </sc-for>
+          </div>
+          <div style="display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px;">
+            <sc-for list="{{ trilhasList }}" as="t" hint-placeholder-count="6">
+              <div onClick="{{ t.open }}" style="cursor:pointer; background:#fff; border:1px solid var(--neutral-200); border-radius:12px; box-shadow:var(--shadow-xs); padding:20px; display:flex; flex-direction:column; gap:12px;" style-hover="border-color:var(--neutral-300);">
+                <div style="display:flex; align-items:center; gap:10px;">
+                  <span style="width:8px; height:8px; border-radius:9999px; background:{{ t.accent }};"></span>
+                  <span style="font-size:11px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--neutral-500);">{{ t.moduleName }}</span>
+                  <span style="margin-left:auto;"><x-import component-from-global-scope="NiemeyerMoradaAiDesignSystem_316818.Badge" tone="{{ t.statusTone }}" dot="{{ true }}" hint-size="auto,22px">{{ t.statusLabel }}</x-import></span>
+                </div>
+                <p style="margin:0; font-family:var(--font-heading); font-size:18px; font-weight:600; line-height:1.25; letter-spacing:-.01em;">{{ t.title }}</p>
+                <p style="margin:0; font-size:13px; color:var(--neutral-600); line-height:1.5; text-wrap:pretty;">{{ t.desc }}</p>
+                <div style="display:flex; gap:14px; font-size:12px; color:var(--neutral-500);">
+                  <span>{{ t.countLabel }}</span>
+                  <span>{{ t.durLabel }}</span>
+                  <span>{{ t.level }}</span>
+                </div>
+                <div style="margin-top:auto; display:flex; align-items:center; gap:12px;">
+                  <div style="flex:1; height:6px; border-radius:9999px; background:var(--neutral-150); overflow:hidden;">
+                    <div style="height:100%; border-radius:9999px; background:var(--primary); width:{{ t.pct }}%;"></div>
+                  </div>
+                  <span style="font-size:12px; font-weight:700; color:var(--neutral-700);">{{ t.pctLabel }}</span>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+          <sc-if value="{{ isEmpty }}" hint-placeholder-val="{{ false }}">
+            <div style="background:#fff; border:1px dashed var(--neutral-200); border-radius:12px; padding:40px; text-align:center;">
+              <p style="margin:0 0 6px; font-family:var(--font-heading); font-size:16px; font-weight:600;">Nenhuma trilha com esses filtros</p>
+              <p style="margin:0 0 16px; font-size:13px; color:var(--neutral-600);">Limpe a busca ou volte para todos os módulos.</p>
+              <x-import component-from-global-scope="NiemeyerMoradaAiDesignSystem_316818.Button" variant="outline" size="sm" onClick="{{ clearFilters }}" hint-size="auto,32px">Limpar filtros</x-import>
+            </div>
+          </sc-if>
+        </section>
+      </sc-if>
+
+      <sc-if value="{{ isTrilha }}" hint-placeholder-val="{{ false }}">
+        <section style="display:flex; flex-direction:column; gap:20px;">
+          <button type="button" onClick="{{ goTrilhas }}" style="align-self:flex-start; display:inline-flex; align-items:center; gap:6px; border:0; background:transparent; padding:0; cursor:pointer; font-size:13px; font-weight:700; color:var(--neutral-600);" style-hover="color:var(--primary);">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6l6 6"></path></svg>
+            Todas as trilhas
+          </button>
+
+          <div style="display:grid; grid-template-columns:minmax(0,1.6fr) minmax(0,1fr); gap:24px; align-items:start;">
+            <div style="display:flex; flex-direction:column; gap:18px;">
+              <div>
+                <div style="display:flex; align-items:center; gap:10px; margin-bottom:10px;">
+                  <span style="width:8px; height:8px; border-radius:9999px; background:{{ cur.accent }};"></span>
+                  <span style="font-size:11px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--neutral-500);">{{ cur.moduleName }}</span>
+                </div>
+                <h1 style="margin:0 0 10px; font-family:var(--font-heading); font-size:30px; font-weight:600; letter-spacing:-.025em; line-height:1.2;">{{ cur.title }}</h1>
+                <p style="margin:0; font-size:15px; color:var(--neutral-600); line-height:1.55; max-width:64ch; text-wrap:pretty;">{{ cur.desc }}</p>
+              </div>
+
+              <div style="display:flex; flex-direction:column; gap:10px;">
+                <sc-for list="{{ curLessons }}" as="l" hint-placeholder-count="5">
+                  <div style="display:flex; align-items:center; gap:14px; background:#fff; border:1px solid var(--neutral-200); border-radius:12px; box-shadow:var(--shadow-xs); padding:14px 18px;" style-hover="border-color:var(--neutral-300);">
+                    <button type="button" onClick="{{ l.toggle }}" style="flex:0 0 28px; width:28px; height:28px; border-radius:9999px; cursor:pointer; display:flex; align-items:center; justify-content:center; border:1px solid var(--neutral-200); background:#fff; padding:0;">
+                      <sc-if value="{{ l.done }}" hint-placeholder-val="{{ false }}"><span style="width:28px; height:28px; margin:-1px; border-radius:9999px; background:var(--primary); display:flex; align-items:center; justify-content:center;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5l10-10"></path></svg></span></sc-if>
+                      <sc-if value="{{ l.pending }}" hint-placeholder-val="{{ true }}"><span style="font-size:12px; font-weight:700; color:var(--neutral-400);">{{ l.n }}</span></sc-if>
+                    </button>
+                    <div style="min-width:0; flex:1;">
+                      <p style="margin:0 0 3px; font-family:var(--font-heading); font-size:15px; font-weight:600; line-height:1.3;">{{ l.title }}</p>
+                      <p style="margin:0; font-size:12px; color:var(--neutral-500);">{{ l.durLabel }} · {{ l.source }} · {{ l.ratingLabel }}</p>
+                    </div>
+                    <x-import component-from-global-scope="NiemeyerMoradaAiDesignSystem_316818.Badge" tone="{{ l.tone }}" shape="chip" hint-size="auto,22px">{{ l.typeLabel }}</x-import>
+                    <x-import component-from-global-scope="NiemeyerMoradaAiDesignSystem_316818.Button" variant="ghost" size="sm" onClick="{{ l.toggle }}" hint-size="auto,32px">{{ l.cta }}</x-import>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+
+            <div style="display:flex; flex-direction:column; gap:16px; position:sticky; top:80px;">
+              <div style="background:#fff; border:1px solid var(--neutral-200); border-radius:12px; box-shadow:var(--shadow-xs); padding:20px; display:flex; flex-direction:column; gap:14px;">
+                <div style="display:flex; align-items:baseline; justify-content:space-between;">
+                  <p style="margin:0; font-family:var(--font-heading); font-size:14px; font-weight:600;">Seu progresso</p>
+                  <span style="font-family:var(--font-heading); font-size:22px; font-weight:600; color:var(--primary);">{{ cur.pctLabel }}</span>
+                </div>
+                <div style="height:8px; border-radius:9999px; background:var(--neutral-150); overflow:hidden;">
+                  <div style="height:100%; border-radius:9999px; background:var(--primary); width:{{ cur.pct }}%;"></div>
+                </div>
+                <p style="margin:0; font-size:13px; color:var(--neutral-600);">{{ cur.countLabel }} · {{ cur.durLabel }} de conteúdo</p>
+                <x-import component-from-global-scope="NiemeyerMoradaAiDesignSystem_316818.Button" onClick="{{ cur.next }}" hint-size="auto,40px">{{ cur.cta }}</x-import>
+              </div>
+
+              <div style="background:#fff; border:1px solid var(--neutral-200); border-radius:12px; box-shadow:var(--shadow-xs); padding:20px; display:flex; flex-direction:column; gap:12px;">
+                <p style="margin:0; font-family:var(--font-heading); font-size:14px; font-weight:600;">Para quem é</p>
+                <p style="margin:0; font-size:13px; color:var(--neutral-600); line-height:1.5;">{{ cur.audience }}</p>
+                <div style="height:1px; background:var(--neutral-100);"></div>
+                <p style="margin:0; font-family:var(--font-heading); font-size:14px; font-weight:600;">Responsável</p>
+                <div style="display:flex; align-items:center; gap:10px;">
+                  <x-import component-from-global-scope="NiemeyerMoradaAiDesignSystem_316818.Avatar" initials="{{ cur.ownerInitials }}" size="32" hint-size="32px,32px"></x-import>
+                  <div>
+                    <p style="margin:0; font-size:13px; font-weight:700;">{{ cur.owner }}</p>
+                    <p style="margin:0; font-size:12px; color:var(--neutral-500);">{{ cur.ownerRole }}</p>
+                  </div>
+                </div>
+                <div style="height:1px; background:var(--neutral-100);"></div>
+                <p style="margin:0; font-size:12px; color:var(--neutral-500);">Atualizada {{ cur.updated }}</p>
+              </div>
+            </div>
+          </div>
+        </section>
+      </sc-if>
+
+      <sc-if value="{{ isMateriais }}" hint-placeholder-val="{{ false }}">
+        <section style="display:flex; flex-direction:column; gap:18px;">
+          <div style="display:flex; align-items:center; gap:6px; font-size:13px; color:var(--neutral-500); min-height:20px;">
+            <sc-for list="{{ matCrumbs }}" as="c" hint-placeholder-count="1">
+              <sc-if value="{{ c.notFirst }}" hint-placeholder-val="{{ false }}"><span style="color:var(--neutral-300);">/</span></sc-if>
+              <sc-if value="{{ c.isLast }}" hint-placeholder-val="{{ true }}"><span style="font-weight:700; color:var(--neutral-700);">{{ c.label }}</span></sc-if>
+              <sc-if value="{{ c.notLast }}" hint-placeholder-val="{{ false }}"><button type="button" onClick="{{ c.onClick }}" style="border:0; background:transparent; padding:0; cursor:pointer; font-family:inherit; font-size:13px; font-weight:400; color:var(--neutral-500);" style-hover="color:var(--primary);">{{ c.label }}</button></sc-if>
+            </sc-for>
+          </div>
+
+          <div style="display:flex; align-items:flex-end; justify-content:space-between; gap:20px;">
+            <div>
+              <h1 style="margin:0 0 6px; font-family:var(--font-heading); font-size:28px; font-weight:600; letter-spacing:-.025em;">{{ matTitle }}</h1>
+              <p style="margin:0; font-size:14px; color:var(--neutral-600);">{{ matSub }}</p>
+            </div>
+            <div style="display:flex; gap:8px;">
+              <sc-if value="{{ matInside }}" hint-placeholder-val="{{ false }}">
+                <x-import component-from-global-scope="NiemeyerMoradaAiDesignSystem_316818.Button" variant="ghost" onClick="{{ matUp }}" hint-size="auto,40px">Voltar</x-import>
+              </sc-if>
+              <x-import component-from-global-scope="NiemeyerMoradaAiDesignSystem_316818.Button" variant="outline" hint-size="auto,40px">Solicitar material</x-import>
+            </div>
+          </div>
+
+          <sc-if value="{{ matLevelProduto }}" hint-placeholder-val="{{ true }}">
+            <div style="display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px;">
+              <sc-for list="{{ matProdutos }}" as="p" hint-placeholder-count="3">
+                <div onClick="{{ p.open }}" style="cursor:pointer; background:#fff; border:1px solid var(--neutral-200); border-radius:12px; box-shadow:var(--shadow-xs); padding:20px; display:flex; flex-direction:column; gap:12px;" style-hover="border-color:var(--neutral-300);">
+                  <div style="display:flex; align-items:center; gap:10px;">
+                    <span style="width:36px; height:36px; border-radius:9999px; background:{{ p.tint }}; color:{{ p.accent }}; display:flex; align-items:center; justify-content:center;">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6a2 2 0 0 1 2-2h3l2 2h5a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z"></path></svg>
+                    </span>
+                    <sc-if value="{{ p.hasNew }}" hint-placeholder-val="{{ true }}"><span style="margin-left:auto; font-size:10px; font-weight:700; padding:2px 7px; border-radius:9999px; background:rgba(0,115,255,.1); color:var(--primary); border:1px solid rgba(0,115,255,.25);">NOVO</span></sc-if>
+                  </div>
+                  <p style="margin:0; font-family:var(--font-heading); font-size:18px; font-weight:600; line-height:1.25;">{{ p.name }}</p>
+                  <p style="margin:0; font-size:13px; color:var(--neutral-600); line-height:1.5; text-wrap:pretty;">{{ p.desc }}</p>
+                  <p style="margin:auto 0 0; font-size:12px; color:var(--neutral-500);">{{ p.countLabel }}</p>
+                </div>
+              </sc-for>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ matLevelFeature }}" hint-placeholder-val="{{ false }}">
+            <div style="display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px;">
+              <sc-for list="{{ matFeatures }}" as="f" hint-placeholder-count="4">
+                <div onClick="{{ f.open }}" style="cursor:pointer; background:#fff; border:1px solid var(--neutral-200); border-radius:12px; box-shadow:var(--shadow-xs); padding:18px; display:flex; flex-direction:column; gap:10px;" style-hover="border-color:var(--neutral-300);">
+                  <div style="display:flex; align-items:center; gap:10px;">
+                    <span style="width:32px; height:32px; border-radius:8px; background:rgba(0,115,255,.08); color:var(--primary); display:flex; align-items:center; justify-content:center;">
+                      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6a2 2 0 0 1 2-2h3l2 2h5a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z"></path></svg>
+                    </span>
+                    <sc-if value="{{ f.hasNew }}" hint-placeholder-val="{{ true }}"><span style="margin-left:auto; font-size:10px; font-weight:700; padding:2px 7px; border-radius:9999px; background:rgba(0,115,255,.1); color:var(--primary); border:1px solid rgba(0,115,255,.25);">NOVO</span></sc-if>
+                  </div>
+                  <p style="margin:0; font-family:var(--font-heading); font-size:16px; font-weight:600; line-height:1.3;">{{ f.name }}</p>
+                  <p style="margin:0; font-size:13px; color:var(--neutral-600); line-height:1.45; text-wrap:pretty;">{{ f.desc }}</p>
+                  <p style="margin:auto 0 0; font-size:12px; color:var(--neutral-500);">{{ f.countLabel }} · {{ f.updated }}</p>
+                </div>
+              </sc-for>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ matLevelFiles }}" hint-placeholder-val="{{ false }}">
+            <div style="border:1px solid var(--neutral-200); border-radius:8px; overflow:auto; background:#fff;">
+              <div style="display:grid; min-width:900px; grid-template-columns:minmax(240px,2.4fr) 200px 110px 120px 180px; align-items:center; height:40px; padding:0 16px; background:rgba(0,115,255,.06); font-size:12px; font-weight:600; color:var(--neutral-900);">
+                <span>Arquivo</span>
+                <span>Onde está</span>
+                <span>Formato</span>
+                <span>Atualizado</span>
+                <span></span>
+              </div>
+              <sc-for list="{{ matFiles }}" as="m" hint-placeholder-count="4">
+                <div style="display:grid; min-width:900px; grid-template-columns:minmax(240px,2.4fr) 200px 110px 120px 180px; align-items:center; padding:12px 16px; border-top:1px solid var(--neutral-100);" style-hover="background:var(--neutral-50);">
+                  <div style="display:flex; align-items:center; gap:12px; min-width:0;">
+                    <span style="flex:0 0 34px; width:34px; height:34px; border-radius:8px; background:rgba(0,115,255,.08); color:var(--primary); font-family:var(--font-mono); font-size:10px; font-weight:700; display:flex; align-items:center; justify-content:center;">{{ m.ext }}</span>
+                    <div style="min-width:0;">
+                      <div style="display:flex; align-items:center; gap:8px;">
+                        <p style="margin:0; font-family:var(--font-heading); font-size:14px; font-weight:600; line-height:1.3;">{{ m.title }}</p>
+                        <sc-if value="{{ m.isNew }}" hint-placeholder-val="{{ true }}"><span style="font-size:10px; font-weight:700; padding:2px 7px; border-radius:9999px; background:rgba(0,115,255,.1); color:var(--primary); border:1px solid rgba(0,115,255,.25);">NOVO</span></sc-if>
+                      </div>
+                      <p style="margin:2px 0 0; font-size:12px; color:var(--neutral-500);">{{ m.desc }}</p>
+                    </div>
+                  </div>
+                  <span style="font-size:13px; color:var(--neutral-600); overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">{{ m.where }}</span>
+                  <span style="font-size:13px; color:var(--neutral-600); white-space:nowrap;">{{ m.format }}</span>
+                  <span style="font-size:13px; color:var(--neutral-600); white-space:nowrap;">{{ m.updated }}</span>
+                  <div style="display:flex; gap:8px; justify-content:flex-end;">
+                    <x-import component-from-global-scope="NiemeyerMoradaAiDesignSystem_316818.Button" variant="outline" size="sm" hint-size="auto,32px">Abrir</x-import>
+                    <x-import component-from-global-scope="NiemeyerMoradaAiDesignSystem_316818.Button" variant="ghost" size="sm" hint-size="auto,32px">Baixar</x-import>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ matEmpty }}" hint-placeholder-val="{{ false }}">
+            <div style="background:#fff; border:1px dashed var(--neutral-200); border-radius:12px; padding:40px; text-align:center;">
+              <p style="margin:0 0 6px; font-family:var(--font-heading); font-size:16px; font-weight:600;">Nenhum arquivo encontrado</p>
+              <p style="margin:0 0 16px; font-size:13px; color:var(--neutral-600);">Limpe a busca para voltar a navegar por produto.</p>
+              <x-import component-from-global-scope="NiemeyerMoradaAiDesignSystem_316818.Button" variant="outline" size="sm" onClick="{{ clearMat }}" hint-size="auto,32px">Limpar busca</x-import>
+            </div>
+          </sc-if>
+        </section>
+      </sc-if>
+
+      <sc-if value="{{ isAdminView }}" hint-placeholder-val="{{ false }}">
+        <section style="display:flex; flex-direction:column; gap:20px;">
+          <div>
+            <h1 style="margin:0 0 6px; font-family:var(--font-heading); font-size:28px; font-weight:600; letter-spacing:-.025em;">Gerenciar conteúdo</h1>
+            <p style="margin:0; font-size:14px; color:var(--neutral-600);">Suba um material para a pasta de uma feature ou publique uma aula em uma trilha. Só o time de enablement vê esta área.</p>
+          </div>
+
+          <div style="display:grid; grid-template-columns:minmax(0,1.5fr) minmax(0,1fr); gap:20px; align-items:start;">
+            <div style="background:#fff; border:1px solid var(--neutral-200); border-radius:12px; box-shadow:var(--shadow-xs); padding:24px; display:flex; flex-direction:column; gap:20px;">
+              <div style="display:flex; flex-direction:column; gap:8px;">
+                <p style="margin:0; font-size:13px; font-weight:700;">O que você está subindo?</p>
+                <div style="display:flex; gap:8px;">
+                  <sc-for list="{{ upKinds }}" as="k" hint-placeholder-count="2">
+                    <sc-if value="{{ k.on }}" hint-placeholder-val="{{ false }}"><button type="button" onClick="{{ k.set }}" style="height:32px; padding:0 14px; border-radius:9999px; border:1px solid var(--primary); background:var(--primary); color:#fff; font-size:13px; font-weight:700; cursor:pointer;">{{ k.label }}</button></sc-if>
+                    <sc-if value="{{ k.off }}" hint-placeholder-val="{{ true }}"><button type="button" onClick="{{ k.set }}" style="height:32px; padding:0 14px; border-radius:9999px; border:1px solid var(--neutral-200); background:#fff; color:var(--neutral-700); font-size:13px; font-weight:400; cursor:pointer;" style-hover="border-color:var(--neutral-300); background:var(--neutral-50);">{{ k.label }}</button></sc-if>
+                  </sc-for>
+                </div>
+              </div>
+
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+                <label style="display:flex; flex-direction:column; gap:6px;">
+                  <span style="font-size:13px; font-weight:700;">Produto</span>
+                  <select value="{{ upProd }}" onChange="{{ onUpProd }}" style="height:40px; border:1px solid var(--neutral-200); border-radius:8px; padding:0 10px; font-family:var(--font-body); font-size:14px; background:#fff; color:var(--neutral-900);">
+                    <sc-for list="{{ upProdOptions }}" as="o" hint-placeholder-count="3">
+                      <option value="{{ o.value }}">{{ o.label }}</option>
+                    </sc-for>
+                  </select>
+                </label>
+                <label style="display:flex; flex-direction:column; gap:6px;">
+                  <span style="font-size:13px; font-weight:700;">{{ upTargetLabel }}</span>
+                  <select value="{{ upTarget }}" onChange="{{ onUpTarget }}" style="height:40px; border:1px solid var(--neutral-200); border-radius:8px; padding:0 10px; font-family:var(--font-body); font-size:14px; background:#fff; color:var(--neutral-900);">
+                    <sc-for list="{{ upTargetOptions }}" as="o" hint-placeholder-count="4">
+                      <option value="{{ o.value }}">{{ o.label }}</option>
+                    </sc-for>
+                  </select>
+                </label>
+              </div>
+
+              <label style="display:flex; flex-direction:column; gap:6px;">
+                <span style="font-size:13px; font-weight:700;">Título</span>
+                <input type="text" placeholder="Ex: Release de agosto — peso por corretor" value="{{ upTitle }}" onChange="{{ onUpTitle }}" style="height:40px; border:1px solid var(--neutral-200); border-radius:8px; padding:0 12px; font-family:var(--font-body); font-size:14px; color:var(--neutral-900); outline:none;">
+              </label>
+
+              <label style="display:flex; flex-direction:column; gap:6px;">
+                <span style="font-size:13px; font-weight:700;">Descrição</span>
+                <textarea placeholder="Uma linha sobre o que é e quando usar." value="{{ upDesc }}" onChange="{{ onUpDesc }}" style="min-height:72px; resize:vertical; box-sizing:border-box; border:1px solid var(--neutral-200); border-radius:8px; padding:10px 12px; font-family:var(--font-body); font-size:14px; color:var(--neutral-900); outline:none;"></textarea>
+              </label>
+
+              <div style="display:flex; flex-direction:column; gap:8px;">
+                <span style="font-size:13px; font-weight:700;">Arquivo</span>
+                <div style="border:1px dashed var(--neutral-300); border-radius:12px; background:var(--neutral-50); padding:24px; display:flex; flex-direction:column; align-items:center; gap:8px; text-align:center; cursor:pointer;" style-hover="border-color:var(--primary); background:rgba(0,115,255,.04);">
+                  <span style="width:40px; height:40px; border-radius:9999px; background:rgba(0,115,255,.1); color:var(--primary); display:flex; align-items:center; justify-content:center;">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 17V5m-5 5l5-5l5 5M5 19h14"></path></svg>
+                  </span>
+                  <p style="margin:0; font-size:14px; font-weight:700;">Arraste o arquivo ou clique para escolher</p>
+                  <p style="margin:0; font-size:12px; color:var(--neutral-500);">PPTX, PDF, DOCX, XLSX ou MP4 · até 200 MB</p>
+                </div>
+                <div style="display:flex; align-items:center; gap:10px;">
+                  <span style="flex:1; height:1px; background:var(--neutral-150);"></span>
+                  <span style="font-size:12px; color:var(--neutral-400);">ou</span>
+                  <span style="flex:1; height:1px; background:var(--neutral-150);"></span>
+                </div>
+                <input type="text" placeholder="Cole um link do Drive, Notion, YouTube ou Loom" value="{{ upLink }}" onChange="{{ onUpLink }}" style="height:40px; border:1px solid var(--neutral-200); border-radius:8px; padding:0 12px; font-family:var(--font-body); font-size:14px; color:var(--neutral-900); outline:none;">
+              </div>
+
+              <div style="display:flex; flex-direction:column; gap:10px; border-top:1px solid var(--neutral-100); padding-top:16px;">
+                <sc-for list="{{ upToggles }}" as="t" hint-placeholder-count="3">
+                  <div onClick="{{ t.toggle }}" style="display:flex; align-items:center; gap:12px; cursor:pointer;">
+                    <sc-if value="{{ t.on }}" hint-placeholder-val="{{ true }}"><span style="flex:0 0 40px; width:40px; height:24px; border-radius:9999px; background:var(--primary); display:flex; align-items:center; justify-content:flex-end; padding:0 3px; box-sizing:border-box;"><span style="width:18px; height:18px; border-radius:9999px; background:#fff;"></span></span></sc-if>
+                    <sc-if value="{{ t.off }}" hint-placeholder-val="{{ false }}"><span style="flex:0 0 40px; width:40px; height:24px; border-radius:9999px; background:var(--neutral-200); display:flex; align-items:center; justify-content:flex-start; padding:0 3px; box-sizing:border-box;"><span style="width:18px; height:18px; border-radius:9999px; background:#fff;"></span></span></sc-if>
+                    <div>
+                      <p style="margin:0; font-size:13px; font-weight:700;">{{ t.label }}</p>
+                      <p style="margin:0; font-size:12px; color:var(--neutral-500);">{{ t.hint }}</p>
+                    </div>
+                  </div>
+                </sc-for>
+              </div>
+
+              <div style="display:flex; gap:8px; justify-content:flex-end; border-top:1px solid var(--neutral-100); padding-top:16px;">
+                <x-import component-from-global-scope="NiemeyerMoradaAiDesignSystem_316818.Button" variant="ghost" onClick="{{ saveDraft }}" hint-size="auto,40px">Salvar rascunho</x-import>
+                <x-import component-from-global-scope="NiemeyerMoradaAiDesignSystem_316818.Button" onClick="{{ publish }}" hint-size="auto,40px">Publicar no hub</x-import>
+              </div>
+            </div>
+
+            <div style="display:flex; flex-direction:column; gap:16px;">
+              <div style="background:#fff; border:1px solid var(--neutral-200); border-radius:12px; box-shadow:var(--shadow-xs); padding:20px; display:flex; flex-direction:column; gap:12px;">
+                <p style="margin:0; font-family:var(--font-heading); font-size:16px; font-weight:600;">Publicados recentemente</p>
+                <sc-for list="{{ upRecent }}" as="r" hint-placeholder-count="4">
+                  <div style="display:flex; align-items:center; gap:12px; border:1px solid var(--neutral-150); background:var(--neutral-50); border-radius:8px; padding:10px 12px;">
+                    <div style="min-width:0; flex:1;">
+                      <p style="margin:0; font-size:13px; font-weight:700; line-height:1.3;">{{ r.title }}</p>
+                      <p style="margin:0; font-size:12px; color:var(--neutral-500);">{{ r.meta }}</p>
+                    </div>
+                    <x-import component-from-global-scope="NiemeyerMoradaAiDesignSystem_316818.Badge" tone="{{ r.tone }}" shape="chip" hint-size="auto,22px">{{ r.status }}</x-import>
+                  </div>
+                </sc-for>
+              </div>
+
+              <div style="background:#fff; border:1px solid var(--neutral-200); border-radius:12px; box-shadow:var(--shadow-xs); padding:20px; display:flex; flex-direction:column; gap:12px;">
+                <p style="margin:0; font-family:var(--font-heading); font-size:16px; font-weight:600;">Feedback das aulas</p>
+                <sc-for list="{{ feedbackFeed }}" as="f" hint-placeholder-count="3">
+                  <div style="display:flex; flex-direction:column; gap:4px; border-bottom:1px solid var(--neutral-100); padding-bottom:10px;">
+                    <div style="display:flex; align-items:center; gap:8px;">
+                      <span style="font-size:13px; font-weight:700; color:var(--primary);">{{ f.stars }}</span>
+                      <span style="font-size:12px; color:var(--neutral-500);">{{ f.lesson }}</span>
+                    </div>
+                    <p style="margin:0; font-size:13px; color:var(--neutral-700); line-height:1.45;">{{ f.text }}</p>
+                    <p style="margin:0; font-size:11px; color:var(--neutral-400);">{{ f.meta }}</p>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </div>
+        </section>
+      </sc-if>
+
+      <sc-if value="{{ isProgresso }}" hint-placeholder-val="{{ false }}">
+        <section style="display:flex; flex-direction:column; gap:20px;">
+          <div>
+            <h1 style="margin:0 0 6px; font-family:var(--font-heading); font-size:28px; font-weight:600; letter-spacing:-.025em;">Meu progresso</h1>
+            <p style="margin:0; font-size:14px; color:var(--neutral-600);">Ofensiva de {{ streak }} dias · {{ doneCount }} de {{ totalLessons }} aulas concluídas</p>
+          </div>
+
+          <div style="display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:16px;">
+            <x-import component-from-global-scope="NiemeyerMoradaAiDesignSystem_316818.KpiCard" label="Aulas concluídas" value="{{ doneCount }}" delta-value="{{ weekDelta }}" delta-label="nesta semana" subtitle="{{ pendingLabel }}" tone="primary" icon="{{ icoCheck }}" hint-size="100%,132px"></x-import>
+            <x-import component-from-global-scope="NiemeyerMoradaAiDesignSystem_316818.KpiCard" label="Trilhas concluídas" value="{{ certCount }}" delta-value="{{ inProgressCount }}" delta-label="em andamento" subtitle="De {{ totalTrilhas }} trilhas publicadas" tone="success" icon="{{ icoAward }}" hint-size="100%,132px"></x-import>
+            <x-import component-from-global-scope="NiemeyerMoradaAiDesignSystem_316818.KpiCard" label="Ofensiva atual" value="{{ streakLabel }}" delta-value="+1" delta-label="hoje" subtitle="Melhor sequência: 11 dias" tone="warning" icon="{{ icoFlame }}" hint-size="100%,132px"></x-import>
+            <x-import component-from-global-scope="NiemeyerMoradaAiDesignSystem_316818.KpiCard" label="Tempo de estudo" value="{{ hoursLabel }}" delta-value="{{ hoursDelta }}" delta-label="nesta semana" subtitle="Média do time: 3h 05" tone="info" icon="{{ icoClock }}" hint-size="100%,132px"></x-import>
+          </div>
+
+          <div style="display:grid; grid-template-columns:minmax(0,1.4fr) minmax(0,1fr); gap:20px; align-items:start;">
+            <div style="background:#fff; border:1px solid var(--neutral-200); border-radius:12px; box-shadow:var(--shadow-xs); padding:20px; display:flex; flex-direction:column; gap:18px;">
+              <p style="margin:0; font-family:var(--font-heading); font-size:16px; font-weight:600;">Progresso por módulo</p>
+              <sc-for list="{{ moduleProgress }}" as="m" hint-placeholder-count="3">
+                <div style="display:flex; flex-direction:column; gap:8px;">
+                  <div style="display:flex; align-items:center; gap:10px;">
+                    <span style="width:8px; height:8px; border-radius:9999px; background:{{ m.accent }};"></span>
+                    <span style="font-size:14px; font-weight:700;">{{ m.name }}</span>
+                    <span style="margin-left:auto; font-size:12px; color:var(--neutral-500);">{{ m.countLabel }}</span>
+                    <span style="font-size:13px; font-weight:700; color:var(--neutral-700); width:44px; text-align:right;">{{ m.pctLabel }}</span>
+                  </div>
+                  <div style="height:8px; border-radius:9999px; background:var(--neutral-150); overflow:hidden;">
+                    <div style="height:100%; border-radius:9999px; background:{{ m.accent }}; width:{{ m.pct }}%;"></div>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+
+            <div style="display:flex; flex-direction:column; gap:16px;">
+              <div style="background:#fff; border:1px solid var(--neutral-200); border-radius:12px; box-shadow:var(--shadow-xs); padding:20px; display:flex; flex-direction:column; gap:14px;">
+                <p style="margin:0; font-family:var(--font-heading); font-size:16px; font-weight:600;">Certificados</p>
+                <sc-for list="{{ certificados }}" as="c" hint-placeholder-count="1">
+                  <div style="display:flex; align-items:center; gap:12px; border:1px solid var(--neutral-150); background:var(--neutral-50); border-radius:8px; padding:12px 14px;">
+                    <span style="width:32px; height:32px; border-radius:9999px; background:rgba(0,115,255,.1); color:var(--primary); display:flex; align-items:center; justify-content:center;">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15a5 5 0 1 0 0-10a5 5 0 0 0 0 10zM8 14l-2 7l6-3l6 3l-2-7"></path></svg>
+                    </span>
+                    <div style="min-width:0; flex:1;">
+                      <p style="margin:0; font-size:13px; font-weight:700; line-height:1.3;">{{ c.title }}</p>
+                      <p style="margin:0; font-size:12px; color:var(--neutral-500);">{{ c.meta }}</p>
+                    </div>
+                  </div>
+                </sc-for>
+                <sc-if value="{{ noCerts }}" hint-placeholder-val="{{ false }}">
+                  <p style="margin:0; font-size:13px; color:var(--neutral-600); line-height:1.5;">Conclua uma trilha inteira para liberar seu primeiro certificado.</p>
+                </sc-if>
+              </div>
+
+              <div style="background:#fff; border:1px solid var(--neutral-200); border-radius:12px; box-shadow:var(--shadow-xs); padding:20px; display:flex; flex-direction:column; gap:12px;">
+                <p style="margin:0; font-family:var(--font-heading); font-size:16px; font-weight:600;">Ofensiva da semana</p>
+                <div style="display:flex; gap:6px;">
+                  <sc-for list="{{ streakDays }}" as="d" hint-placeholder-count="7">
+                    <sc-if value="{{ d.on }}" hint-placeholder-val="{{ true }}"><span style="flex:1; height:40px; border-radius:8px; background:var(--primary); color:#fff; font-size:12px; font-weight:700; display:flex; align-items:center; justify-content:center;">{{ d.label }}</span></sc-if>
+                    <sc-if value="{{ d.off }}" hint-placeholder-val="{{ false }}"><span style="flex:1; height:40px; border-radius:8px; background:var(--neutral-100); color:var(--neutral-400); font-size:12px; font-weight:700; display:flex; align-items:center; justify-content:center;">{{ d.label }}</span></sc-if>
+                  </sc-for>
+                </div>
+                <p style="margin:0; font-size:13px; color:var(--neutral-600); line-height:1.5;">Você está a 1 aula de fechar a semana completa.</p>
+                <x-import component-from-global-scope="NiemeyerMoradaAiDesignSystem_316818.Button" variant="outline" size="sm" onClick="{{ resumeNext }}" hint-size="auto,32px">Fazer a aula de hoje</x-import>
+              </div>
+            </div>
+          </div>
+        </section>
+      </sc-if>
+
+    </div>
+  </main>
+</div>
+</sc-if>
+
+<sc-if value="{{ modalOpen }}" hint-placeholder-val="{{ false }}">
+  <div style="position:fixed; inset:0; z-index:40; background:rgba(15,30,80,.35); display:flex; align-items:center; justify-content:center; padding:24px;">
+    <div style="width:100%; max-width:480px; background:#fff; border-radius:16px; box-shadow:0 20px 25px -5px rgba(0,0,0,.1),0 8px 10px -6px rgba(0,0,0,.1); padding:24px; display:flex; flex-direction:column; gap:18px; font-family:var(--font-body);">
+      <div>
+        <p style="margin:0 0 6px; font-family:var(--font-heading); font-size:12px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:var(--primary);">Aula concluída</p>
+        <p style="margin:0 0 4px; font-family:var(--font-heading); font-size:18px; font-weight:600; line-height:1.3;">{{ modalTitle }}</p>
+        <p style="margin:0; font-size:13px; color:var(--neutral-600);">{{ modalTrilha }}</p>
+      </div>
+
+      <div style="display:flex; flex-direction:column; gap:8px;">
+        <p style="margin:0; font-size:14px; font-weight:700;">Essa aula te ajudou?</p>
+        <div style="display:flex; gap:6px;">
+          <sc-for list="{{ modalStars }}" as="s" hint-placeholder-count="5">
+            <sc-if value="{{ s.on }}" hint-placeholder-val="{{ false }}"><button type="button" onClick="{{ s.set }}" style="width:40px; height:40px; border:0; background:transparent; cursor:pointer; padding:0; color:var(--primary);"><svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3l2.7 5.6l6.1.9l-4.4 4.3l1 6.1L12 17l-5.4 2.9l1-6.1L3.2 9.5l6.1-.9z"></path></svg></button></sc-if>
+            <sc-if value="{{ s.off }}" hint-placeholder-val="{{ true }}"><button type="button" onClick="{{ s.set }}" style="width:40px; height:40px; border:0; background:transparent; cursor:pointer; padding:0; color:var(--neutral-300);" style-hover="color:var(--neutral-400);"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.7 5.6l6.1.9l-4.4 4.3l1 6.1L12 17l-5.4 2.9l1-6.1L3.2 9.5l6.1-.9z"></path></svg></button></sc-if>
+          </sc-for>
+        </div>
+      </div>
+
+      <div style="display:flex; flex-direction:column; gap:8px;">
+        <p style="margin:0; font-size:14px; font-weight:700;">O que descreve melhor?</p>
+        <div style="display:flex; flex-wrap:wrap; gap:8px;">
+          <sc-for list="{{ modalTags }}" as="t" hint-placeholder-count="5">
+            <sc-if value="{{ t.on }}" hint-placeholder-val="{{ false }}"><button type="button" onClick="{{ t.toggle }}" style="height:32px; padding:0 14px; border-radius:9999px; border:1px solid var(--primary); background:var(--primary); color:#fff; font-size:13px; font-weight:700; cursor:pointer;">{{ t.label }}</button></sc-if>
+            <sc-if value="{{ t.off }}" hint-placeholder-val="{{ true }}"><button type="button" onClick="{{ t.toggle }}" style="height:32px; padding:0 14px; border-radius:9999px; border:1px solid var(--neutral-200); background:#fff; color:var(--neutral-700); font-size:13px; font-weight:400; cursor:pointer;" style-hover="border-color:var(--neutral-300); background:var(--neutral-50);">{{ t.label }}</button></sc-if>
+          </sc-for>
+        </div>
+      </div>
+
+      <textarea placeholder="Quer detalhar? O que faltou, o que atualizar (opcional)" value="{{ modalText }}" onChange="{{ onModalText }}" style="width:100%; box-sizing:border-box; min-height:80px; resize:vertical; border:1px solid var(--neutral-200); border-radius:8px; padding:10px 12px; font-family:var(--font-body); font-size:14px; color:var(--neutral-900); outline:none;"></textarea>
+
+      <div style="display:flex; align-items:center; gap:10px;">
+        <p style="margin:0; font-size:12px; color:var(--neutral-500);">Só o time de enablement vê sua resposta.</p>
+        <div style="margin-left:auto; display:flex; gap:8px;">
+          <x-import component-from-global-scope="NiemeyerMoradaAiDesignSystem_316818.Button" variant="ghost" onClick="{{ skipFeedback }}" hint-size="auto,40px">Pular</x-import>
+          <x-import component-from-global-scope="NiemeyerMoradaAiDesignSystem_316818.Button" onClick="{{ sendFeedback }}" hint-size="auto,40px">Enviar avaliação</x-import>
+        </div>
+      </div>
+    </div>
+  </div>
+</sc-if>
+
+<sc-if value="{{ toastOpen }}" hint-placeholder-val="{{ false }}">
+  <div style="position:fixed; z-index:50; bottom:24px; left:50%; transform:translateX(-50%); display:flex; align-items:center; gap:10px; height:44px; padding:0 20px; border-radius:9999px; background:var(--neutral-900); color:#fff; box-shadow:0 10px 40px -12px rgba(15,30,80,.45); font-family:var(--font-body); font-size:14px; font-weight:600;">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5l10-10"></path></svg>
+    {{ toastText }}
+  </div>
+</sc-if>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:1000}}">
+const TYPES = {
+  video: { label: "Vídeo", tone: "primary" },
+  artigo: { label: "Artigo", tone: "info" },
+  deck: { label: "Slides", tone: "neutral" },
+  quiz: { label: "Quiz", tone: "warning" },
+  template: { label: "Template", tone: "success" },
+  link: { label: "Link externo", tone: "outline" }
+};
+
+const MODULES = {
+  vendas: { name: "Morada Vendas", accent: "#0073ff" },
+  relacionamento: { name: "Morada Relacionamento", accent: "#02cfff" },
+  transversal: { name: "Transversal", accent: "#f7b87d" }
+};
+
+const TRILHAS = [
+  { id: "v1", mod: "vendas", title: "Fundamentos do Morada Vendas", level: "Essencial", updated: "há 3 dias",
+    desc: "O caminho completo do lead até o negócio fechado dentro do módulo Vendas.",
+    audience: "SDRs e closers nos primeiros 30 dias, e quem faz demo do módulo.",
+    owner: "Rafael Lima", ownerRole: "Enablement · Vendas",
+    lessons: [
+      { t: "Visão geral do módulo Vendas", type: "video", dur: 6, src: "Gravação interna" },
+      { t: "Como o lead entra na Morada", type: "artigo", dur: 4, src: "Base de conhecimento" },
+      { t: "Anatomia do card de negócio", type: "video", dur: 8, src: "Gravação interna" },
+      { t: "Etapas do pipeline padrão", type: "deck", dur: 5, src: "Deck de produto" },
+      { t: "Quiz: fundamentos de Vendas", type: "quiz", dur: 3, src: "8 perguntas" }
+    ] },
+  { id: "v2", mod: "vendas", title: "Filas e distribuição de leads", level: "Intermediário", updated: "há 1 semana",
+    desc: "Round-robin, pesos por corretor e o que fazer quando a fila estoura no fim do dia.",
+    audience: "Gestores de vendas e quem configura filas para o cliente.",
+    owner: "Rafael Lima", ownerRole: "Enablement · Vendas",
+    lessons: [
+      { t: "Como funciona o round-robin", type: "video", dur: 7, src: "Gravação interna" },
+      { t: "Configurando pesos por corretor", type: "artigo", dur: 6, src: "Base de conhecimento" },
+      { t: "Playbook: fila cheia no fim do dia", type: "template", dur: 4, src: "Drive" },
+      { t: "Quiz: filas", type: "quiz", dur: 3, src: "6 perguntas" }
+    ] },
+  { id: "v3", mod: "vendas", title: "MIA na qualificação", level: "Intermediário", updated: "há 2 dias",
+    desc: "O que a MIA pergunta, como ajustar o roteiro e o momento certo de assumir a conversa.",
+    audience: "SDRs, closers e times de pré-venda.",
+    owner: "Suzane Alves", ownerRole: "Enablement · Produto",
+    lessons: [
+      { t: "O que a MIA pergunta e por quê", type: "video", dur: 9, src: "Gravação interna" },
+      { t: "Ajustando o roteiro de qualificação", type: "artigo", dur: 7, src: "Base de conhecimento" },
+      { t: "Quando assumir a conversa", type: "video", dur: 5, src: "Gravação interna" },
+      { t: "Script: transição MIA → corretor", type: "template", dur: 3, src: "Drive" }
+    ] },
+  { id: "v4", mod: "vendas", title: "Pitch e objeções", level: "Avançado", updated: "há 2 dias",
+    desc: "Pitch de 3 minutos, as objeções mais comuns e uma simulação gravada para treinar.",
+    audience: "Closers e gerentes comerciais.",
+    owner: "Camila Rocha", ownerRole: "Head de Vendas",
+    lessons: [
+      { t: "Pitch de 3 minutos", type: "video", dur: 4, src: "Gravação interna" },
+      { t: "As 8 objeções mais comuns", type: "deck", dur: 10, src: "Deck comercial" },
+      { t: "Simulação gravada: objeção de preço", type: "video", dur: 12, src: "Gravação interna" },
+      { t: "Quiz: objeções", type: "quiz", dur: 4, src: "10 perguntas" }
+    ] },
+  { id: "r1", mod: "relacionamento", title: "Fundamentos do Morada Relacionamento", level: "Essencial", updated: "há 5 dias",
+    desc: "Atendimento, conversa e supervisão no Talk — a base para quem cuida do cliente.",
+    audience: "CS, suporte e implantação nos primeiros 30 dias.",
+    owner: "Bruno Teixeira", ownerRole: "Enablement · CS",
+    lessons: [
+      { t: "Visão geral do módulo Relacionamento", type: "video", dur: 6, src: "Gravação interna" },
+      { t: "Atendimento x conversa: o que muda", type: "artigo", dur: 5, src: "Base de conhecimento" },
+      { t: "Supervisão de atendimentos no Talk", type: "video", dur: 8, src: "Gravação interna" },
+      { t: "Indicadores que o CS acompanha", type: "deck", dur: 6, src: "Deck de produto" },
+      { t: "Quiz: fundamentos de Relacionamento", type: "quiz", dur: 3, src: "8 perguntas" }
+    ] },
+  { id: "r2", mod: "relacionamento", title: "Campanhas e reengajamento", level: "Intermediário", updated: "há 4 dias",
+    desc: "Como montar uma campanha de reativação sem esbarrar nos limites do WhatsApp.",
+    audience: "CS, marketing e quem opera campanhas do cliente.",
+    owner: "Bruno Teixeira", ownerRole: "Enablement · CS",
+    lessons: [
+      { t: "Montando uma campanha de reativação", type: "video", dur: 10, src: "Gravação interna" },
+      { t: "Boas práticas de janela de 24h", type: "artigo", dur: 5, src: "Base de conhecimento" },
+      { t: "Template: régua de reengajamento", type: "template", dur: 4, src: "Drive" },
+      { t: "Limites de envio do WhatsApp", type: "link", dur: 3, src: "Central de ajuda" }
+    ] },
+  { id: "r3", mod: "relacionamento", title: "Pós-venda e retenção", level: "Avançado", updated: "há 2 semanas",
+    desc: "Do handoff de vendas para o CS até a leitura dos sinais de risco de churn.",
+    audience: "CS, suporte e lideranças de conta.",
+    owner: "Marina Duarte", ownerRole: "Head de CS",
+    lessons: [
+      { t: "Handoff de vendas para CS", type: "video", dur: 7, src: "Gravação interna" },
+      { t: "Sinais de risco de churn", type: "artigo", dur: 6, src: "Base de conhecimento" },
+      { t: "Reunião de resultado: roteiro", type: "template", dur: 5, src: "Drive" },
+      { t: "Quiz: retenção", type: "quiz", dur: 3, src: "6 perguntas" }
+    ] },
+  { id: "t1", mod: "transversal", title: "Onboarding Morada: primeira semana", level: "Essencial", updated: "há 2 semanas",
+    desc: "Quem é a Morada, o que vendemos e como andar pela plataforma sem se perder.",
+    audience: "Todo mundo que entra na empresa, em qualquer time.",
+    owner: "Suzane Alves", ownerRole: "Enablement · Produto",
+    lessons: [
+      { t: "Quem é a Morada e o que vendemos", type: "video", dur: 8, src: "Gravação interna" },
+      { t: "Glossário do produto", type: "artigo", dur: 6, src: "Base de conhecimento" },
+      { t: "Tour pela plataforma", type: "video", dur: 14, src: "Gravação interna" },
+      { t: "Rotinas do seu time", type: "deck", dur: 5, src: "Deck interno" },
+      { t: "Checklist da primeira semana", type: "link", dur: 2, src: "Notion" }
+    ] }
+];
+
+const NOVIDADES = [
+  { trilha: "v4", lesson: 3, meta: "Morada Vendas · publicado há 2 dias por Camila Rocha", isNew: true },
+  { trilha: "v3", lesson: 2, meta: "Morada Vendas · publicado há 2 dias por Suzane Alves", isNew: true },
+  { trilha: "r2", lesson: 3, meta: "Morada Relacionamento · publicado há 4 dias por Bruno Teixeira", isNew: true },
+  { trilha: "r1", lesson: 4, meta: "Morada Relacionamento · atualizado há 5 dias", isNew: false },
+  { trilha: "v2", lesson: 4, meta: "Morada Vendas · atualizado há 1 semana", isNew: false }
+];
+
+const PRODUTOS_MAT = [
+  { id: "vendas", name: "Morada Vendas", accent: "#0073ff", tint: "rgba(0,115,255,.1)",
+    desc: "Materiais de pipeline, filas, MIA na qualificação e tudo que vai para a mesa do cliente.",
+    features: [
+      { id: "filas", name: "Filas e distribuição", desc: "Round-robin, pesos por corretor e regras de repasse.", updated: "atualizado há 2 dias", files: [
+        { title: "Release de agosto: peso por corretor", ext: "PPTX", format: "Apresentação", updated: "há 2 dias", isNew: true, desc: "12 slides com o que muda na configuração e o roteiro de comunicação." },
+        { title: "One-pager de filas", ext: "PDF", format: "PDF", updated: "há 1 semana", isNew: false, desc: "Uma página para enviar depois da reunião de configuração." },
+        { title: "Simulador de distribuição", ext: "XLSX", format: "Planilha", updated: "há 3 semanas", isNew: false, desc: "Planilha para estimar volume por corretor antes de ativar a fila." }
+      ] },
+      { id: "negocios", name: "Negócios e pipeline", desc: "Etapas, cards de negócio e leitura de funil.", updated: "atualizado há 5 dias", files: [
+        { title: "Deck comercial — pipeline", ext: "PPTX", format: "Apresentação", updated: "há 5 dias", isNew: true, desc: "18 slides, versão para incorporadoras." },
+        { title: "One-pager Morada Vendas", ext: "PDF", format: "PDF", updated: "há 1 semana", isNew: false, desc: "Resumo do módulo para envio pós-primeira conversa." },
+        { title: "Roteiro de demo tela por tela", ext: "PDF", format: "PDF", updated: "há 2 semanas", isNew: false, desc: "O que falar em cada tela e o que não abrir na demo." }
+      ] },
+      { id: "mia", name: "MIA na qualificação", desc: "Roteiro da MIA, transição para o corretor e objeções sobre IA.", updated: "atualizado há 2 dias", files: [
+        { title: "Release: MIA com resumo de conversa", ext: "PPTX", format: "Apresentação", updated: "há 2 dias", isNew: true, desc: "Novidade da última release, com prints e antes/depois." },
+        { title: "Script: transição MIA → corretor", ext: "DOCX", format: "Documento", updated: "há 6 dias", isNew: false, desc: "Mensagens prontas para assumir a conversa sem atrito." },
+        { title: "FAQ de objeções sobre IA", ext: "PDF", format: "PDF", updated: "há 3 semanas", isNew: false, desc: "As 8 perguntas mais comuns e as respostas aprovadas." }
+      ] },
+      { id: "propostas", name: "Pitch e propostas", desc: "Pitch institucional, planos e modelo de proposta.", updated: "atualizado há 3 dias", files: [
+        { title: "Deck institucional 2026", ext: "PPTX", format: "Apresentação", updated: "há 5 dias", isNew: true, desc: "Apresentação padrão de primeira reunião." },
+        { title: "Tabela de planos e limites", ext: "XLSX", format: "Planilha", updated: "há 3 dias", isNew: true, desc: "Planos vigentes, limites de uso e regras de desconto." },
+        { title: "Modelo de proposta comercial", ext: "DOCX", format: "Documento", updated: "há 1 semana", isNew: false, desc: "Escopo, prazo de implantação e condições." }
+      ] }
+    ] },
+  { id: "relacionamento", name: "Morada Relacionamento", accent: "#02cfff", tint: "rgba(2,207,255,.14)",
+    desc: "Materiais de atendimento no Talk, campanhas, reengajamento e retenção.",
+    features: [
+      { id: "talk", name: "Talk e atendimento", desc: "Inbox, supervisão e qualidade de atendimento.", updated: "atualizado há 2 dias", files: [
+        { title: "Release: resumo automático do atendimento", ext: "PPTX", format: "Apresentação", updated: "há 2 dias", isNew: true, desc: "O que muda para o supervisor, com prints da tela nova." },
+        { title: "One-pager Morada Relacionamento", ext: "PDF", format: "PDF", updated: "há 1 semana", isNew: false, desc: "Uma página com foco em atendimento e supervisão." },
+        { title: "Guia de supervisão de filas", ext: "PDF", format: "PDF", updated: "há 2 semanas", isNew: false, desc: "Rotina diária sugerida para o supervisor do Talk." }
+      ] },
+      { id: "campanhas", name: "Campanhas e reengajamento", desc: "Réguas, janelas de envio e reativação de base.", updated: "atualizado há 4 dias", files: [
+        { title: "Régua de reengajamento", ext: "LINK", format: "Drive", updated: "há 4 dias", isNew: true, desc: "Cadência, mensagens e critérios de saída da régua." },
+        { title: "Deck de campanhas para o cliente", ext: "PPTX", format: "Apresentação", updated: "há 2 semanas", isNew: false, desc: "Como apresentar o módulo de campanhas em reunião." },
+        { title: "Limites de envio do WhatsApp", ext: "LINK", format: "Notion", updated: "há 1 mês", isNew: false, desc: "O que pode e o que não pode dentro da janela de 24h." }
+      ] },
+      { id: "retencao", name: "Retenção e pós-venda", desc: "Handoff, reunião de resultado e risco de churn.", updated: "atualizado há 1 semana", files: [
+        { title: "Roteiro de reunião de resultado", ext: "DOCX", format: "Documento", updated: "há 1 semana", isNew: false, desc: "Pauta de 30 minutos com os indicadores que o cliente espera." },
+        { title: "Playbook de risco de churn", ext: "PDF", format: "PDF", updated: "há 3 semanas", isNew: false, desc: "Sinais, prazos de ação e quem acionar em cada caso." },
+        { title: "Cases e números por segmento", ext: "LINK", format: "Notion", updated: "há 4 dias", isNew: true, desc: "Resultados aprovados para citar, com cliente e período." }
+      ] }
+    ] },
+  { id: "institucional", name: "Institucional", accent: "#f7b87d", tint: "rgba(247,184,125,.22)",
+    desc: "Marca, apresentação da empresa e comunicação de roadmap e releases.",
+    features: [
+      { id: "marca", name: "Marca e apresentação", desc: "Logo, deck institucional e apresentação da empresa.", updated: "atualizado há 2 semanas", files: [
+        { title: "Kit de marca Morada", ext: "LINK", format: "Drive", updated: "há 2 semanas", isNew: false, desc: "Logos, cores e regras de uso da marca." },
+        { title: "Apresentação da empresa", ext: "PDF", format: "PDF", updated: "há 3 semanas", isNew: false, desc: "Quem somos, números e clientes — versão para cliente." }
+      ] },
+      { id: "roadmap", name: "Roadmap e releases", desc: "O que vem por aí e o histórico do que já subiu.", updated: "atualizado há 2 dias", files: [
+        { title: "Release notes de agosto", ext: "PPTX", format: "Apresentação", updated: "há 2 dias", isNew: true, desc: "Consolidado das novidades do mês nos dois produtos." },
+        { title: "Roadmap trimestral — visão cliente", ext: "PDF", format: "PDF", updated: "há 1 semana", isNew: false, desc: "Versão aprovada para reunião de resultado, sem datas firmes." },
+        { title: "Calendário de releases", ext: "LINK", format: "Notion", updated: "há 1 semana", isNew: false, desc: "Datas previstas e responsáveis por comunicar cada release." }
+      ] }
+    ] }
+];
+
+const SEED = ["v1-1", "v1-2", "v1-3", "r1-1", "r1-2", "t1-1", "t1-2", "t1-3", "t1-4", "t1-5"];
+const STORE = "morada-hub-enablement-v1";
+const ico = (paths) => React.createElement("svg", { width: 18, height: 18, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: 2, strokeLinecap: "round", strokeLinejoin: "round" }, paths.map((d, i) => React.createElement("path", { key: i, d })));
+
+class Component extends DCLogic {
+  state = {
+    signedIn: false, view: "home", curId: "v1", mod: "todos", status: "todos", matPath: [], q: "", done: SEED.slice(),
+    modal: null, mRating: 0, mTags: [], mText: "", ratings: {}, toast: "",
+    upKind: "material", upProd: "vendas", upTarget: "filas", upTitle: "", upDesc: "", upLink: "",
+    upFlags: { novidade: true, avisar: true, obrigatorio: false }, published: []
+  };
+
+  toast(text) {
+    this.setState({ toast: text });
+    clearTimeout(this._t);
+    this._t = setTimeout(() => this.setState({ toast: "" }), 2800);
+  }
+
+  seedRating(id) {
+    let h = 0;
+    for (let i = 0; i < id.length; i++) h = (h * 31 + id.charCodeAt(i)) % 997;
+    return { avg: (4.1 + (h % 9) / 10).toFixed(1).replace(".", ","), n: 6 + (h % 27) };
+  }
+
+  componentDidMount() {
+    try {
+      const raw = localStorage.getItem(STORE);
+      if (raw) {
+        const saved = JSON.parse(raw);
+        if (Array.isArray(saved.done)) this.setState({ done: saved.done });
+      }
+    } catch (e) { /* primeira visita */ }
+  }
+
+  persist(done) {
+    this.setState({ done });
+    try { localStorage.setItem(STORE, JSON.stringify({ done })); } catch (e) { /* ignore */ }
+  }
+
+  isDone(id) { return this.state.done.indexOf(id) !== -1; }
+
+  toggle(id, title, trilhaTitle) {
+    const done = this.state.done.slice();
+    const i = done.indexOf(id);
+    const marking = i === -1;
+    if (marking) done.push(id); else done.splice(i, 1);
+    this.persist(done);
+    if (marking && !this.state.ratings[id]) {
+      this.setState({ modal: { id, title, trilha: trilhaTitle }, mRating: 0, mTags: [], mText: "" });
+    }
+  }
+
+  stats(t) {
+    const total = t.lessons.length;
+    const done = t.lessons.filter((_, i) => this.isDone(t.id + "-" + (i + 1))).length;
+    const pct = Math.round((done / total) * 100);
+    const dur = t.lessons.reduce((a, l) => a + l.dur, 0);
+    return { total, done, pct, dur };
+  }
+
+  decorate(t) {
+    const s = this.stats(t);
+    const m = MODULES[t.mod];
+    const status = s.pct === 100 ? "Concluída" : s.pct > 0 ? "Em andamento" : "Não iniciada";
+    return {
+      id: t.id, title: t.title, desc: t.desc, level: t.level, moduleName: m.name, accent: m.accent,
+      pct: s.pct, pctLabel: s.pct + "%", statusLabel: status,
+      statusTone: s.pct === 100 ? "success" : s.pct > 0 ? "primary" : "neutral",
+      countLabel: s.done + " de " + s.total + " aulas", durLabel: s.dur + " min",
+      open: () => this.setState({ view: "trilha", curId: t.id })
+    };
+  }
+
+  nextLesson(t) {
+    for (let i = 0; i < t.lessons.length; i++) {
+      if (!this.isDone(t.id + "-" + (i + 1))) return { i: i + 1, l: t.lessons[i] };
+    }
+    return null;
+  }
+
+  renderVals() {
+    const st = this.state;
+    const doneCount = st.done.length;
+    const totalLessons = TRILHAS.reduce((a, t) => a + t.lessons.length, 0);
+    const decorated = TRILHAS.map((t) => this.decorate(t));
+    const inProgress = decorated.filter((d) => d.pct > 0 && d.pct < 100);
+    const certs = decorated.filter((d) => d.pct === 100);
+    const minutesDone = TRILHAS.reduce((a, t) => a + t.lessons.reduce((b, l, i) => b + (this.isDone(t.id + "-" + (i + 1)) ? l.dur : 0), 0), 0);
+
+    const q = st.q.trim().toLowerCase();
+    const list = decorated.filter((d) => {
+      const t = TRILHAS.find((x) => x.id === d.id);
+      if (st.mod !== "todos" && t.mod !== st.mod) return false;
+      if (st.status === "andamento" && !(d.pct > 0 && d.pct < 100)) return false;
+      if (st.status === "concluidas" && d.pct !== 100) return false;
+      if (st.status === "nao" && d.pct !== 0) return false;
+      if (q) {
+        const hay = (d.title + " " + d.desc + " " + t.lessons.map((l) => l.t).join(" ")).toLowerCase();
+        if (hay.indexOf(q) === -1) return false;
+      }
+      return true;
+    });
+
+    const chip = (label, key, val, cur) => ({
+      label, active: cur === val, inactive: cur !== val,
+      onClick: () => this.setState(key === "mod" ? { mod: val, view: "trilhas" } : { status: val, view: "trilhas" })
+    });
+    const chips = [
+      chip("Todos os módulos", "mod", "todos", st.mod),
+      chip("Morada Vendas", "mod", "vendas", st.mod),
+      chip("Morada Relacionamento", "mod", "relacionamento", st.mod),
+      chip("Transversal", "mod", "transversal", st.mod),
+      chip("Em andamento", "status", "andamento", st.status),
+      chip("Concluídas", "status", "concluidas", st.status),
+      chip("Não iniciadas", "status", "nao", st.status)
+    ];
+
+    const cur = TRILHAS.find((t) => t.id === st.curId) || TRILHAS[0];
+    const curD = this.decorate(cur);
+    const curNext = this.nextLesson(cur);
+    const curLessons = cur.lessons.map((l, i) => {
+      const id = cur.id + "-" + (i + 1);
+      const done = this.isDone(id);
+      const mine = st.ratings[id];
+      const sr = this.seedRating(id);
+      return {
+        n: i + 1, title: l.t, durLabel: l.dur + " min", source: l.src,
+        typeLabel: TYPES[l.type].label, tone: TYPES[l.type].tone,
+        ratingLabel: mine ? "você deu " + mine.stars + " de 5" : sr.avg + " (" + sr.n + " avaliações)",
+        done, pending: !done, cta: done ? "Refazer" : "Marcar como vista",
+        toggle: () => this.toggle(id, l.t, cur.title)
+      };
+    });
+
+    const resumeTarget = inProgress[0] || decorated.find((d) => d.pct === 0) || decorated[0];
+
+    const novidades = NOVIDADES.map((n) => {
+      const t = TRILHAS.find((x) => x.id === n.trilha);
+      const l = t.lessons[n.lesson - 1];
+      return {
+        title: l.t, meta: n.meta, isNew: n.isNew, accent: MODULES[t.mod].accent,
+        typeLabel: TYPES[l.type].label, tone: TYPES[l.type].tone,
+        open: () => this.setState({ view: "trilha", curId: t.id })
+      };
+    });
+
+    const moduleProgress = Object.keys(MODULES).map((k) => {
+      const ts = TRILHAS.filter((t) => t.mod === k);
+      const total = ts.reduce((a, t) => a + t.lessons.length, 0);
+      const done = ts.reduce((a, t) => a + this.stats(t).done, 0);
+      const pct = Math.round((done / total) * 100);
+      return { name: MODULES[k].name, accent: MODULES[k].accent, pct, pctLabel: pct + "%", countLabel: done + "/" + total + " aulas" };
+    });
+
+    const dias = ["Seg", "Ter", "Qua", "Qui", "Sex", "Sáb", "Dom"];
+    const streak = 6;
+
+    const path = st.matPath || [];
+    const prod = PRODUTOS_MAT.find((p) => p.id === path[0]);
+    const feat = prod ? prod.features.find((f) => f.id === path[1]) : null;
+    const searching = q.length > 0;
+    const goPath = (p) => this.setState({ view: "materiais", matPath: p });
+    const plural = (n, s, p) => n + " " + (n === 1 ? s : p);
+
+    const allFiles = [];
+    PRODUTOS_MAT.forEach((p) => p.features.forEach((f) => f.files.forEach((file) => {
+      allFiles.push(Object.assign({}, file, { where: p.name + " · " + f.name, prodId: p.id, featId: f.id }));
+    })));
+
+    const matFiles = searching
+      ? allFiles.filter((f) => (f.title + " " + f.desc + " " + f.where).toLowerCase().indexOf(q) !== -1)
+      : (feat ? feat.files.map((file) => Object.assign({}, file, { where: prod.name + " · " + feat.name })) : []);
+
+    const fileCount = (p) => p.features.reduce((a, f) => a + f.files.length, 0);
+    const hasNewFiles = (fs) => fs.some((f) => f.isNew);
+
+    const matProdutos = PRODUTOS_MAT.map((p) => ({
+      name: p.name, desc: p.desc, accent: p.accent, tint: p.tint,
+      countLabel: plural(p.features.length, "feature", "features") + " · " + plural(fileCount(p), "arquivo", "arquivos"),
+      hasNew: p.features.some((f) => hasNewFiles(f.files)),
+      open: () => goPath([p.id])
+    }));
+
+    const matFeatures = prod ? prod.features.map((f) => ({
+      name: f.name, desc: f.desc, updated: f.updated,
+      countLabel: plural(f.files.length, "arquivo", "arquivos"),
+      hasNew: hasNewFiles(f.files),
+      open: () => goPath([prod.id, f.id])
+    })) : [];
+
+    const crumbs = [{ label: "Materiais", onClick: () => goPath([]) }];
+    if (prod) crumbs.push({ label: prod.name, onClick: () => goPath([prod.id]) });
+    if (feat) crumbs.push({ label: feat.name, onClick: () => goPath([prod.id, feat.id]) });
+    if (searching) crumbs.push({ label: "Busca: " + st.q.trim(), onClick: () => goPath(path) });
+    const matCrumbs = crumbs.map((c, i) => Object.assign({}, c, {
+      notFirst: i > 0, isLast: i === crumbs.length - 1, notLast: i < crumbs.length - 1
+    }));
+
+    const matTitle = searching ? "Resultados da busca" : feat ? feat.name : prod ? prod.name : "Materiais";
+    const matSub = searching
+      ? plural(matFiles.length, "arquivo encontrado", "arquivos encontrados") + " em todos os produtos"
+      : feat ? plural(feat.files.length, "arquivo", "arquivos") + " · " + feat.updated
+      : prod ? "Escolha a feature para ver decks, apresentações e documentos."
+      : "Navegue por produto, abra a feature e encontre decks, apresentações e documentos.";
+
+    const MTAGS = ["Clara e direta", "Faltou exemplo prático", "Longa demais", "Conteúdo desatualizado", "Vou usar hoje"];
+    const modal = st.modal;
+    const UPTOGGLES = [
+      { key: "novidade", label: "Publicar em Novidades no hub", hint: "Aparece na home do time com selo NOVO por 7 dias." },
+      { key: "avisar", label: "Avisar o time no Slack", hint: "Manda um card em #enablement com o link direto." },
+      { key: "obrigatorio", label: "Marcar como obrigatório", hint: "Entra na trilha obrigatória de quem está em ramp-up." }
+    ];
+    const prodMat = PRODUTOS_MAT.find((p) => p.id === st.upProd) || PRODUTOS_MAT[0];
+    const modKey = st.upProd === "institucional" ? "transversal" : st.upProd;
+    const upTargetOptions = st.upKind === "material"
+      ? prodMat.features.map((f) => ({ value: f.id, label: f.name }))
+      : TRILHAS.filter((t) => t.mod === modKey).map((t) => ({ value: t.id, label: t.title }));
+    const targetName = (upTargetOptions.find((o) => o.value === st.upTarget) || upTargetOptions[0] || {}).label || "";
+
+    return {
+      isLogin: !st.signedIn, isApp: st.signedIn,
+      signIn: () => this.setState({ signedIn: true, view: "home" }),
+      signOut: () => this.setState({ signedIn: false }),
+      isAdmin: true, navAdmin: st.view === "admin", isAdminView: st.view === "admin",
+      goAdmin: () => this.setState({ view: "admin" }),
+      modalOpen: !!modal, modalTitle: modal ? modal.title : "", modalTrilha: modal ? modal.trilha : "",
+      modalStars: [1, 2, 3, 4, 5].map((n) => ({ on: st.mRating >= n, off: st.mRating < n, set: () => this.setState({ mRating: n }) })),
+      modalTags: MTAGS.map((label) => ({
+        label, on: st.mTags.indexOf(label) !== -1, off: st.mTags.indexOf(label) === -1,
+        toggle: () => {
+          const t = st.mTags.slice();
+          const i = t.indexOf(label);
+          if (i === -1) t.push(label); else t.splice(i, 1);
+          this.setState({ mTags: t });
+        }
+      })),
+      modalText: st.mText,
+      onModalText: (e) => this.setState({ mText: e.target.value }),
+      skipFeedback: () => this.setState({ modal: null }),
+      sendFeedback: () => {
+        if (!modal) return;
+        const ratings = Object.assign({}, st.ratings);
+        ratings[modal.id] = { stars: st.mRating || 5, tags: st.mTags, text: st.mText };
+        this.setState({ ratings, modal: null });
+        this.toast("Avaliação enviada. Obrigado!");
+      },
+      toastOpen: !!st.toast, toastText: st.toast,
+      upKinds: [{ id: "material", label: "Material" }, { id: "aula", label: "Aula de trilha" }].map((k) => ({
+        label: k.label, on: st.upKind === k.id, off: st.upKind !== k.id,
+        set: () => this.setState({ upKind: k.id, upTarget: "" })
+      })),
+      upProd: st.upProd, upTarget: st.upTarget || (upTargetOptions[0] || {}).value || "",
+      upProdOptions: PRODUTOS_MAT.map((p) => ({ value: p.id, label: p.name })),
+      upTargetOptions, upTargetLabel: st.upKind === "material" ? "Pasta da feature" : "Trilha",
+      onUpProd: (e) => this.setState({ upProd: e.target.value, upTarget: "" }),
+      onUpTarget: (e) => this.setState({ upTarget: e.target.value }),
+      upTitle: st.upTitle, onUpTitle: (e) => this.setState({ upTitle: e.target.value }),
+      upDesc: st.upDesc, onUpDesc: (e) => this.setState({ upDesc: e.target.value }),
+      upLink: st.upLink, onUpLink: (e) => this.setState({ upLink: e.target.value }),
+      upToggles: UPTOGGLES.map((t) => ({
+        label: t.label, hint: t.hint, on: !!st.upFlags[t.key], off: !st.upFlags[t.key],
+        toggle: () => {
+          const f = Object.assign({}, st.upFlags);
+          f[t.key] = !f[t.key];
+          this.setState({ upFlags: f });
+        }
+      })),
+      publish: () => {
+        const title = st.upTitle.trim() || "Material sem título";
+        const meta = prodMat.name + " · " + targetName + " · agora, por Henrique";
+        this.setState({ published: [{ title, meta, status: "Publicado", tone: "success" }].concat(st.published), upTitle: "", upDesc: "", upLink: "" });
+        this.toast("Publicado no hub.");
+      },
+      saveDraft: () => {
+        const title = st.upTitle.trim() || "Rascunho sem título";
+        this.setState({ published: [{ title, meta: prodMat.name + " · " + targetName + " · rascunho", status: "Rascunho", tone: "neutral" }].concat(st.published), upTitle: "" });
+        this.toast("Rascunho salvo.");
+      },
+      upRecent: st.published.concat([
+        { title: "Release: MIA com resumo de conversa", meta: "Morada Vendas · MIA na qualificação · há 2 dias, por Suzane", status: "Publicado", tone: "success" },
+        { title: "Tabela de planos e limites", meta: "Morada Vendas · Pitch e propostas · há 3 dias, por Camila", status: "Publicado", tone: "success" },
+        { title: "Deck de campanhas v3", meta: "Morada Relacionamento · Campanhas · há 4 dias, por Bruno", status: "Rascunho", tone: "neutral" }
+      ]).slice(0, 5),
+      feedbackFeed: [
+        { stars: "5 de 5", lesson: "Anatomia do card de negócio", text: "Ficou muito clara a diferença entre etapa e status. Usei na demo hoje.", meta: "Vendas · há 3 horas" },
+        { stars: "3 de 5", lesson: "Configurando pesos por corretor", text: "Faltou um exemplo com fila de 12 corretores — o do vídeo é pequeno demais.", meta: "CS · há 1 dia" },
+        { stars: "4 de 5", lesson: "Tour pela plataforma", text: "As telas mudaram depois da última release, vale regravar o trecho final.", meta: "Onboarding · há 2 dias" }
+      ],
+      isHome: st.view === "home", isTrilhas: st.view === "trilhas", isTrilha: st.view === "trilha", isProgresso: st.view === "progresso", isMateriais: st.view === "materiais",
+      navHome: st.view === "home", navTrilhas: st.view === "trilhas" || st.view === "trilha", navProgresso: st.view === "progresso", navMateriais: st.view === "materiais",
+      goHome: () => this.setState({ view: "home" }),
+      goTrilhas: () => this.setState({ view: "trilhas" }),
+      goProgresso: () => this.setState({ view: "progresso" }),
+      goMateriais: () => this.setState({ view: "materiais", matPath: [], q: "" }),
+      matCrumbs, matTitle, matSub, matProdutos, matFeatures, matFiles,
+      matLevelProduto: !searching && !prod, matLevelFeature: !searching && !!prod && !feat,
+      matLevelFiles: searching ? matFiles.length > 0 : !!feat,
+      matEmpty: searching && matFiles.length === 0,
+      matInside: !!prod || searching,
+      matUp: () => this.setState({ q: "", matPath: feat ? [prod.id] : [] }),
+      clearMat: () => this.setState({ q: "" }),
+      materiaisRecentes: allFiles.filter((f) => f.isNew).slice(0, 3).map((f) => Object.assign({}, f, {
+        cat: f.where, open: () => goPath([f.prodId, f.featId])
+      })),
+      moduleNav: Object.keys(MODULES).map((k) => ({ name: MODULES[k].name, accent: MODULES[k].accent, open: () => this.setState({ view: "trilhas", mod: k, status: "todos", q: "" }) })),
+      q: st.q,
+      onSearch: (e) => this.setState({ q: e.target.value, view: st.view === "materiais" ? "materiais" : "trilhas" }),
+      clearFilters: () => this.setState({ mod: "todos", status: "todos", q: "" }),
+      chips, trilhasList: list, isEmpty: list.length === 0,
+      resultLabel: list.length + (list.length === 1 ? " trilha" : " trilhas") + " · " + totalLessons + " aulas publicadas no hub",
+      continueCards: (inProgress.length ? inProgress : decorated.slice(0, 3)).slice(0, 3).map((d) => {
+        const t = TRILHAS.find((x) => x.id === d.id);
+        const nx = this.nextLesson(t);
+        return Object.assign({}, d, { nextTitle: nx ? nx.l.t : "Trilha concluída" });
+      }),
+      recomendadas: decorated.filter((d) => d.pct === 0).slice(0, 2),
+      novidades, moduleProgress,
+      certificados: certs.map((c) => ({ title: c.title, meta: "Concluída · " + c.countLabel })),
+      noCerts: certs.length === 0,
+      certCount: certs.length, totalTrilhas: TRILHAS.length,
+      doneCount, totalLessons, pendingCount: totalLessons - doneCount,
+      pendingLabel: (totalLessons - doneCount) + " aulas pendentes",
+      inProgressCount: inProgress.length, novosCount: NOVIDADES.filter((n) => n.isNew).length,
+      weekDelta: "+4", hoursDelta: "+38 min",
+      hoursLabel: Math.floor(minutesDone / 60) + "h " + String(minutesDone % 60).padStart(2, "0"),
+      streak, streakLabel: streak + " dias",
+      streakDays: dias.map((d, i) => ({ label: d, on: i < streak, off: i >= streak })),
+      resumeNext: () => this.setState({ view: "trilha", curId: resumeTarget.id }),
+      cur: Object.assign({}, curD, {
+        audience: cur.audience, owner: cur.owner, ownerRole: cur.ownerRole, updated: cur.updated,
+        ownerInitials: cur.owner.split(" ").map((w) => w[0]).slice(0, 2).join(""),
+        cta: curNext ? "Começar aula " + curNext.i : "Trilha concluída",
+        next: () => { if (curNext) this.toggle(cur.id + "-" + curNext.i); }
+      }),
+      curLessons,
+      icoCheck: ico(["M5 12l5 5l10-10"]),
+      icoAward: ico(["M12 15a5 5 0 1 0 0-10a5 5 0 0 0 0 10z", "M8 14l-2 7l6-3l6 3l-2-7"]),
+      icoFlame: ico(["M12 12c2-2.96 0-7-1-8 0 3.038-1.773 4.741-3 6-1.226 1.26-2 3.24-2 5a6 6 0 1 0 12 0c0-1.532-1.056-3.94-2-5-1.786 3-2.791 3-4 2z"]),
+      icoClock: ico(["M12 12a9 9 0 1 0 0-18a9 9 0 0 0 0 18z", "M12 7v5l3 2"])
+    };
+  }
+}
+</script>
+</body>
+</html>

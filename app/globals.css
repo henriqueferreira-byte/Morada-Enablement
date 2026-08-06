@@ -1,0 +1,10 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "../niemeyer/styles/globals.css";
+
+/* Point the design system's font tokens at the self-hosted next/font
+ * files loaded in app/layout.tsx, falling back to the token defaults. */
+:root {
+  --font-heading: var(--font-outfit), "Outfit", system-ui, sans-serif;
+  --font-body: var(--font-lato), "Lato", system-ui, sans-serif;
+}

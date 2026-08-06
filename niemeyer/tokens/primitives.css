@@ -1,0 +1,228 @@
+/*
+ * Morada.ai Design System — Primitive Tokens
+ *
+ * Raw values that never change between themes.
+ * These are referenced by semantic tokens, never used directly in components.
+ */
+
+:root {
+  /* ========================================
+   * Brand Colors
+   * ======================================== */
+  --morada-black: #1d1d1b;
+  --morada-blue: #0073ff;
+  --morada-cyan: #02cfff;
+  --morada-cya: #00ffe0;
+  --morada-dark-purple: #38384d;
+  --morada-coral: #f27d82;
+  --morada-orange: #f7b87d;
+  --morada-light-orange: #fad499;
+  --morada-yellow: #fcf2a3;
+
+  /* ========================================
+   * Neutral Scale (based on #606A80)
+   * Cool blue-gray neutral
+   * ======================================== */
+  --neutral-50: #F7F8FA;
+  --neutral-100: #ECEEF3;
+  --neutral-150: #E1E4EA;
+  --neutral-200: #D3D7E0;
+  --neutral-300: #B4BAC8;
+  --neutral-400: #8D95A8;
+  --neutral-500: #606A80;
+  --neutral-600: #4E5668;
+  --neutral-700: #3C4354;
+  --neutral-800: #2B303E;
+  --neutral-850: #232836;
+  --neutral-900: #1A1E2B;
+  --neutral-950: #10131C;
+
+  /* ========================================
+   * Blue Scale
+   * ======================================== */
+  --blue-1: #f0f7ff;
+  --blue-2: #e0efff;
+  --blue-3: #b8dbff;
+  --blue-4: #85c1ff;
+  --blue-5: #4da3ff;
+  --blue-6: #0073ff; /* brand blue */
+  --blue-7: #005ecc;
+  --blue-8: #004a99;
+  --blue-9: #003566;
+  --blue-10: #001f3d;
+  --blue-a1: rgba(0, 115, 255, 0.04);
+  --blue-a2: rgba(0, 115, 255, 0.08);
+  --blue-a3: rgba(0, 115, 255, 0.14);
+  --blue-a4: rgba(0, 115, 255, 0.24);
+  --blue-a5: rgba(0, 115, 255, 0.40);
+  --blue-a6: rgba(0, 115, 255, 0.60);
+  --blue-a7: rgba(0, 115, 255, 0.76);
+  --blue-a8: rgba(0, 115, 255, 0.88);
+  --blue-a9: rgba(0, 115, 255, 0.94);
+  --blue-a10: rgba(0, 115, 255, 1);
+
+  /* ========================================
+   * Green Scale (Success — Emerald)
+   * Based on #10b981 — cooler, more sophisticated
+   * ======================================== */
+  --green-1: #ecfdf5;
+  --green-2: #d1fae5;
+  --green-3: #a7f3d0;
+  --green-4: #6ee7b7;
+  --green-5: #34d399;
+  --green-6: #10b981; /* emerald — success */
+  --green-7: #059669;
+  --green-8: #047857;
+  --green-9: #065f46;
+  --green-10: #064e3b;
+  --green-a1: rgba(16, 185, 129, 0.04);
+  --green-a2: rgba(16, 185, 129, 0.08);
+  --green-a3: rgba(16, 185, 129, 0.14);
+  --green-a4: rgba(16, 185, 129, 0.24);
+  --green-a5: rgba(16, 185, 129, 0.40);
+  --green-a6: rgba(16, 185, 129, 0.60);
+  --green-a7: rgba(16, 185, 129, 0.76);
+  --green-a8: rgba(16, 185, 129, 0.88);
+  --green-a9: rgba(16, 185, 129, 0.94);
+  --green-a10: rgba(16, 185, 129, 1);
+
+  /* ========================================
+   * Danger Scale (Red)
+   * ======================================== */
+  --danger-1: #fef2f2;
+  --danger-2: #fee2e2;
+  --danger-3: #fecaca;
+  --danger-4: #fca5a5;
+  --danger-5: #f87171;
+  --danger-6: #ef4444;
+  --danger-7: #dc2626;
+  --danger-8: #b91c1c;
+  --danger-9: #991b1b;
+  --danger-10: #7f1d1d;
+  --danger-a1: rgba(239, 68, 68, 0.04);
+  --danger-a2: rgba(239, 68, 68, 0.08);
+  --danger-a3: rgba(239, 68, 68, 0.14);
+  --danger-a4: rgba(239, 68, 68, 0.24);
+  --danger-a5: rgba(239, 68, 68, 0.40);
+  --danger-a6: rgba(239, 68, 68, 0.60);
+  --danger-a7: rgba(239, 68, 68, 0.76);
+  --danger-a8: rgba(239, 68, 68, 0.88);
+  --danger-a9: rgba(239, 68, 68, 0.94);
+  --danger-a10: rgba(239, 68, 68, 1);
+
+  /* ========================================
+   * Warning Scale (Amber)
+   * ======================================== */
+  --warning-1: #fffbeb;
+  --warning-2: #fef3c7;
+  --warning-3: #fde68a;
+  --warning-4: #fcd34d;
+  --warning-5: #fbbf24;
+  --warning-6: #f59e0b;
+  --warning-7: #d97706;
+  --warning-8: #b45309;
+  --warning-9: #92400e;
+  --warning-10: #78350f;
+
+  /* ========================================
+   * Cyan Scale (Secondary / Brand)
+   * Based on --morada-cyan: #02cfff
+   * ======================================== */
+  --cyan-1: #ECFDFF;
+  --cyan-2: #D4F9FF;
+  --cyan-3: #A8F0FF;
+  --cyan-4: #6BE4FF;
+  --cyan-5: #2FD6FF;
+  --cyan-6: #02CFFF; /* brand cyan */
+  --cyan-7: #00AEDB;
+  --cyan-8: #008DB2;
+  --cyan-9: #006D8A;
+  --cyan-10: #004D63;
+
+  /* ========================================
+   * Cya Scale (Secondary Brand — #00ffe0)
+   * Based on --morada-cya
+   * ======================================== */
+  --cya-1: #ebfffc;
+  --cya-2: #c5fff5;
+  --cya-3: #9cfde9;
+  --cya-4: #52fadb;
+  --cya-5: #19ffec;
+  --cya-6: #00ffe0; /* morada-cya — secondary brand */
+  --cya-7: #00ccb3;
+  --cya-8: #009987;
+  --cya-9: #006659;
+  --cya-10: #003d35;
+  --cya-a1: rgba(0, 255, 224, 0.04);
+  --cya-a2: rgba(0, 255, 224, 0.08);
+  --cya-a3: rgba(0, 255, 224, 0.14);
+  --cya-a4: rgba(0, 255, 224, 0.24);
+  --cya-a5: rgba(0, 255, 224, 0.40);
+  --cya-a6: rgba(0, 255, 224, 0.60);
+  --cya-a7: rgba(0, 255, 224, 0.76);
+  --cya-a8: rgba(0, 255, 224, 0.88);
+  --cya-a9: rgba(0, 255, 224, 0.94);
+  --cya-a10: rgba(0, 255, 224, 1);
+
+  /* ========================================
+   * Orange Scale (Tertiary Brand — #f7b87d)
+   * Based on --morada-orange
+   * ======================================== */
+  --orange-1: #fff5ec;
+  --orange-2: #ffe4cc;
+  --orange-3: #fccda0;
+  --orange-4: #fac085;
+  --orange-5: #f7b87d; /* morada-orange — tertiary brand */
+  --orange-6: #f2a05c;
+  --orange-7: #e07c2a;
+  --orange-8: #c05e16;
+  --orange-9: #9a460d;
+  --orange-10: #6b2e07;
+  --orange-a1: rgba(247, 184, 125, 0.04);
+  --orange-a2: rgba(247, 184, 125, 0.08);
+  --orange-a3: rgba(247, 184, 125, 0.14);
+  --orange-a4: rgba(247, 184, 125, 0.24);
+  --orange-a5: rgba(247, 184, 125, 0.40);
+  --orange-a6: rgba(247, 184, 125, 0.60);
+  --orange-a7: rgba(247, 184, 125, 0.76);
+  --orange-a8: rgba(247, 184, 125, 0.88);
+  --orange-a9: rgba(247, 184, 125, 0.94);
+  --orange-a10: rgba(247, 184, 125, 1);
+
+  /* ========================================
+   * Info Scale (Cyan)
+   * ======================================== */
+  --info-1: #ecfeff;
+  --info-2: #cffafe;
+  --info-3: #a5f3fc;
+  --info-4: #67e8f9;
+  --info-5: #22d3ee;
+  --info-6: #06b6d4;
+  --info-7: #0891b2;
+  --info-8: #0e7490;
+  --info-9: #155e75;
+  --info-10: #164e63;
+
+  /* ========================================
+   * Border Radius
+   * The Tailwind `rounded-*` utilities are derived in styles/theme.css
+   * from `--radius` (declared in tokens/semantic-*.css).
+   * ======================================== */
+  --radius-none: 0px;
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
+  --radius-full: 9999px;
+
+  /* ========================================
+   * Z-Index Scale
+   * ======================================== */
+  --z-dropdown: 50;
+  --z-sticky: 100;
+  --z-overlay: 200;
+  --z-modal: 300;
+  --z-popover: 400;
+  --z-toast: 500;
+  --z-tooltip: 600;
+}

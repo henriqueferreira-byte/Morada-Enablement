@@ -1,0 +1,47 @@
+<!doctype html>
+<!-- @dsCard group="Components" name="Avatars" subtitle="Initials avatars · status dot · stack · name + role" viewport="700x140" -->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Avatars</title>
+<link rel="stylesheet" href="../colors_and_type.css" />
+<link rel="stylesheet" href="../components.css" />
+<style>
+  body { margin: 0; padding: 18px 20px; background: var(--card); }
+  .row { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; }
+  .group { display: flex; }
+  .group .nm-avatar { box-shadow: 0 0 0 2px var(--card); margin-left: -8px; }
+  .group .nm-avatar:first-child { margin-left: 0; }
+  .with-status { position: relative; }
+  .status-dot { position: absolute; bottom: 0; right: 0; width: 10px; height: 10px; border-radius: 9999px; box-shadow: 0 0 0 2px var(--card); }
+  .meta { display: flex; flex-direction: column; gap: 2px; font-family: var(--font-body); }
+  .name { font-family: var(--font-heading); font-size: 13px; font-weight: 600; color: var(--text-primary); }
+  .role { font-size: 11px; color: var(--text-tertiary); }
+</style>
+</head>
+<body>
+  <div class="row">
+    <div class="nm-avatar nm-avatar--sm">JR</div>
+    <div class="nm-avatar">SC</div>
+    <div class="nm-avatar nm-avatar--lg" style="background: var(--cya-2); color: var(--cya-9);">MA</div>
+    <div class="with-status">
+      <div class="nm-avatar">SC</div>
+      <span class="status-dot" style="background: var(--success);"></span>
+    </div>
+    <div class="with-status">
+      <div class="nm-avatar" style="background: var(--orange-2); color: var(--orange-9);">RF</div>
+      <span class="status-dot" style="background: var(--warning);"></span>
+    </div>
+    <div class="group">
+      <div class="nm-avatar">SC</div>
+      <div class="nm-avatar" style="background: var(--cya-2); color: var(--cya-9);">MA</div>
+      <div class="nm-avatar" style="background: var(--orange-2); color: var(--orange-9);">RF</div>
+      <div class="nm-avatar" style="background: var(--neutral-100); color: var(--text-secondary);">+4</div>
+    </div>
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <div class="nm-avatar">SC</div>
+      <div class="meta"><span class="name">Suzane Costa</span><span class="role">Gerente · DEMO MG</span></div>
+    </div>
+  </div>
+</body>
+</html>

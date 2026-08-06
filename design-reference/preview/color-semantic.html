@@ -1,0 +1,58 @@
+<!doctype html>
+<!-- @dsCard group="Colors" name="Semantic / status" subtitle="Success · Warning · Destructive · Info — pill trios" viewport="700x260" -->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Color — Semantic / status</title>
+<link rel="stylesheet" href="../colors_and_type.css" />
+<style>
+  body { margin: 0; padding: 16px; background: var(--card); font-family: var(--font-body); }
+  .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .pill { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 999px; font-size: 12px; font-weight: 600; border: 1px solid; }
+  .dot { width: 6px; height: 6px; border-radius: 999px; }
+  .row { display: flex; flex-direction: column; gap: 8px; padding: 12px 14px; border: 1px solid var(--border); border-radius: var(--radius-lg); background: var(--card); }
+  .label { font-family: var(--font-heading); font-size: 12px; font-weight: 600; color: var(--text-primary); }
+  .tokens { font-family: var(--font-mono); font-size: 10px; color: var(--text-tertiary); line-height: 1.4; }
+</style>
+</head>
+<body>
+<div class="grid">
+  <div class="row">
+    <div class="label">Success</div>
+    <div>
+      <span class="pill" style="background: var(--success-background); color: var(--success-text); border-color: var(--success-border);">
+        <span class="dot" style="background: var(--success);"></span> Concluído
+      </span>
+    </div>
+    <div class="tokens">--success #10B981 · bg #ECFDF5 · text #047857 · border #A7F3D0</div>
+  </div>
+  <div class="row">
+    <div class="label">Warning</div>
+    <div>
+      <span class="pill" style="background: var(--warning-background); color: var(--warning-text); border-color: var(--warning-border);">
+        <span class="dot" style="background: var(--warning);"></span> Atenção
+      </span>
+    </div>
+    <div class="tokens">--warning #F59E0B · bg #FFFBEB · text #B45309 · border #FDE68A</div>
+  </div>
+  <div class="row">
+    <div class="label">Destructive</div>
+    <div>
+      <span class="pill" style="background: var(--destructive-background); color: var(--destructive-text); border-color: var(--destructive-border);">
+        <span class="dot" style="background: var(--destructive);"></span> Falhou
+      </span>
+    </div>
+    <div class="tokens">--destructive #EF4444 · bg #FEF2F2 · text #B91C1C · border #FECACA</div>
+  </div>
+  <div class="row">
+    <div class="label">Info</div>
+    <div>
+      <span class="pill" style="background: var(--info-background); color: var(--info-text); border-color: var(--info-border);">
+        <span class="dot" style="background: var(--info);"></span> Novo
+      </span>
+    </div>
+    <div class="tokens">--info #06B6D4 · bg #ECFEFF · text #0E7490 · border #A5F3FC</div>
+  </div>
+</div>
+</body>
+</html>

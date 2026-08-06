@@ -1,0 +1,29 @@
+<!doctype html>
+<!-- @dsCard group="Brand" name="Brand marks" subtitle="The 'M' monogram across light/dark surfaces" viewport="700x220" -->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Brand marks</title>
+<link rel="stylesheet" href="../colors_and_type.css" />
+<style>
+  body { margin: 0; padding: 18px 20px; background: var(--card); }
+  .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .cell { display: flex; flex-direction: column; gap: 6px; align-items: center; }
+  .panel { display: flex; align-items: center; justify-content: center; width: 100%; padding: 24px; border-radius: var(--radius-xl); border: 1px solid var(--border); aspect-ratio: 1/1; }
+  .panel--white { background: #ffffff; }
+  .panel--paper { background: var(--neutral-50); }
+  .panel--blue { background: var(--blue-6); border-color: transparent; }
+  .panel--dark { background: var(--morada-black); border-color: transparent; }
+  .panel img { width: 56px; height: 56px; }
+  .meta { font-family: var(--font-mono); font-size: 10px; color: var(--text-tertiary); text-align: center; }
+</style>
+</head>
+<body>
+<div class="grid">
+  <div class="cell"><div class="panel panel--white"><img src="../assets/logos/icon-blue.svg" /></div><div class="meta">icon-blue</div></div>
+  <div class="cell"><div class="panel panel--paper"><img src="../assets/logos/icon-dark.svg" /></div><div class="meta">icon-dark</div></div>
+  <div class="cell"><div class="panel panel--blue"><img src="../assets/logos/icon-white.svg" /></div><div class="meta">icon-white</div></div>
+  <div class="cell"><div class="panel panel--dark"><img src="../assets/logos/icon-reversed.svg" /></div><div class="meta">icon-reversed</div></div>
+</div>
+</body>
+</html>

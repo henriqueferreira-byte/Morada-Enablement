@@ -1,0 +1,133 @@
+/*
+ * Morada.ai Design System — Typography Tokens
+ *
+ * Font families, sizes, weights, and line-heights.
+ * Headings: Outfit | Body: Lato
+ */
+
+:root {
+  /* ========================================
+   * Font Families
+   * ======================================== */
+  --font-heading: 'Outfit', system-ui, -apple-system, sans-serif;
+  --font-body: 'Lato', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+
+  /* ========================================
+   * Font Sizes
+   * ======================================== */
+  --text-xs: 12px;
+  --text-sm: 14px;
+  --text-base: 16px;
+  --text-lg: 18px;
+  --text-xl: 20px;
+  --text-2xl: 24px;
+  --text-3xl: 32px;
+
+  /* ========================================
+   * Font Weights
+   * ======================================== */
+  --font-light: 300;
+  --font-regular: 400;
+  --font-medium: 500;
+  --font-semibold: 600;
+  --font-bold: 700;
+  --font-black: 900;
+
+  /* ========================================
+   * Line Heights
+   * ======================================== */
+  --leading-none: 1;
+  --leading-tight: 1.25;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.75;
+
+  /* ========================================
+   * Letter Spacing
+   * ======================================== */
+  --tracking-tight: -0.025em;
+  --tracking-normal: 0em;
+  --tracking-wide: 0.025em;
+
+  /* ========================================
+   * Heading Presets (Outfit)
+   *
+   * Usage: Apply font-family + font-size + font-weight + line-height
+   * ======================================== */
+
+  /* Heading 1 — Page titles */
+  --heading-1-size: var(--text-3xl);   /* 32px */
+  --heading-1-weight: var(--font-bold);
+  --heading-1-leading: var(--leading-tight);
+  --heading-1-tracking: var(--tracking-tight);
+
+  /* Heading 2 — Section titles */
+  --heading-2-size: var(--text-2xl);   /* 24px */
+  --heading-2-weight: var(--font-semibold);
+  --heading-2-leading: var(--leading-tight);
+  --heading-2-tracking: var(--tracking-tight);
+
+  /* Heading 3 — Card titles */
+  --heading-3-size: var(--text-xl);    /* 20px */
+  --heading-3-weight: var(--font-semibold);
+  --heading-3-leading: var(--leading-tight);
+  --heading-3-tracking: var(--tracking-normal);
+
+  /* Heading 4 — Subsection titles */
+  --heading-4-size: var(--text-lg);    /* 18px */
+  --heading-4-weight: var(--font-medium);
+  --heading-4-leading: var(--leading-tight);
+  --heading-4-tracking: var(--tracking-normal);
+
+  /* Heading 5 — Small headings */
+  --heading-5-size: var(--text-base);  /* 16px */
+  --heading-5-weight: var(--font-medium);
+  --heading-5-leading: var(--leading-tight);
+  --heading-5-tracking: var(--tracking-normal);
+
+  /* Heading 6 — Label headings */
+  --heading-6-size: var(--text-sm);    /* 14px */
+  --heading-6-weight: var(--font-semibold);
+  --heading-6-leading: var(--leading-tight);
+  --heading-6-tracking: var(--tracking-wide);
+
+  /* Heading 7 — Overline / eyebrow */
+  --heading-7-size: var(--text-xs);    /* 12px */
+  --heading-7-weight: var(--font-semibold);
+  --heading-7-leading: var(--leading-tight);
+  --heading-7-tracking: var(--tracking-wide);
+
+  /* ========================================
+   * Body Presets (Lato)
+   * ======================================== */
+
+  /* Body 1 — Default body text */
+  --body-1-size: var(--text-base);     /* 16px */
+  --body-1-weight: var(--font-regular);
+  --body-1-leading: var(--leading-normal);
+
+  /* Body 2 — Secondary body text */
+  --body-2-size: var(--text-sm);       /* 14px */
+  --body-2-weight: var(--font-regular);
+  --body-2-leading: var(--leading-normal);
+
+  /* Body 3 — Small body text */
+  --body-3-size: var(--text-xs);       /* 12px */
+  --body-3-weight: var(--font-regular);
+  --body-3-leading: var(--leading-normal);
+
+  /* Body 4 — Large body text */
+  --body-4-size: var(--text-lg);       /* 18px */
+  --body-4-weight: var(--font-regular);
+  --body-4-leading: var(--leading-relaxed);
+
+  /* Label — Form labels and captions */
+  --label-size: var(--text-sm);        /* 14px */
+  --label-weight: var(--font-semibold);
+  --label-leading: var(--leading-tight);
+
+  /* Caption — Small helper text */
+  --caption-size: var(--text-xs);      /* 12px */
+  --caption-weight: var(--font-regular);
+  --caption-leading: var(--leading-normal);
+}

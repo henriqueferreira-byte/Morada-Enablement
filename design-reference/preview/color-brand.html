@@ -1,0 +1,38 @@
+<!doctype html>
+<!-- @dsCard group="Colors" name="Brand colors" subtitle="Morada blue / cya / orange / black — the four brand colors" viewport="700x200" -->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Color — Brand</title>
+<link rel="stylesheet" href="../colors_and_type.css" />
+<style>
+  body { margin: 0; padding: 16px; background: var(--card); }
+  .row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+  .swatch { border-radius: var(--radius-lg); overflow: hidden; border: 1px solid var(--border); background: var(--card); }
+  .chip  { aspect-ratio: 16/9; }
+  .meta  { padding: 8px 10px; }
+  .name  { font-family: var(--font-heading); font-size: 13px; font-weight: 600; color: var(--text-primary); }
+  .hex   { font-family: var(--font-mono); font-size: 11px; color: var(--text-tertiary); margin-top: 2px; }
+</style>
+</head>
+<body>
+  <div class="row">
+    <div class="swatch">
+      <div class="chip" style="background: var(--morada-blue);"></div>
+      <div class="meta"><div class="name">Morada blue</div><div class="hex">#0073FF · --primary</div></div>
+    </div>
+    <div class="swatch">
+      <div class="chip" style="background: var(--morada-cya);"></div>
+      <div class="meta"><div class="name">Morada cya</div><div class="hex">#00FFE0 · --secondary</div></div>
+    </div>
+    <div class="swatch">
+      <div class="chip" style="background: var(--morada-orange);"></div>
+      <div class="meta"><div class="name">Morada orange</div><div class="hex">#F7B87D · --tertiary</div></div>
+    </div>
+    <div class="swatch">
+      <div class="chip" style="background: var(--morada-black); color: #fff;"></div>
+      <div class="meta"><div class="name">Morada black</div><div class="hex">#1D1D1B</div></div>
+    </div>
+  </div>
+</body>
+</html>

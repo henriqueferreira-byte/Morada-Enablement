@@ -1,0 +1,19 @@
+/* Package CSS entry. Apps consume via @import "@morada-ai/niemeyer/styles".
+ *
+ * Contains only repo-relative imports. The consumer's own stylesheet is
+ * responsible for the package-name imports `@import "tailwindcss"` and
+ * `@import "tw-animate-css"` so PostCSS resolves them through the
+ * consumer's node_modules tree (avoids "can't resolve" errors when this
+ * file is imported via a path that does not have node_modules in its
+ * walk-up chain — e.g., the repo root on Vercel deploys).
+ *
+ *   1. foundation.css — design tokens (CSS custom properties at :root,
+ *      including .dark and .theme-* overrides) and base body styles.
+ *   2. theme.css — @theme block mapping Tailwind 4 utility namespaces
+ *      (--color-*, --font-*, --spacing-*, --shadow-*, etc.) to tokens.
+ *   3. third-party-compat.css — unlayered overrides defending the
+ *      design-system components against Tailwind v3 universal resets
+ *      shipped by third-party libraries (e.g. @novu/js). */
+@import "./foundation.css";
+@import "./theme.css";
+@import "./third-party-compat.css";

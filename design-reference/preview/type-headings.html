@@ -1,0 +1,41 @@
+<!doctype html>
+<!-- @dsCard group="Type" name="Headings — Outfit" subtitle="H1 32 / H2 24 / H3 20 / H4 18 / eyebrow" viewport="700x320" -->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Type — Outfit</title>
+<link rel="stylesheet" href="../colors_and_type.css" />
+<style>
+  body { margin: 0; padding: 18px 20px; background: var(--card); }
+  .stack { display: flex; flex-direction: column; gap: 12px; }
+  .row { display: flex; align-items: baseline; gap: 14px; padding-bottom: 10px; border-bottom: 1px dashed var(--border); }
+  .row:last-child { border: 0; padding-bottom: 0; }
+  .specimen { color: var(--text-primary); font-family: var(--font-heading); flex: 1; min-width: 0; }
+  .meta { font-family: var(--font-mono); font-size: 10px; color: var(--text-tertiary); white-space: nowrap; }
+</style>
+</head>
+<body>
+  <div class="stack">
+    <div class="row">
+      <div class="specimen" style="font-size:32px; font-weight:700; letter-spacing:-0.025em; line-height:1.1;">Bom dia, Suzane</div>
+      <div class="meta">H1 · 32 · 700 · -0.025em</div>
+    </div>
+    <div class="row">
+      <div class="specimen" style="font-size:24px; font-weight:600; letter-spacing:-0.025em; line-height:1.15;">Hoje, em tempo real</div>
+      <div class="meta">H2 · 24 · 600</div>
+    </div>
+    <div class="row">
+      <div class="specimen" style="font-size:20px; font-weight:600; line-height:1.2;">Pulso da operação</div>
+      <div class="meta">H3 · 20 · 600</div>
+    </div>
+    <div class="row">
+      <div class="specimen" style="font-size:18px; font-weight:500; line-height:1.25;">Anúncios &amp; novidades</div>
+      <div class="meta">H4 · 18 · 500</div>
+    </div>
+    <div class="row">
+      <div class="specimen" style="font-size:12px; font-weight:600; letter-spacing:0.05em; text-transform:uppercase; color: var(--text-secondary); line-height:1.2;">Do time Morada</div>
+      <div class="meta">Eyebrow · 12 · 600 · UPPER</div>
+    </div>
+  </div>
+</body>
+</html>
