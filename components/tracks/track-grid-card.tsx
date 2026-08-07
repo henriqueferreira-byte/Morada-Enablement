@@ -29,7 +29,11 @@ export function TrackGridCard({
             {track.product.name}
           </span>
         </div>
-        <Badge variant={statusMeta.badgeVariant}>{statusMeta.label}</Badge>
+        {track.coming_soon ? (
+          <Badge variant="warning">Em breve</Badge>
+        ) : (
+          <Badge variant={statusMeta.badgeVariant}>{statusMeta.label}</Badge>
+        )}
       </div>
 
       <h3 className="font-heading text-lg font-semibold text-foreground">{track.title}</h3>

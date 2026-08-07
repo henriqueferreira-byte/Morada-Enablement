@@ -26,19 +26,18 @@ export type TrackRow = {
   owner_name: string | null;
   owner_role: string | null;
   updated_at: string;
+  /** Manual flag for tracks whose lessons don't have real content behind them yet — shows an "Em breve" badge instead of the usual progress status. */
+  coming_soon: boolean;
   product: Product;
   lessons: LessonRow[];
 };
 
-export async function getTracksWithLessons(supabase: SupabaseClient): Promise<TrackRow[]> {
-  const { data } = await supabase
-    .from("tracks")
-    .select(
-      `id, title, description, level, audience, owner_id, owner_name, owner_role, updated_at,
+const TRACK_SELECT = `id, title, description, level, audience, owner_id, owner_name, owner_role, updated_at, coming_soon,
        product:products!tracks_product_id_fkey (id, name, accent, description, position),
-       lessons ( id, track_id, position, title, kind, duration_min, source_label, storage_path, external_url, published_at )`,
-    )
-    .order("position");
+       lessons ( id, track_id, position, title, kind, duration_min, source_label, storage_path, external_url, published_at )`;
+
+export async function getTracksWithLessons(supabase: SupabaseClient): Promise<TrackRow[]> {
+  const { data } = await supabase.from("tracks").select(TRACK_SELECT).order("position");
 
   return ((data ?? []) as unknown as TrackRow[]).map((track) => ({
     ...track,
@@ -52,11 +51,7 @@ export async function getTrackWithLessons(
 ): Promise<TrackRow | null> {
   const { data } = await supabase
     .from("tracks")
-    .select(
-      `id, title, description, level, audience, owner_id, owner_name, owner_role, updated_at,
-       product:products!tracks_product_id_fkey (id, name, accent, description, position),
-       lessons ( id, track_id, position, title, kind, duration_min, source_label, storage_path, external_url, published_at )`,
-    )
+    .select(TRACK_SELECT)
     .eq("id", trackId)
     .maybeSingle();
 

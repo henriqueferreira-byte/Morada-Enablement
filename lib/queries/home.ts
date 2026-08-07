@@ -38,13 +38,13 @@ export async function getHomeData(supabase: SupabaseClient, userId: string, team
   }));
 
   const continueTracks = withProgress
-    .filter((t) => t.progress.status === "andamento")
+    .filter((t) => t.progress.status === "andamento" && !t.track.coming_soon)
     .sort((a, b) => new Date(b.track.updated_at).getTime() - new Date(a.track.updated_at).getTime())
     .slice(0, 3);
 
   const preferredProduct = team ? TEAM_TO_PRODUCT[team] : undefined;
   const recommendedTracks = withProgress
-    .filter((t) => t.progress.status === "nao_iniciada")
+    .filter((t) => t.progress.status === "nao_iniciada" && !t.track.coming_soon)
     .sort((a, b) => {
       const aMatch = a.track.product.id === preferredProduct ? 0 : 1;
       const bMatch = b.track.product.id === preferredProduct ? 0 : 1;

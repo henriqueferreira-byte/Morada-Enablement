@@ -57,6 +57,11 @@ export function TrackDetailClient({
   return (
     <div className="grid gap-6 lg:grid-cols-[1.6fr_1fr]">
       <div className="flex flex-col gap-2.5">
+        {track.coming_soon && (
+          <div className="rounded-xl border border-warning-border bg-warning-background px-4 py-3 text-sm text-warning-text">
+            Esta trilha ainda está em preparação — o conteúdo completo chega em breve.
+          </div>
+        )}
         {track.lessons.map((lesson, index) => (
           <LessonRow
             key={lesson.id}
