@@ -26,7 +26,7 @@ export async function getNovidades(
       .from("lessons")
       .select(
         `id, title, kind, published_at, track_id,
-         track:tracks!lessons_track_id_fkey ( id, owner_name, product:products!tracks_product_id_fkey ( name, accent ) )`,
+         track:tracks!lessons_track_id_fkey ( id, owner_name, coming_soon, product:products!tracks_product_id_fkey ( name, accent ) )`,
       )
       .eq("is_highlight", true)
       .gte("published_at", new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString())
@@ -45,7 +45,9 @@ export async function getNovidades(
       .limit(limit),
   ]);
 
-  const lessonItems: NovidadeItem[] = (lessons ?? []).map((row: any) => ({
+  const lessonItems: NovidadeItem[] = (lessons ?? [])
+    .filter((row: any) => !row.track?.coming_soon)
+    .map((row: any) => ({
     id: `lesson:${row.id}`,
     kind: "lesson",
     title: row.title,
