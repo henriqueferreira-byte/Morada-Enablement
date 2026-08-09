@@ -9,6 +9,7 @@ import {
 } from "@/lib/queries/tracks";
 import { FilterChip } from "@/components/tracks/filter-chip";
 import { TrackGridCard } from "@/components/tracks/track-grid-card";
+import { PageTip } from "@/components/onboarding/page-tip";
 
 const STATUS_OPTIONS = [
   { value: "andamento", label: "Em andamento" },
@@ -71,6 +72,12 @@ export default async function TrilhasPage({
           {tracks.length} trilhas · {totalLessons} aulas publicadas no hub
         </p>
       </div>
+
+      <PageTip
+        pageKey="trilhas"
+        title="Como funcionam as trilhas"
+        description="Cada trilha é uma sequência de aulas de um módulo do produto. Marque como vista, avalie ao final e conclua tudo para ganhar o certificado."
+      />
 
       <div className="flex flex-wrap gap-2">
         <FilterChip href={buildHref(params, { modulo: undefined })} active={!modulo}>

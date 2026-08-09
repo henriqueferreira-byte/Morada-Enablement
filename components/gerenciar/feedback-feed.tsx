@@ -1,13 +1,6 @@
 import { formatRelative } from "@/lib/format";
+import { TEAM_LABELS, isValidTeam } from "@/lib/teams";
 import type { FeedbackItem } from "@/lib/queries/gerenciar";
-
-const TEAM_LABELS: Record<string, string> = {
-  vendas: "Vendas",
-  cs: "CS",
-  onboarding: "Onboarding",
-  marketing: "Marketing",
-  outro: "Morada",
-};
 
 export function FeedbackFeed({ items }: { items: FeedbackItem[] }) {
   return (
@@ -27,7 +20,7 @@ export function FeedbackFeed({ items }: { items: FeedbackItem[] }) {
               </div>
               {item.comment && <p className="mt-1 text-[13px] text-neutral-700">{item.comment}</p>}
               <p className="mt-1 text-[11px] text-neutral-400">
-                {item.userTeam ? TEAM_LABELS[item.userTeam] ?? item.userTeam : "Time não informado"} · {formatRelative(item.createdAt)}
+                {item.userTeam && isValidTeam(item.userTeam) ? TEAM_LABELS[item.userTeam] : item.userTeam ?? "Time não informado"} · {formatRelative(item.createdAt)}
               </p>
             </li>
           ))}

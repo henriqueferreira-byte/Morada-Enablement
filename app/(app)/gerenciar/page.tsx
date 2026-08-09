@@ -5,6 +5,7 @@ import { GerenciarForm } from "@/components/gerenciar/gerenciar-form";
 import { RecentPublications } from "@/components/gerenciar/recent-publications";
 import { FeedbackFeed } from "@/components/gerenciar/feedback-feed";
 import { ContentRequestsPanel } from "@/components/gerenciar/content-requests-panel";
+import { PageTip } from "@/components/onboarding/page-tip";
 
 export default async function GerenciarPage() {
   const { supabase } = await requireAdmin();
@@ -27,6 +28,12 @@ export default async function GerenciarPage() {
           Suba um material para a pasta de uma feature ou publique uma aula em uma trilha. Só o time de enablement vê esta área.
         </p>
       </div>
+
+      <PageTip
+        pageKey="gerenciar"
+        title="O que você pode fazer aqui"
+        description="Suba um material ou publique uma aula de trilha à esquerda. À direita, veja o feedback das aulas e as solicitações de conteúdo do time."
+      />
 
       <div className="grid gap-5 lg:grid-cols-[1.5fr_1fr]">
         <GerenciarForm

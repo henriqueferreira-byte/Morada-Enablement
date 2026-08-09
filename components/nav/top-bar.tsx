@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useTransition } from "react";
+import { useEffect, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import {
   IconFlame,
@@ -8,6 +8,7 @@ import {
   IconLogout,
   IconMenu2,
   IconSearch,
+  IconUserEdit,
 } from "@tabler/icons-react";
 import {
   Avatar,
@@ -16,9 +17,6 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuRadioGroup,
-  DropdownMenuRadioItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
   TopBarShell,
@@ -26,18 +24,8 @@ import {
   TopBarRight,
 } from "@/niemeyer/components";
 import { signOut } from "@/lib/actions/auth";
-import { updateOwnTeam } from "@/lib/actions/profile";
+import { TEAM_LABELS, type Team } from "@/lib/teams";
 import type { Profile } from "@/lib/auth";
-
-const TEAM_LABELS: Record<string, string> = {
-  vendas: "Vendas",
-  cs: "CS",
-  onboarding: "Onboarding",
-  marketing: "Marketing",
-  outro: "Morada",
-};
-
-const TEAM_OPTIONS = ["vendas", "cs", "onboarding", "marketing", "outro"];
 
 function initials(name: string | null, email: string) {
   const source = name?.trim() || email;
@@ -53,24 +41,19 @@ export function TopBar({
   streakDays,
   onMenuClick,
   onReplayTour,
+  onEditProfile,
 }: {
   profile: Profile;
   streakDays: number;
   onMenuClick: () => void;
   onReplayTour: () => void;
+  onEditProfile: () => void;
 }) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const [query, setQuery] = useState(searchParams.get("q") ?? "");
-  const [isPending, startTransition] = useTransition();
-
-  function handleTeamChange(team: string) {
-    startTransition(async () => {
-      await updateOwnTeam(team);
-      router.refresh();
-    });
-  }
+  const teamLabel = profile.team ? TEAM_LABELS[profile.team as Team] : null;
 
   useEffect(() => {
     setQuery(searchParams.get("q") ?? "");
@@ -131,7 +114,8 @@ export function TopBar({
           {streakDays} {streakDays === 1 ? "dia" : "dias"}
         </span>
         <span className="hidden text-[13px] text-neutral-600 md:inline">
-          {profile.full_name?.split(" ")[0] ?? profile.email} · {TEAM_LABELS[profile.team ?? "outro"]}
+          {profile.full_name?.split(" ")[0] ?? profile.email}
+          {teamLabel ? ` · ${teamLabel}` : ""}
         </span>
         <DropdownMenu>
           <DropdownMenuTrigger data-tour="avatar" className="outline-none">
@@ -149,18 +133,18 @@ export function TopBar({
               <div className="min-w-0">
                 <p className="truncate text-sm font-bold text-foreground">{profile.full_name ?? profile.email}</p>
                 <p className="truncate text-xs text-neutral-500">{profile.email}</p>
+                {(profile.job_title || teamLabel) && (
+                  <p className="truncate text-xs text-neutral-500">
+                    {[profile.job_title, teamLabel].filter(Boolean).join(" · ")}
+                  </p>
+                )}
               </div>
             </div>
             <DropdownMenuSeparator />
-            <DropdownMenuLabel>Seu time</DropdownMenuLabel>
-            <DropdownMenuRadioGroup value={profile.team ?? "outro"} onValueChange={handleTeamChange}>
-              {TEAM_OPTIONS.map((team) => (
-                <DropdownMenuRadioItem key={team} value={team} disabled={isPending}>
-                  {TEAM_LABELS[team]}
-                </DropdownMenuRadioItem>
-              ))}
-            </DropdownMenuRadioGroup>
-            <DropdownMenuSeparator />
+            <DropdownMenuItem onSelect={onEditProfile}>
+              <IconUserEdit />
+              Editar perfil
+            </DropdownMenuItem>
             <DropdownMenuItem onSelect={() => signOut()}>
               <IconLogout />
               Sair

@@ -5,6 +5,7 @@ import { requireUser } from "@/lib/auth";
 import { formatDuration, formatRelative } from "@/lib/format";
 import { getProgressoData } from "@/lib/queries/progresso";
 import { KpiTile } from "@/components/progresso/kpi-tile";
+import { PageTip } from "@/components/onboarding/page-tip";
 
 const WEEKDAY_LABELS = ["Seg", "Ter", "Qua", "Qui", "Sex", "Sáb", "Dom"];
 
@@ -32,6 +33,12 @@ export default async function ProgressoPage() {
           {kpis.aulasConcluidas + kpis.aulasPendentes} aulas concluídas
         </p>
       </div>
+
+      <PageTip
+        pageKey="progresso"
+        title="Sobre a sua ofensiva"
+        description="Ela conta dias úteis seguidos com pelo menos 1 aula concluída. Fim de semana não quebra a sequência — e não precisa estudar nele para mantê-la."
+      />
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <KpiTile

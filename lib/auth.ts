@@ -13,6 +13,7 @@ export type Profile = {
   full_name: string | null;
   avatar_url: string | null;
   team: string | null;
+  job_title: string | null;
   role: "member" | "admin";
   onboarded_at: string | null;
 };
@@ -28,7 +29,7 @@ export async function requireUser() {
 
   const { data: profile } = await supabase
     .from("profiles")
-    .select("id, email, full_name, avatar_url, team, role, onboarded_at")
+    .select("id, email, full_name, avatar_url, team, job_title, role, onboarded_at")
     .eq("id", user.id)
     .single();
 

@@ -4,6 +4,7 @@ import { Button } from "@/niemeyer/components";
 import { requireUser } from "@/lib/auth";
 import { getProductsOverview } from "@/lib/queries/materials";
 import { MaterialsSearchResults } from "@/components/materials/materials-search-results";
+import { PageTip } from "@/components/onboarding/page-tip";
 
 export default async function MateriaisPage({
   searchParams,
@@ -30,6 +31,12 @@ export default async function MateriaisPage({
         </div>
         <Button variant="outline">Solicitar material</Button>
       </div>
+
+      <PageTip
+        pageKey="materiais"
+        title="Como navegar nos materiais"
+        description="A biblioteca é organizada em produto → feature → arquivos. Use a busca no topo para pular direto para um arquivo específico."
+      />
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {products.map((product) => (

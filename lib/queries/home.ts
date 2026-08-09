@@ -12,10 +12,12 @@ import {
 
 const TEAM_TO_PRODUCT: Record<string, string | undefined> = {
   vendas: "vendas",
-  cs: "relacionamento",
+  suporte: "relacionamento",
   onboarding: "transversal",
   marketing: "relacionamento",
-  outro: undefined,
+  marketing_produto: "institucional",
+  produto: undefined,
+  tecnologia: undefined,
 };
 
 export function greetingForHour(hour: number): string {
