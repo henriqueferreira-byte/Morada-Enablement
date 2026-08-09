@@ -1,11 +1,12 @@
 import Link from "next/link";
-import { IconFileText, IconFolder } from "@tabler/icons-react";
+import { IconFileText } from "@tabler/icons-react";
 import { Badge, Button } from "@/niemeyer/components";
 import { requireUser } from "@/lib/auth";
 import { getHomeData, greetingForHour } from "@/lib/queries/home";
 import { formatRelative } from "@/lib/format";
 import { LESSON_TYPE_META } from "@/lib/lesson-types";
 import { ContinueTrackCard } from "@/components/tracks/continue-track-card";
+import { RequestContentCard } from "@/components/home/request-content-card";
 
 export default async function HomePage() {
   const { supabase, user, profile } = await requireUser();
@@ -209,18 +210,10 @@ export default async function HomePage() {
             </div>
           )}
 
-          <div className="rounded-xl border border-neutral-150 bg-neutral-100 p-4">
-            <p className="flex items-center gap-1.5 text-sm font-semibold text-foreground">
-              <IconFolder className="size-4" />
-              Faltou algum conteúdo?
-            </p>
-            <p className="mt-1 text-xs text-neutral-600">
-              Peça um material novo para o time de enablement — respondemos em até 2 dias.
-            </p>
-            <Button variant="outline" size="sm" className="mt-3">
-              Solicitar conteúdo
-            </Button>
-          </div>
+          <RequestContentCard
+            userName={profile.full_name ?? profile.email}
+            userEmail={profile.email}
+          />
         </div>
       </section>
     </>

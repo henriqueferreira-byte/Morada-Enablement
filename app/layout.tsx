@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Outfit, Lato } from "next/font/google";
+import { Toaster } from "@/niemeyer/components";
 import "./globals.css";
 
 const outfit = Outfit({
@@ -25,7 +26,10 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="pt-BR" className={`${outfit.variable} ${lato.variable}`}>
-      <body>{children}</body>
+      <body>
+        {children}
+        <Toaster />
+      </body>
     </html>
   );
 }
