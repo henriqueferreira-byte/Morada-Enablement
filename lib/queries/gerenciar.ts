@@ -89,3 +89,34 @@ export async function getFeedbackFeed(supabase: SupabaseClient, limit = 20): Pro
     userTeam: row.user?.team ?? null,
   }));
 }
+
+export type ContentRequestItem = {
+  id: string;
+  message: string;
+  createdAt: string;
+  userName: string | null;
+  userEmail: string;
+};
+
+export async function getOpenContentRequests(
+  supabase: SupabaseClient,
+  limit = 20,
+): Promise<ContentRequestItem[]> {
+  const { data } = await supabase
+    .from("content_requests")
+    .select(
+      `id, message, created_at,
+       user:profiles!content_requests_user_id_fkey ( full_name, email )`,
+    )
+    .eq("status", "open")
+    .order("created_at", { ascending: false })
+    .limit(limit);
+
+  return (data ?? []).map((row: any) => ({
+    id: row.id,
+    message: row.message,
+    createdAt: row.created_at,
+    userName: row.user?.full_name ?? null,
+    userEmail: row.user?.email ?? "",
+  }));
+}

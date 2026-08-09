@@ -1,20 +1,23 @@
 import { requireAdmin } from "@/lib/auth";
 import { getProducts } from "@/lib/queries/catalog";
-import { getFeedbackFeed, getRecentPublications } from "@/lib/queries/gerenciar";
+import { getFeedbackFeed, getOpenContentRequests, getRecentPublications } from "@/lib/queries/gerenciar";
 import { GerenciarForm } from "@/components/gerenciar/gerenciar-form";
 import { RecentPublications } from "@/components/gerenciar/recent-publications";
 import { FeedbackFeed } from "@/components/gerenciar/feedback-feed";
+import { ContentRequestsPanel } from "@/components/gerenciar/content-requests-panel";
 
 export default async function GerenciarPage() {
   const { supabase } = await requireAdmin();
 
-  const [products, { data: features }, { data: tracks }, recentPublications, feedback] = await Promise.all([
-    getProducts(supabase),
-    supabase.from("features").select("id, product_id, name").order("position"),
-    supabase.from("tracks").select("id, product_id, title").order("position"),
-    getRecentPublications(supabase),
-    getFeedbackFeed(supabase),
-  ]);
+  const [products, { data: features }, { data: tracks }, recentPublications, feedback, contentRequests] =
+    await Promise.all([
+      getProducts(supabase),
+      supabase.from("features").select("id, product_id, name").order("position"),
+      supabase.from("tracks").select("id, product_id, title").order("position"),
+      getRecentPublications(supabase),
+      getFeedbackFeed(supabase),
+      getOpenContentRequests(supabase),
+    ]);
 
   return (
     <>
@@ -33,6 +36,7 @@ export default async function GerenciarPage() {
         />
         <div className="flex flex-col gap-5">
           <RecentPublications items={recentPublications} />
+          <ContentRequestsPanel items={contentRequests} />
           <FeedbackFeed items={feedback} />
         </div>
       </div>

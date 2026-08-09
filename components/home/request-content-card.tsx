@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import { IconFolder } from "@tabler/icons-react";
 import {
   Button,
@@ -13,8 +13,7 @@ import {
   Textarea,
   toast,
 } from "@/niemeyer/components";
-
-const REQUEST_EMAIL = process.env.NEXT_PUBLIC_CONTENT_REQUEST_EMAIL ?? "henrique.ferreira@morada.ai";
+import { submitContentRequest } from "@/lib/actions/content-requests";
 
 export function RequestContentCard({
   userName,
@@ -25,18 +24,21 @@ export function RequestContentCard({
 }) {
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState("");
+  const [isPending, startTransition] = useTransition();
 
   function handleSend() {
     if (!message.trim()) return;
 
-    const subject = `Solicitação de conteúdo — Hub de Enablement (${userName})`;
-    const body = `De: ${userName} (${userEmail})\n\n${message.trim()}`;
-    const mailto = `mailto:${REQUEST_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-
-    window.location.href = mailto;
-    toast("Abrindo seu aplicativo de e-mail...");
-    setOpen(false);
-    setMessage("");
+    startTransition(async () => {
+      try {
+        await submitContentRequest(message);
+        toast("Solicitação enviada para o time de enablement.");
+        setOpen(false);
+        setMessage("");
+      } catch (err) {
+        toast(err instanceof Error ? err.message : "Não foi possível enviar. Tente novamente.");
+      }
+    });
   }
 
   return (
@@ -72,10 +74,10 @@ export function RequestContentCard({
           />
 
           <DialogFooter>
-            <Button variant="ghost" onClick={() => setOpen(false)}>
+            <Button variant="ghost" onClick={() => setOpen(false)} disabled={isPending}>
               Cancelar
             </Button>
-            <Button onClick={handleSend} disabled={!message.trim()}>
+            <Button onClick={handleSend} disabled={!message.trim()} isLoading={isPending}>
               Enviar
             </Button>
           </DialogFooter>
