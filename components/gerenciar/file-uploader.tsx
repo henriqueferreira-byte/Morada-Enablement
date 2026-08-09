@@ -11,6 +11,7 @@ const ACCEPTED_EXT: Record<string, string> = {
   "application/vnd.openxmlformats-officedocument.wordprocessingml.document": "DOCX",
   "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": "XLSX",
   "video/mp4": "MP4",
+  "text/html": "HTML",
 };
 
 const FORMAT_LABEL: Record<string, string> = {
@@ -19,6 +20,7 @@ const FORMAT_LABEL: Record<string, string> = {
   DOCX: "Documento",
   XLSX: "Planilha",
   MP4: "Vídeo",
+  HTML: "HTML",
 };
 
 const MAX_BYTES = 200 * 1024 * 1024;
@@ -46,7 +48,7 @@ export function FileUploader({
   async function upload(file: File) {
     const ext = ACCEPTED_EXT[file.type];
     if (!ext) {
-      setState({ status: "error", message: "Formato não aceito. Use PPTX, PDF, DOCX, XLSX ou MP4." });
+      setState({ status: "error", message: "Formato não aceito. Use PPTX, PDF, DOCX, XLSX, MP4 ou HTML." });
       return;
     }
     if (file.size > MAX_BYTES) {
@@ -74,6 +76,10 @@ export function FileUploader({
       xhr.setRequestHeader("Authorization", `Bearer ${token}`);
       xhr.setRequestHeader("apikey", process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!);
       xhr.setRequestHeader("x-upsert", "false");
+      // Storage doesn't reliably infer this from the raw body, so it defaults
+      // to text/plain without this — which would make "Abrir" show HTML
+      // source instead of rendering the page.
+      xhr.setRequestHeader("Content-Type", file.type);
       xhr.upload.onprogress = (e) => {
         if (e.lengthComputable) {
           setState({ status: "uploading", progress: Math.round((e.loaded / e.total) * 100), fileName: file.name });
@@ -157,13 +163,13 @@ export function FileUploader({
           <IconFileUpload className="size-5" />
         </span>
         <span className="text-sm font-bold text-foreground">Arraste o arquivo ou clique para escolher</span>
-        <span className="text-xs text-neutral-500">PPTX, PDF, DOCX, XLSX ou MP4 · até 200 MB</span>
+        <span className="text-xs text-neutral-500">PPTX, PDF, DOCX, XLSX, MP4 ou HTML · até 200 MB</span>
         <input
           ref={inputRef}
           type="file"
           className="hidden"
           disabled={disabled}
-          accept=".pptx,.pdf,.docx,.xlsx,.mp4"
+          accept=".pptx,.pdf,.docx,.xlsx,.mp4,.html,.htm"
           onChange={(e) => handleFiles(e.target.files)}
         />
       </label>

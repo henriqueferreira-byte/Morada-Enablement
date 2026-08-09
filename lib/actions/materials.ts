@@ -10,7 +10,7 @@ export async function getMaterialAccessUrl(materialId: string, kind: "open" | "d
 
   const { data: material } = await supabase
     .from("materials")
-    .select("id, storage_path, external_url")
+    .select("id, ext, storage_path, external_url")
     .eq("id", materialId)
     .single();
 
@@ -23,6 +23,16 @@ export async function getMaterialAccessUrl(materialId: string, kind: "open" | "d
   }
 
   if (!material.storage_path) throw new Error("Material sem arquivo ou link.");
+
+  // Supabase Storage always serves .html objects as text/plain (an
+  // intentional anti-phishing measure — it refuses to host renderable
+  // pages), so "open" routes HTML through our own proxy route instead of a
+  // signed URL, which re-serves the bytes with the real content-type.
+  // "download" is unaffected — Content-Disposition still saves the file
+  // correctly regardless of the mislabeled type.
+  if (material.ext === "HTML" && kind === "open") {
+    return { url: `/api/materials/${materialId}/view` };
+  }
 
   const { data: signed, error } = await supabase.storage
     .from("hub-materials")
