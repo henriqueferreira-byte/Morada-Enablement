@@ -12,14 +12,42 @@ function addDays(dateString: string, days: number): string {
   return d.toISOString().slice(0, 10);
 }
 
+function weekdayOf(dateString: string): number {
+  return new Date(`${dateString}T12:00:00Z`).getUTCDay(); // 0=Sun..6=Sat
+}
+
+function isBusinessDay(dateString: string): boolean {
+  const day = weekdayOf(dateString);
+  return day !== 0 && day !== 6;
+}
+
+/** The most recent business day at or before `dateString` — weekends collapse onto the preceding Friday, so gaps across a weekend never break the streak. */
+function toBusinessDay(dateString: string): string {
+  let cursor = dateString;
+  while (!isBusinessDay(cursor)) cursor = addDays(cursor, -1);
+  return cursor;
+}
+
+function previousBusinessDay(dateString: string): string {
+  let cursor = addDays(dateString, -1);
+  while (!isBusinessDay(cursor)) cursor = addDays(cursor, -1);
+  return cursor;
+}
+
+function nextBusinessDay(dateString: string): string {
+  let cursor = addDays(dateString, 1);
+  while (!isBusinessDay(cursor)) cursor = addDays(cursor, 1);
+  return cursor;
+}
+
 export type StreakInfo = {
-  /** Consecutive days (through today or, if today has no completion yet, through yesterday) with at least one completed lesson. */
+  /** Consecutive business days (Mon–Fri) with at least one completed lesson — weekends are always skipped, never required and never breaking it. Grace on the current business day: doesn't drop until it ends without a completion. */
   currentStreak: number;
-  /** Longest run of consecutive days with a completion, ever. */
+  /** Longest run of consecutive business days with a completion, ever. */
   bestStreak: number;
   /** True if at least one lesson was completed today. */
   completedToday: boolean;
-  /** Seg→Dom booleans for the current calendar week (America/Sao_Paulo), true where at least one lesson was completed. */
+  /** Seg→Dom booleans for the current calendar week (America/Sao_Paulo), true where at least one lesson was completed. Weekends are shown for context only — they never count toward the streak. */
   weekDays: [boolean, boolean, boolean, boolean, boolean, boolean, boolean];
 };
 
@@ -37,26 +65,33 @@ export async function getStreakInfo(
   );
 
   const today = toSaoPauloDateString(new Date());
-  let cursor = completedDates.has(today) ? today : addDays(today, -1);
+
+  let cursor: string;
+  if (isBusinessDay(today)) {
+    cursor = completedDates.has(today) ? today : previousBusinessDay(today);
+  } else {
+    cursor = toBusinessDay(today);
+  }
+
   let currentStreak = 0;
   while (completedDates.has(cursor)) {
     currentStreak += 1;
-    cursor = addDays(cursor, -1);
+    cursor = previousBusinessDay(cursor);
   }
 
-  const todayWeekday = new Date(`${today}T12:00:00Z`).getUTCDay(); // 0=Sun..6=Sat
+  const todayWeekday = weekdayOf(today);
   const mondayOffset = todayWeekday === 0 ? -6 : 1 - todayWeekday;
   const monday = addDays(today, mondayOffset);
   const weekDays = Array.from({ length: 7 }, (_, i) =>
     completedDates.has(addDays(monday, i)),
   ) as StreakInfo["weekDays"];
 
-  const sortedDates = [...completedDates].sort();
+  const sortedBusinessDates = [...completedDates].filter(isBusinessDay).sort();
   let bestStreak = 0;
   let run = 0;
   let previous: string | null = null;
-  for (const date of sortedDates) {
-    run = previous && addDays(previous, 1) === date ? run + 1 : 1;
+  for (const date of sortedBusinessDates) {
+    run = previous && nextBusinessDay(previous) === date ? run + 1 : 1;
     bestStreak = Math.max(bestStreak, run);
     previous = date;
   }

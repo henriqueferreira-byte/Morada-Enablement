@@ -15,13 +15,13 @@ export default async function ProgressoPage() {
     user.id,
   );
 
-  const doneThisWeek = streak.weekDays.filter(Boolean).length;
+  const businessDaysDone = streak.weekDays.slice(0, 5).filter(Boolean).length;
   const weekCaption =
-    doneThisWeek === 7
-      ? "Semana completa! Continue assim."
-      : doneThisWeek === 6
-        ? "Você está a 1 aula de fechar a semana completa."
-        : `${doneThisWeek} de 7 dias com pelo menos 1 aula.`;
+    businessDaysDone === 5
+      ? "Semana útil completa! Continue assim."
+      : businessDaysDone === 4
+        ? "Você está a 1 aula de fechar a semana útil completa."
+        : `${businessDaysDone} de 5 dias úteis com pelo menos 1 aula.`;
 
   return (
     <>
@@ -123,16 +123,24 @@ export default async function ProgressoPage() {
           <div className="rounded-xl border border-border bg-card p-5 shadow-xs">
             <h2 className="font-heading text-sm font-semibold text-foreground">Ofensiva da semana</h2>
             <div className="mt-3 flex gap-1.5">
-              {streak.weekDays.map((done, i) => (
-                <div
-                  key={i}
-                  className={`flex h-10 flex-1 items-center justify-center rounded-lg text-xs font-bold ${
-                    done ? "bg-primary text-primary-foreground" : "bg-neutral-100 text-neutral-400"
-                  }`}
-                >
-                  {WEEKDAY_LABELS[i]?.[0]}
-                </div>
-              ))}
+              {streak.weekDays.map((done, i) => {
+                const isWeekend = i >= 5;
+                return (
+                  <div
+                    key={i}
+                    title={isWeekend ? `${WEEKDAY_LABELS[i]} · não conta na ofensiva` : WEEKDAY_LABELS[i]}
+                    className={`flex h-10 flex-1 items-center justify-center rounded-lg text-xs font-bold ${
+                      done
+                        ? "bg-primary text-primary-foreground"
+                        : isWeekend
+                          ? "border border-dashed border-neutral-200 text-neutral-300"
+                          : "bg-neutral-100 text-neutral-400"
+                    }`}
+                  >
+                    {WEEKDAY_LABELS[i]?.[0]}
+                  </div>
+                );
+              })}
             </div>
             <p className="mt-2 text-xs text-neutral-500">{weekCaption}</p>
             {nextPendingTrackId && (

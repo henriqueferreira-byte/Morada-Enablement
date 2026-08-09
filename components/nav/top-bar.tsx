@@ -1,9 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useTransition } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import {
   IconFlame,
+  IconHelpCircle,
   IconLogout,
   IconMenu2,
   IconSearch,
@@ -15,12 +16,17 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
   TopBarShell,
   TopBarLeft,
   TopBarRight,
 } from "@/niemeyer/components";
 import { signOut } from "@/lib/actions/auth";
+import { updateOwnTeam } from "@/lib/actions/profile";
 import type { Profile } from "@/lib/auth";
 
 const TEAM_LABELS: Record<string, string> = {
@@ -30,6 +36,8 @@ const TEAM_LABELS: Record<string, string> = {
   marketing: "Marketing",
   outro: "Morada",
 };
+
+const TEAM_OPTIONS = ["vendas", "cs", "onboarding", "marketing", "outro"];
 
 function initials(name: string | null, email: string) {
   const source = name?.trim() || email;
@@ -44,15 +52,25 @@ export function TopBar({
   profile,
   streakDays,
   onMenuClick,
+  onReplayTour,
 }: {
   profile: Profile;
   streakDays: number;
   onMenuClick: () => void;
+  onReplayTour: () => void;
 }) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const [query, setQuery] = useState(searchParams.get("q") ?? "");
+  const [isPending, startTransition] = useTransition();
+
+  function handleTeamChange(team: string) {
+    startTransition(async () => {
+      await updateOwnTeam(team);
+      router.refresh();
+    });
+  }
 
   useEffect(() => {
     setQuery(searchParams.get("q") ?? "");
@@ -87,7 +105,7 @@ export function TopBar({
         >
           <IconMenu2 className="size-5" />
         </button>
-        <div className="relative hidden w-full max-w-[340px] sm:block">
+        <div data-tour="search" className="relative hidden w-full max-w-[340px] sm:block">
           <IconSearch className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-neutral-400" />
           <input
             value={query}
@@ -99,7 +117,16 @@ export function TopBar({
       </TopBarLeft>
 
       <TopBarRight>
-        <span className="hidden items-center gap-1.5 rounded-full border border-[rgba(247,184,125,0.5)] bg-[rgba(247,184,125,0.18)] px-2.5 py-1 text-xs font-bold text-[#8a4b12] sm:flex">
+        <button
+          type="button"
+          onClick={onReplayTour}
+          className="flex size-8 shrink-0 items-center justify-center rounded-full text-muted-foreground hover:bg-muted"
+          aria-label="Como funciona o hub?"
+          title="Como funciona o hub?"
+        >
+          <IconHelpCircle className="size-[18px]" />
+        </button>
+        <span data-tour="streak" className="hidden items-center gap-1.5 rounded-full border border-[rgba(247,184,125,0.5)] bg-[rgba(247,184,125,0.18)] px-2.5 py-1 text-xs font-bold text-[#8a4b12] sm:flex">
           <IconFlame className="size-3.5" />
           {streakDays} {streakDays === 1 ? "dia" : "dias"}
         </span>
@@ -107,13 +134,33 @@ export function TopBar({
           {profile.full_name?.split(" ")[0] ?? profile.email} · {TEAM_LABELS[profile.team ?? "outro"]}
         </span>
         <DropdownMenu>
-          <DropdownMenuTrigger className="outline-none">
+          <DropdownMenuTrigger data-tour="avatar" className="outline-none">
             <Avatar>
               {profile.avatar_url && <AvatarImage src={profile.avatar_url} alt="" />}
               <AvatarFallback>{initials(profile.full_name, profile.email)}</AvatarFallback>
             </Avatar>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
+          <DropdownMenuContent align="end" className="w-64">
+            <div className="flex items-center gap-3 px-3 py-2.5">
+              <Avatar size="lg">
+                {profile.avatar_url && <AvatarImage src={profile.avatar_url} alt="" />}
+                <AvatarFallback>{initials(profile.full_name, profile.email)}</AvatarFallback>
+              </Avatar>
+              <div className="min-w-0">
+                <p className="truncate text-sm font-bold text-foreground">{profile.full_name ?? profile.email}</p>
+                <p className="truncate text-xs text-neutral-500">{profile.email}</p>
+              </div>
+            </div>
+            <DropdownMenuSeparator />
+            <DropdownMenuLabel>Seu time</DropdownMenuLabel>
+            <DropdownMenuRadioGroup value={profile.team ?? "outro"} onValueChange={handleTeamChange}>
+              {TEAM_OPTIONS.map((team) => (
+                <DropdownMenuRadioItem key={team} value={team} disabled={isPending}>
+                  {TEAM_LABELS[team]}
+                </DropdownMenuRadioItem>
+              ))}
+            </DropdownMenuRadioGroup>
+            <DropdownMenuSeparator />
             <DropdownMenuItem onSelect={() => signOut()}>
               <IconLogout />
               Sair

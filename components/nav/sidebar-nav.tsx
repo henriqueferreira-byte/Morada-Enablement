@@ -50,7 +50,7 @@ export function SidebarNav({
           </Link>
         </SidebarPanelHeader>
 
-        <SidebarPanelNav>
+        <SidebarPanelNav data-tour="nav-links">
           <li className="px-3 pb-1 pt-2 text-[11px] font-semibold uppercase tracking-wider text-neutral-400">
             Hub de enablement
           </li>
@@ -100,18 +100,21 @@ export function SidebarNav({
             Ofensiva de {streak.currentStreak} {streak.currentStreak === 1 ? "dia" : "dias"}
           </p>
           <p className="mt-0.5 text-xs text-neutral-500">
-            Estude 1 aula por dia para manter.
+            Estude 1 aula por dia útil para manter.
           </p>
           <div className="mt-2.5 flex gap-[5px]">
             {streak.weekDays.map((done, i) => {
               const label = WEEKDAY_LABELS[i] ?? "";
+              const isWeekend = i >= 5;
               return (
                 <div
                   key={i}
-                  title={label}
+                  title={isWeekend ? `${label} · não conta na ofensiva` : label}
                   className={cn(
                     "flex h-6 flex-1 items-center justify-center rounded-md text-[10px] font-bold",
-                    done ? "bg-primary text-primary-foreground" : "bg-neutral-150 text-neutral-400",
+                    done && "bg-primary text-primary-foreground",
+                    !done && !isWeekend && "bg-neutral-150 text-neutral-400",
+                    !done && isWeekend && "border border-dashed border-neutral-200 text-neutral-300",
                   )}
                 >
                   {label.charAt(0)}

@@ -14,6 +14,7 @@ export type Profile = {
   avatar_url: string | null;
   team: string | null;
   role: "member" | "admin";
+  onboarded_at: string | null;
 };
 
 /** Server-side gate for pages/actions: redirects to /login when there is no session. */
@@ -27,7 +28,7 @@ export async function requireUser() {
 
   const { data: profile } = await supabase
     .from("profiles")
-    .select("id, email, full_name, avatar_url, team, role")
+    .select("id, email, full_name, avatar_url, team, role, onboarded_at")
     .eq("id", user.id)
     .single();
 

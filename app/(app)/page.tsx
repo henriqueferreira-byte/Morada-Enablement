@@ -1,12 +1,12 @@
 import Link from "next/link";
 import { IconFileText } from "@tabler/icons-react";
-import { Badge, Button } from "@/niemeyer/components";
+import { Button } from "@/niemeyer/components";
 import { requireUser } from "@/lib/auth";
 import { getHomeData, greetingForHour } from "@/lib/queries/home";
 import { formatRelative } from "@/lib/format";
-import { LESSON_TYPE_META } from "@/lib/lesson-types";
 import { ContinueTrackCard } from "@/components/tracks/continue-track-card";
 import { RequestContentCard } from "@/components/home/request-content-card";
+import { NovidadeCard } from "@/components/home/novidade-card";
 
 export default async function HomePage() {
   const { supabase, user, profile } = await requireUser();
@@ -99,122 +99,85 @@ export default async function HomePage() {
         </section>
       )}
 
-      <section className="grid gap-5 lg:grid-cols-[1.5fr_1fr]">
-        <div className="rounded-xl border border-border bg-card shadow-xs">
-          <h2 className="border-b border-border px-[18px] py-3 font-heading text-base font-semibold text-foreground">
-            Novidades no hub
-          </h2>
-          {data.novidades.length === 0 ? (
-            <p className="px-[18px] py-8 text-center text-sm text-muted-foreground">
-              Nada de novo nos últimos 30 dias.
-            </p>
-          ) : (
+      <section className="flex flex-col gap-4">
+        <h2 className="font-heading text-xl font-semibold tracking-tight text-foreground">Novidades no hub</h2>
+        {data.novidades.length === 0 ? (
+          <p className="rounded-xl border border-dashed border-neutral-200 bg-neutral-50 px-6 py-8 text-center text-sm text-muted-foreground">
+            Nada de novo nos últimos 30 dias.
+          </p>
+        ) : (
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {data.novidades.map((item) => (
+              <NovidadeCard key={item.id} item={item} />
+            ))}
+          </div>
+        )}
+      </section>
+
+      <section className="grid gap-4 lg:grid-cols-3">
+        {data.recommendedTracks.length > 0 && (
+          <div className="flex flex-col gap-2">
+            <span className="text-sm font-semibold text-foreground">
+              Recomendado para {profile.team ? "seu time" : "você"}
+            </span>
+            {data.recommendedTracks.map(({ track, progress }) => (
+              <Link
+                key={track.id}
+                href={`/trilhas/${track.id}`}
+                className="rounded-xl border border-border bg-card px-[18px] py-4 shadow-xs outline-none hover:border-neutral-300 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50"
+              >
+                <span className="text-[11px] font-bold uppercase tracking-wide text-neutral-500">
+                  {track.product.name}
+                </span>
+                <p className="mt-1 font-heading text-[15px] font-semibold text-foreground">{track.title}</p>
+                <p className="mt-0.5 text-xs text-neutral-500">
+                  {progress.total} aulas · {progress.durationMin} min
+                </p>
+              </Link>
+            ))}
+          </div>
+        )}
+
+        {data.recentMaterials.length > 0 && (
+          <div className="rounded-xl border border-border bg-card shadow-xs">
+            <div className="flex items-center justify-between border-b border-border px-[18px] py-3">
+              <span className="font-heading text-sm font-semibold text-foreground">Materiais recentes</span>
+              <Link href="/materiais" className="text-xs font-bold text-primary hover:underline">
+                Biblioteca
+              </Link>
+            </div>
             <ul>
-              {data.novidades.map((item) => {
-                const typeMeta = item.contentKind ? LESSON_TYPE_META[item.contentKind] : null;
-                return (
-                  <li key={item.id} className="border-b border-neutral-100 last:border-b-0">
-                    <Link
-                      href={item.href}
-                      className="flex items-center gap-3 px-[18px] py-3.5 outline-none hover:bg-neutral-50 focus-visible:bg-neutral-50 focus-visible:ring-3 focus-visible:ring-ring/50"
-                    >
-                      <span
-                        className="h-full w-[3px] shrink-0 self-stretch rounded-full"
-                        style={{ backgroundColor: item.productAccent }}
-                        aria-hidden
-                      />
-                      <div className="min-w-0 flex-1">
-                        <div className="flex items-center gap-2">
-                          <span className="truncate font-heading text-[15px] font-semibold text-foreground">
-                            {item.title}
-                          </span>
-                          {item.isNew && (
-                            <span className="shrink-0 rounded-full border border-primary/25 bg-primary/10 px-1.5 py-0.5 text-[10px] font-bold text-primary">
-                              NOVO
-                            </span>
-                          )}
-                        </div>
-                        <p className="mt-0.5 truncate text-xs text-neutral-500">
-                          {item.productName} · {item.kind === "lesson" ? "publicado" : "atualizado"} {formatRelative(item.publishedAt)}
-                          {item.authorName ? ` por ${item.authorName}` : ""}
-                        </p>
+              {data.recentMaterials.map((material) => (
+                <li key={material.id}>
+                  <Link
+                    href={`/materiais/${material.feature.product.id}/${material.feature.id}`}
+                    className="flex items-center gap-3 px-[18px] py-3 outline-none hover:bg-neutral-50 focus-visible:bg-neutral-50 focus-visible:ring-3 focus-visible:ring-ring/50"
+                  >
+                    <span className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-primary/[0.08] text-primary">
+                      <IconFileText className="size-4" />
+                    </span>
+                    <div className="min-w-0 flex-1">
+                      <div className="flex items-center gap-1.5">
+                        <span className="truncate text-[13px] font-bold text-foreground">{material.title}</span>
+                        <span className="shrink-0 rounded-full border border-primary/25 bg-primary/10 px-1.5 py-0.5 text-[9px] font-bold text-primary">
+                          NOVO
+                        </span>
                       </div>
-                      <Badge variant={typeMeta?.badgeVariant ?? "outline"} className="shrink-0">
-                        {typeMeta?.label ?? item.format}
-                      </Badge>
-                    </Link>
-                  </li>
-                );
-              })}
-            </ul>
-          )}
-        </div>
-
-        <div className="flex flex-col gap-4">
-          {data.recommendedTracks.length > 0 && (
-            <div className="flex flex-col gap-2">
-              <span className="text-sm font-semibold text-foreground">
-                Recomendado para {profile.team ? "seu time" : "você"}
-              </span>
-              {data.recommendedTracks.map(({ track, progress }) => (
-                <Link
-                  key={track.id}
-                  href={`/trilhas/${track.id}`}
-                  className="rounded-xl border border-border bg-card px-[18px] py-4 shadow-xs outline-none hover:border-neutral-300 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50"
-                >
-                  <span className="text-[11px] font-bold uppercase tracking-wide text-neutral-500">
-                    {track.product.name}
-                  </span>
-                  <p className="mt-1 font-heading text-[15px] font-semibold text-foreground">{track.title}</p>
-                  <p className="mt-0.5 text-xs text-neutral-500">
-                    {progress.total} aulas · {progress.durationMin} min
-                  </p>
-                </Link>
+                      <p className="truncate text-[11px] text-neutral-500">
+                        {material.feature.product.name} · {material.feature.name} · {formatRelative(material.updated_at)}
+                      </p>
+                    </div>
+                  </Link>
+                </li>
               ))}
-            </div>
-          )}
+            </ul>
+          </div>
+        )}
 
-          {data.recentMaterials.length > 0 && (
-            <div className="rounded-xl border border-border bg-card shadow-xs">
-              <div className="flex items-center justify-between border-b border-border px-[18px] py-3">
-                <span className="font-heading text-sm font-semibold text-foreground">Materiais recentes</span>
-                <Link href="/materiais" className="text-xs font-bold text-primary hover:underline">
-                  Biblioteca
-                </Link>
-              </div>
-              <ul>
-                {data.recentMaterials.map((material) => (
-                  <li key={material.id}>
-                    <Link
-                      href={`/materiais/${material.feature.product.id}/${material.feature.id}`}
-                      className="flex items-center gap-3 px-[18px] py-3 outline-none hover:bg-neutral-50 focus-visible:bg-neutral-50 focus-visible:ring-3 focus-visible:ring-ring/50"
-                    >
-                      <span className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-primary/[0.08] text-primary">
-                        <IconFileText className="size-4" />
-                      </span>
-                      <div className="min-w-0 flex-1">
-                        <div className="flex items-center gap-1.5">
-                          <span className="truncate text-[13px] font-bold text-foreground">{material.title}</span>
-                          <span className="shrink-0 rounded-full border border-primary/25 bg-primary/10 px-1.5 py-0.5 text-[9px] font-bold text-primary">
-                            NOVO
-                          </span>
-                        </div>
-                        <p className="truncate text-[11px] text-neutral-500">
-                          {material.feature.product.name} · {material.feature.name} · {formatRelative(material.updated_at)}
-                        </p>
-                      </div>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-
-          <RequestContentCard
-            userName={profile.full_name ?? profile.email}
-            userEmail={profile.email}
-          />
-        </div>
+        <RequestContentCard
+          userName={profile.full_name ?? profile.email}
+          userEmail={profile.email}
+        />
       </section>
     </>
   );
