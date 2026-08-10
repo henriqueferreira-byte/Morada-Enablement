@@ -10,7 +10,7 @@ insert into products (id, name, accent, description, position) values
   ('vendas', 'Morada Vendas', '#0073ff', 'Materiais de pipeline, filas, MIA na qualificação e tudo que vai para a mesa do cliente.', 1),
   ('relacionamento', 'Morada Relacionamento', '#02cfff', 'Materiais de atendimento no Talk, campanhas, reengajamento e retenção.', 2),
   ('institucional', 'Institucional', '#f7b87d', 'Marca, apresentação da empresa e comunicação de roadmap e releases.', 3),
-  ('transversal', 'Transversal', '#f7b87d', 'Onboarding geral, para quem entra na empresa em qualquer time.', 4);
+  ('transversal', 'Transversal', '#f7b87d', 'Funcionalidades que conversam com vários módulos da plataforma.', 4);
 
 -- ── Features (materials folders) ────────────────────────────────────────────
 
@@ -57,15 +57,17 @@ insert into materials (feature_id, title, description, ext, format, external_url
 
 -- ── Tracks ───────────────────────────────────────────────────────────────────
 
-insert into tracks (id, product_id, title, description, level, audience, owner_name, owner_role, position, updated_at) values
-  ('v1', 'vendas', 'Fundamentos do Morada Vendas', 'O caminho completo do lead até o negócio fechado dentro do módulo Vendas.', 'Essencial', 'SDRs e closers nos primeiros 30 dias, e quem faz demo do módulo.', 'Rafael Lima', 'Enablement · Vendas', 1, now() - interval '3 days'),
-  ('v2', 'vendas', 'Filas e distribuição de leads', 'Round-robin, pesos por corretor e o que fazer quando a fila estoura no fim do dia.', 'Intermediário', 'Gestores de vendas e quem configura filas para o cliente.', 'Rafael Lima', 'Enablement · Vendas', 2, now() - interval '7 days'),
-  ('v3', 'vendas', 'MIA na qualificação', 'O que a MIA pergunta, como ajustar o roteiro e o momento certo de assumir a conversa.', 'Intermediário', 'SDRs, closers e times de pré-venda.', 'Suzane Alves', 'Enablement · Produto', 3, now() - interval '2 days'),
-  ('v4', 'vendas', 'Pitch e objeções', 'Pitch de 3 minutos, as objeções mais comuns e uma simulação gravada para treinar.', 'Avançado', 'Closers e gerentes comerciais.', 'Camila Rocha', 'Head de Vendas', 4, now() - interval '2 days'),
-  ('r1', 'relacionamento', 'Fundamentos do Morada Relacionamento', 'Atendimento, conversa e supervisão no Talk — a base para quem cuida do cliente.', 'Essencial', 'CS, suporte e implantação nos primeiros 30 dias.', 'Bruno Teixeira', 'Enablement · CS', 1, now() - interval '5 days'),
-  ('r2', 'relacionamento', 'Campanhas e reengajamento', 'Como montar uma campanha de reativação sem esbarrar nos limites do WhatsApp.', 'Intermediário', 'CS, marketing e quem opera campanhas do cliente.', 'Bruno Teixeira', 'Enablement · CS', 2, now() - interval '4 days'),
-  ('r3', 'relacionamento', 'Pós-venda e retenção', 'Do handoff de vendas para o CS até a leitura dos sinais de risco de churn.', 'Avançado', 'CS, suporte e lideranças de conta.', 'Marina Duarte', 'Head de CS', 3, now() - interval '14 days'),
-  ('t1', 'transversal', 'Onboarding Morada: primeira semana', 'Quem é a Morada, o que vendemos e como andar pela plataforma sem se perder.', 'Essencial', 'Todo mundo que entra na empresa, em qualquer time.', 'Suzane Alves', 'Enablement · Produto', 1, now() - interval '14 days');
+-- owner_name/owner_role are left null — set the real responsible person for
+-- each trilha from Gerenciar once it's picked, instead of seeding a fake name.
+insert into tracks (id, product_id, title, description, level, audience, position, updated_at, coming_soon) values
+  ('v1', 'vendas', 'Fundamentos do Morada Vendas', 'O caminho completo do lead até o negócio fechado dentro do módulo Vendas.', 'Essencial', 'SDRs e closers nos primeiros 30 dias, e quem faz demo do módulo.', 1, now() - interval '3 days', true),
+  ('v2', 'vendas', 'Filas e distribuição de leads', 'Round-robin, pesos por corretor e o que fazer quando a fila estoura no fim do dia.', 'Intermediário', 'Gestores de vendas e quem configura filas para o cliente.', 2, now() - interval '7 days', true),
+  ('v3', 'vendas', 'MIA na qualificação', 'O que a MIA pergunta, como ajustar o roteiro e o momento certo de assumir a conversa.', 'Intermediário', 'SDRs, closers e times de pré-venda.', 3, now() - interval '2 days', true),
+  ('v4', 'vendas', 'Pitch e objeções', 'Pitch de 3 minutos, as objeções mais comuns e uma simulação gravada para treinar.', 'Avançado', 'Closers e gerentes comerciais.', 4, now() - interval '2 days', true),
+  ('r1', 'relacionamento', 'Fundamentos do Morada Relacionamento', 'Atendimento, conversa e supervisão no Talk — a base para quem cuida do cliente.', 'Essencial', 'CS, suporte e implantação nos primeiros 30 dias.', 1, now() - interval '5 days', true),
+  ('r2', 'relacionamento', 'Campanhas e reengajamento', 'Como montar uma campanha de reativação sem esbarrar nos limites do WhatsApp.', 'Intermediário', 'CS, marketing e quem opera campanhas do cliente.', 2, now() - interval '4 days', true),
+  ('r3', 'relacionamento', 'Pós-venda e retenção', 'Do handoff de vendas para o CS até a leitura dos sinais de risco de churn.', 'Avançado', 'CS, suporte e lideranças de conta.', 3, now() - interval '14 days', true),
+  ('t1', 'transversal', 'Onboarding Morada: primeira semana', 'Quem é a Morada, o que vendemos e como andar pela plataforma sem se perder.', 'Essencial', 'Todo mundo que entra na empresa, em qualquer time.', 1, now() - interval '14 days', true);
 
 -- ── Lessons ──────────────────────────────────────────────────────────────────
 -- published_at: the five lessons called out in the prototype's NOVIDADES feed

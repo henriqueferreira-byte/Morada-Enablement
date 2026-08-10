@@ -40,9 +40,11 @@ function MaterialTags({ material }: { material: MaterialRow }) {
 export function MaterialsTable({
   materials,
   showLocation,
+  isAdmin = false,
 }: {
   materials: MaterialRow[];
   showLocation: boolean;
+  isAdmin?: boolean;
 }) {
   return (
     <Table tableClassName="min-w-[900px]">
@@ -91,7 +93,12 @@ export function MaterialsTable({
               <TableCell className="text-[13px] text-neutral-600">{material.format}</TableCell>
               <TableCell className="text-[13px] text-neutral-600">{formatRelative(material.updated_at)}</TableCell>
               <TableCell>
-                <MaterialRowActions materialId={material.id} isLink={material.ext === "LINK"} />
+                <MaterialRowActions
+                  materialId={material.id}
+                  materialTitle={material.title}
+                  isLink={material.ext === "LINK"}
+                  isAdmin={isAdmin}
+                />
               </TableCell>
             </TableRow>
           );

@@ -8,9 +8,11 @@ import { MaterialsTable } from "./materials-table";
 export async function MaterialsSearchResults({
   supabase,
   query,
+  isAdmin = false,
 }: {
   supabase: SupabaseClient;
   query: string;
+  isAdmin?: boolean;
 }) {
   const materials = await searchMaterials(supabase, query);
 
@@ -37,7 +39,7 @@ export async function MaterialsSearchResults({
           </Button>
         </EmptyState>
       ) : (
-        <MaterialsTable materials={materials} showLocation />
+        <MaterialsTable materials={materials} showLocation isAdmin={isAdmin} />
       )}
     </>
   );

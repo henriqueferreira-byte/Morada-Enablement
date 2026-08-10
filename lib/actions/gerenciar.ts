@@ -96,6 +96,56 @@ export async function createFeature(productId: string, name: string) {
   return { id, name: trimmed };
 }
 
+export async function updateTrackMeta(
+  trackId: string,
+  input: { ownerName: string; ownerRole: string; comingSoon: boolean },
+) {
+  const { supabase } = await requireAdmin();
+
+  const { error } = await supabase
+    .from("tracks")
+    .update({
+      owner_name: input.ownerName.trim() || null,
+      owner_role: input.ownerRole.trim() || null,
+      coming_soon: input.comingSoon,
+      updated_at: new Date().toISOString(),
+    })
+    .eq("id", trackId);
+  if (error) throw new Error(error.message);
+
+  revalidatePath("/trilhas");
+  revalidatePath(`/trilhas/${trackId}`);
+  revalidatePath("/gerenciar");
+  revalidatePath("/");
+}
+
+export async function deleteMaterial(id: string) {
+  const { supabase } = await requireAdmin();
+  const { error } = await supabase.from("materials").delete().eq("id", id);
+  if (error) throw new Error(error.message);
+  revalidatePath("/materiais");
+  revalidatePath("/gerenciar");
+  revalidatePath("/");
+}
+
+export async function deleteLesson(id: string) {
+  const { supabase } = await requireAdmin();
+  const { error } = await supabase.from("lessons").delete().eq("id", id);
+  if (error) throw new Error(error.message);
+  revalidatePath("/trilhas");
+  revalidatePath("/gerenciar");
+  revalidatePath("/");
+}
+
+export async function deleteTrack(id: string) {
+  const { supabase } = await requireAdmin();
+  const { error } = await supabase.from("tracks").delete().eq("id", id);
+  if (error) throw new Error(error.message);
+  revalidatePath("/trilhas");
+  revalidatePath("/gerenciar");
+  revalidatePath("/");
+}
+
 async function notifySlackWebhook(text: string) {
   const webhookUrl = process.env.SLACK_WEBHOOK_URL;
   if (!webhookUrl) return;

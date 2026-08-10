@@ -15,7 +15,7 @@ export default async function FeatureMaterialsPage({
   params: Promise<{ produto: string; feature: string }>;
   searchParams: Promise<{ q?: string }>;
 }) {
-  const { supabase } = await requireUser();
+  const { supabase, profile } = await requireUser();
   const { produto, feature: rawFeature } = await params;
   // Some browsers percent-encode the literal ":" in feature ids (e.g. "vendas:filas")
   // when navigating, and it can arrive undecoded here — decode defensively.
@@ -23,7 +23,7 @@ export default async function FeatureMaterialsPage({
   const { q } = await searchParams;
 
   if (q?.trim()) {
-    return <MaterialsSearchResults supabase={supabase} query={q.trim()} />;
+    return <MaterialsSearchResults supabase={supabase} query={q.trim()} isAdmin={profile.role === "admin"} />;
   }
 
   const result = await getFeatureMaterials(supabase, produto, feature);
@@ -58,7 +58,7 @@ export default async function FeatureMaterialsPage({
       {result.materials.length === 0 ? (
         <EmptyState variant="no-data" title="Nenhum arquivo nesta pasta ainda" />
       ) : (
-        <MaterialsTable materials={result.materials} showLocation={false} />
+        <MaterialsTable materials={result.materials} showLocation={false} isAdmin={profile.role === "admin"} />
       )}
     </>
   );

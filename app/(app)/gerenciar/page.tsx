@@ -14,7 +14,10 @@ export default async function GerenciarPage() {
     await Promise.all([
       getProducts(supabase),
       supabase.from("features").select("id, product_id, name").order("position"),
-      supabase.from("tracks").select("id, product_id, title").order("position"),
+      supabase
+        .from("tracks")
+        .select("id, product_id, title, owner_name, owner_role, coming_soon")
+        .order("position"),
       getRecentPublications(supabase),
       getFeedbackFeed(supabase),
       getOpenContentRequests(supabase),
@@ -39,7 +42,14 @@ export default async function GerenciarPage() {
         <GerenciarForm
           products={products}
           features={(features ?? []).map((f) => ({ id: f.id, productId: f.product_id, name: f.name }))}
-          tracks={(tracks ?? []).map((t) => ({ id: t.id, productId: t.product_id, title: t.title }))}
+          tracks={(tracks ?? []).map((t) => ({
+            id: t.id,
+            productId: t.product_id,
+            title: t.title,
+            ownerName: t.owner_name,
+            ownerRole: t.owner_role,
+            comingSoon: t.coming_soon,
+          }))}
         />
         <div className="flex flex-col gap-5">
           <RecentPublications items={recentPublications} />

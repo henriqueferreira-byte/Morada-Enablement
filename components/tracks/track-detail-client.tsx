@@ -1,8 +1,10 @@
 "use client";
 
 import { useState, useTransition } from "react";
-import { Button, Progress } from "@/niemeyer/components";
+import { useRouter } from "next/navigation";
+import { Button, Progress, toast } from "@/niemeyer/components";
 import { completeLesson, uncompleteLesson } from "@/lib/actions/progress";
+import { deleteLesson } from "@/lib/actions/gerenciar";
 import { formatDuration, formatRelative } from "@/lib/format";
 import type { LessonRating, TrackRow } from "@/lib/queries/tracks";
 import { LessonRow } from "./lesson-row";
@@ -13,12 +15,15 @@ export function TrackDetailClient({
   initialCompletedIds,
   ratings,
   ratedLessonIds,
+  isAdmin = false,
 }: {
   track: TrackRow;
   initialCompletedIds: string[];
   ratings: Record<string, LessonRating>;
   ratedLessonIds: string[];
+  isAdmin?: boolean;
 }) {
+  const router = useRouter();
   const [completed, setCompleted] = useState(new Set(initialCompletedIds));
   const [rated, setRated] = useState(new Set(ratedLessonIds));
   const [skippedThisSession, setSkippedThisSession] = useState(new Set<string>());
@@ -72,6 +77,12 @@ export function TrackDetailClient({
             hasRated={rated.has(lesson.id)}
             isPending={isPending}
             onToggle={() => handleToggle(lesson.id)}
+            isAdmin={isAdmin}
+            onDelete={async () => {
+              await deleteLesson(lesson.id);
+              toast("Aula excluída.");
+              router.refresh();
+            }}
           />
         ))}
       </div>

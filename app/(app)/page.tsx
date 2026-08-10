@@ -7,6 +7,7 @@ import { formatRelative } from "@/lib/format";
 import { ContinueTrackCard } from "@/components/tracks/continue-track-card";
 import { RequestContentCard } from "@/components/home/request-content-card";
 import { NovidadeCard } from "@/components/home/novidade-card";
+import { KnowledgeBaseBanner } from "@/components/home/knowledge-base-banner";
 
 export default async function HomePage() {
   const { supabase, user, profile } = await requireUser();
@@ -80,6 +81,8 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
+
+      <KnowledgeBaseBanner />
 
       {data.continueTracks.length > 0 && (
         <section className="flex flex-col gap-4">

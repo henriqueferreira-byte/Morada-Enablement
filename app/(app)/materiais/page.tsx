@@ -11,11 +11,11 @@ export default async function MateriaisPage({
 }: {
   searchParams: Promise<{ q?: string }>;
 }) {
-  const { supabase } = await requireUser();
+  const { supabase, profile } = await requireUser();
   const { q } = await searchParams;
 
   if (q?.trim()) {
-    return <MaterialsSearchResults supabase={supabase} query={q.trim()} />;
+    return <MaterialsSearchResults supabase={supabase} query={q.trim()} isAdmin={profile.role === "admin"} />;
   }
 
   const products = await getProductsOverview(supabase);

@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState, useTransition } from "react";
+import { useEffect, useMemo, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import {
   Button,
@@ -14,13 +14,21 @@ import {
   toast,
 } from "@/niemeyer/components";
 import { cn } from "@/lib/utils";
-import { createFeature, publishContent } from "@/lib/actions/gerenciar";
+import { createFeature, deleteTrack, publishContent, updateTrackMeta } from "@/lib/actions/gerenciar";
 import { CATEGORY_LABELS, CATEGORY_OPTIONS, CONTENT_TYPE_LABELS, CONTENT_TYPE_OPTIONS } from "@/lib/material-tags";
 import { FileUploader, type UploadedFile } from "./file-uploader";
+import { ConfirmDeleteDialog } from "./confirm-delete-dialog";
 
 export type ProductOption = { id: string; name: string };
 export type FeatureOption = { id: string; productId: string; name: string };
-export type TrackOption = { id: string; productId: string; title: string };
+export type TrackOption = {
+  id: string;
+  productId: string;
+  title: string;
+  ownerName: string | null;
+  ownerRole: string | null;
+  comingSoon: boolean;
+};
 
 const NEW_FEATURE_VALUE = "__new_feature__";
 
@@ -51,6 +59,11 @@ export function GerenciarForm({
   const [creatingFeature, setCreatingFeature] = useState(false);
   const [newFeatureName, setNewFeatureName] = useState("");
   const [isCreatingFeature, startCreatingFeature] = useTransition();
+  const [ownerNameDraft, setOwnerNameDraft] = useState("");
+  const [ownerRoleDraft, setOwnerRoleDraft] = useState("");
+  const [comingSoonDraft, setComingSoonDraft] = useState(false);
+  const [isSavingTrackMeta, startSavingTrackMeta] = useTransition();
+  const [confirmingTrackDelete, setConfirmingTrackDelete] = useState(false);
 
   const allFeatures = useMemo(() => [...features, ...localFeatures], [features, localFeatures]);
 
@@ -61,6 +74,32 @@ export function GerenciarForm({
         : tracks.filter((t) => t.productId === productId).map((t) => ({ id: t.id, label: t.title })),
     [kind, productId, allFeatures, tracks],
   );
+
+  const selectedTrack = kind === "lesson" ? tracks.find((t) => t.id === targetId) ?? null : null;
+
+  useEffect(() => {
+    if (!selectedTrack) return;
+    setOwnerNameDraft(selectedTrack.ownerName ?? "");
+    setOwnerRoleDraft(selectedTrack.ownerRole ?? "");
+    setComingSoonDraft(selectedTrack.comingSoon);
+  }, [selectedTrack]);
+
+  function handleSaveTrackMeta() {
+    if (!selectedTrack) return;
+    startSavingTrackMeta(async () => {
+      try {
+        await updateTrackMeta(selectedTrack.id, {
+          ownerName: ownerNameDraft,
+          ownerRole: ownerRoleDraft,
+          comingSoon: comingSoonDraft,
+        });
+        toast("Dados da trilha atualizados.");
+        router.refresh();
+      } catch (err) {
+        toast(err instanceof Error ? err.message : "Não foi possível salvar os dados da trilha.");
+      }
+    });
+  }
 
   function handleTargetChange(value: string) {
     if (value === NEW_FEATURE_VALUE) {
@@ -252,6 +291,66 @@ export function GerenciarForm({
           className="h-10 w-full rounded-lg border border-neutral-200 bg-transparent px-3 text-sm outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50"
         />
       </div>
+
+      {selectedTrack && (
+        <div className="flex flex-col gap-3 rounded-xl border border-border bg-neutral-50 p-4">
+          <p className="text-xs font-bold text-neutral-600">Sobre a trilha &ldquo;{selectedTrack.title}&rdquo;</p>
+          <div className="grid gap-3 sm:grid-cols-2">
+            <div>
+              <label className="mb-1.5 block text-xs font-semibold text-neutral-600">Responsável</label>
+              <input
+                value={ownerNameDraft}
+                onChange={(e) => setOwnerNameDraft(e.target.value)}
+                placeholder="Nome de alguém do time"
+                className="h-9 w-full rounded-lg border border-neutral-200 bg-white px-3 text-sm outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50"
+              />
+            </div>
+            <div>
+              <label className="mb-1.5 block text-xs font-semibold text-neutral-600">Cargo / time</label>
+              <input
+                value={ownerRoleDraft}
+                onChange={(e) => setOwnerRoleDraft(e.target.value)}
+                placeholder="Ex: Enablement · Vendas"
+                className="h-9 w-full rounded-lg border border-neutral-200 bg-white px-3 text-sm outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50"
+              />
+            </div>
+          </div>
+          <ToggleRow
+            label="Trilha em preparação"
+            hint="Mostra o aviso 'em preparação' na trilha. Desligue quando o conteúdo estiver pronto de verdade."
+            checked={comingSoonDraft}
+            onCheckedChange={setComingSoonDraft}
+          />
+          <div className="flex justify-between">
+            <Button
+              size="sm"
+              variant="ghost"
+              className="text-destructive hover:bg-destructive/10 hover:text-destructive"
+              onClick={() => setConfirmingTrackDelete(true)}
+            >
+              Excluir trilha
+            </Button>
+            <Button size="sm" variant="outline" isLoading={isSavingTrackMeta} onClick={handleSaveTrackMeta}>
+              Salvar dados da trilha
+            </Button>
+          </div>
+        </div>
+      )}
+
+      {selectedTrack && (
+        <ConfirmDeleteDialog
+          open={confirmingTrackDelete}
+          onOpenChange={setConfirmingTrackDelete}
+          title="Excluir trilha?"
+          description={`"${selectedTrack.title}" e todas as suas aulas serão removidas do hub para sempre, junto com o progresso e as avaliações do time. Essa ação não pode ser desfeita.`}
+          onConfirm={async () => {
+            await deleteTrack(selectedTrack.id);
+            toast("Trilha excluída.");
+            setTargetId("");
+            router.refresh();
+          }}
+        />
+      )}
 
       <div>
         <label className="mb-1.5 block text-xs font-semibold text-neutral-600">Descrição</label>

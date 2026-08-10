@@ -15,12 +15,12 @@ export default async function ProductMaterialsPage({
   params: Promise<{ produto: string }>;
   searchParams: Promise<{ q?: string }>;
 }) {
-  const { supabase } = await requireUser();
+  const { supabase, profile } = await requireUser();
   const { produto } = await params;
   const { q } = await searchParams;
 
   if (q?.trim()) {
-    return <MaterialsSearchResults supabase={supabase} query={q.trim()} />;
+    return <MaterialsSearchResults supabase={supabase} query={q.trim()} isAdmin={profile.role === "admin"} />;
   }
 
   const overview = await getProductOverview(supabase, produto);

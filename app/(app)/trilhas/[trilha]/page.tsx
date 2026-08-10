@@ -16,7 +16,7 @@ export default async function TrackDetailPage({
   params: Promise<{ trilha: string }>;
 }) {
   const { trilha } = await params;
-  const { supabase, user } = await requireUser();
+  const { supabase, user, profile } = await requireUser();
 
   const track = await getTrackWithLessons(supabase, trilha);
   if (!track) notFound();
@@ -68,6 +68,7 @@ export default async function TrackDetailPage({
         initialCompletedIds={[...completedLessonIds]}
         ratings={ratings}
         ratedLessonIds={(feedbackRows ?? []).map((row) => row.lesson_id)}
+        isAdmin={profile.role === "admin"}
       />
     </>
   );
