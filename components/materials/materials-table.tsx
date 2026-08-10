@@ -1,9 +1,41 @@
 import Link from "next/link";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/niemeyer/components";
 import { formatRelative, isWithinDays } from "@/lib/format";
+import {
+  CATEGORY_LABELS,
+  CONTENT_TYPE_LABELS,
+  isValidCategory,
+  isValidContentType,
+} from "@/lib/material-tags";
 import type { MaterialRow } from "@/lib/queries/materials";
 import { MaterialFileWell } from "./material-file-well";
 import { MaterialRowActions } from "./material-row-actions";
+
+function MaterialTags({ material }: { material: MaterialRow }) {
+  const contentTypeLabel = material.content_type && isValidContentType(material.content_type)
+    ? CONTENT_TYPE_LABELS[material.content_type]
+    : null;
+  const categoryLabel = material.category && isValidCategory(material.category)
+    ? CATEGORY_LABELS[material.category]
+    : null;
+
+  if (!contentTypeLabel && !categoryLabel) return null;
+
+  return (
+    <div className="mt-1 flex flex-wrap gap-1">
+      {contentTypeLabel && (
+        <span className="rounded-full border border-neutral-200 bg-neutral-50 px-1.5 py-0.5 text-[10px] font-semibold text-neutral-600">
+          {contentTypeLabel}
+        </span>
+      )}
+      {categoryLabel && (
+        <span className="rounded-full border border-warning-border bg-warning-background px-1.5 py-0.5 text-[10px] font-semibold text-warning-text">
+          {categoryLabel}
+        </span>
+      )}
+    </div>
+  );
+}
 
 export function MaterialsTable({
   materials,
@@ -45,6 +77,7 @@ export function MaterialsTable({
                     {material.description && (
                       <p className="truncate text-xs text-neutral-500">{material.description}</p>
                     )}
+                    <MaterialTags material={material} />
                   </div>
                 </div>
               </TableCell>

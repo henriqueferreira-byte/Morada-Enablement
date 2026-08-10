@@ -7,6 +7,8 @@ export type MaterialRow = {
   description: string | null;
   ext: string;
   format: string;
+  content_type: string | null;
+  category: string | null;
   storage_path: string | null;
   external_url: string | null;
   status: "draft" | "published";
@@ -16,7 +18,7 @@ export type MaterialRow = {
   feature: { id: string; name: string; product: { id: string; name: string; accent: string } };
 };
 
-const MATERIAL_SELECT = `id, title, description, ext, format, storage_path, external_url, status, is_highlight, created_at, updated_at,
+const MATERIAL_SELECT = `id, title, description, ext, format, content_type, category, storage_path, external_url, status, is_highlight, created_at, updated_at,
    feature:features!materials_feature_id_fkey ( id, name, product:products!features_product_id_fkey ( id, name, accent ) )`;
 
 export async function getRecentMaterials(

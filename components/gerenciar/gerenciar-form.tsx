@@ -15,6 +15,7 @@ import {
 } from "@/niemeyer/components";
 import { cn } from "@/lib/utils";
 import { publishContent } from "@/lib/actions/gerenciar";
+import { CATEGORY_LABELS, CATEGORY_OPTIONS, CONTENT_TYPE_LABELS, CONTENT_TYPE_OPTIONS } from "@/lib/material-tags";
 import { FileUploader, type UploadedFile } from "./file-uploader";
 
 export type ProductOption = { id: string; name: string };
@@ -38,6 +39,8 @@ export function GerenciarForm({
   const [description, setDescription] = useState("");
   const [uploadedFile, setUploadedFile] = useState<UploadedFile | null>(null);
   const [externalUrl, setExternalUrl] = useState("");
+  const [contentType, setContentType] = useState("");
+  const [category, setCategory] = useState("");
   const [publishToNovidades, setPublishToNovidades] = useState(true);
   const [notifySlack, setNotifySlack] = useState(true);
   const [isRequired, setIsRequired] = useState(false);
@@ -56,6 +59,8 @@ export function GerenciarForm({
     setDescription("");
     setUploadedFile(null);
     setExternalUrl("");
+    setContentType("");
+    setCategory("");
     setPublishToNovidades(true);
     setNotifySlack(true);
     setIsRequired(false);
@@ -85,6 +90,8 @@ export function GerenciarForm({
           description,
           upload: uploadedFile ? { path: uploadedFile.path, ext: uploadedFile.ext, format: uploadedFile.format } : null,
           externalUrl: externalUrl.trim() || null,
+          contentType: kind === "material" ? contentType || null : null,
+          category: kind === "material" ? category || null : null,
           status,
           publishToNovidades,
           notifySlack,
@@ -185,6 +192,41 @@ export function GerenciarForm({
           className="min-h-[72px]"
         />
       </div>
+
+      {kind === "material" && (
+        <div className="grid gap-3 sm:grid-cols-2">
+          <div>
+            <label className="mb-1.5 block text-xs font-semibold text-neutral-600">Tipo de conteúdo</label>
+            <Select value={contentType} onValueChange={setContentType}>
+              <SelectTrigger className="w-full">
+                <SelectValue placeholder="Opcional" />
+              </SelectTrigger>
+              <SelectContent>
+                {CONTENT_TYPE_OPTIONS.map((option) => (
+                  <SelectItem key={option} value={option}>
+                    {CONTENT_TYPE_LABELS[option]}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+          <div>
+            <label className="mb-1.5 block text-xs font-semibold text-neutral-600">Categoria</label>
+            <Select value={category} onValueChange={setCategory}>
+              <SelectTrigger className="w-full">
+                <SelectValue placeholder="Opcional" />
+              </SelectTrigger>
+              <SelectContent>
+                {CATEGORY_OPTIONS.map((option) => (
+                  <SelectItem key={option} value={option}>
+                    {CATEGORY_LABELS[option]}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
+      )}
 
       <div>
         <label className="mb-1.5 block text-xs font-semibold text-neutral-600">Arquivo</label>

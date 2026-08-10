@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { requireAdmin } from "@/lib/auth";
+import { isValidCategory, isValidContentType } from "@/lib/material-tags";
 import type { LessonKind } from "@/lib/queries/tracks";
 
 type PublishInput = {
@@ -12,6 +13,8 @@ type PublishInput = {
   description: string;
   upload: { path: string; ext: string; format: string } | null;
   externalUrl: string | null;
+  contentType: string | null;
+  category: string | null;
   status: "draft" | "published";
   publishToNovidades: boolean;
   notifySlack: boolean;
@@ -69,12 +72,17 @@ export async function publishContent(input: PublishInput) {
   }
 
   if (input.kind === "material") {
+    const contentType = input.contentType && isValidContentType(input.contentType) ? input.contentType : null;
+    const category = input.category && isValidCategory(input.category) ? input.category : null;
+
     const { error } = await supabase.from("materials").insert({
       feature_id: input.targetId,
       title: input.title.trim(),
       description: input.description.trim() || null,
       ext: input.upload?.ext ?? "LINK",
       format: input.upload?.format ?? "Drive",
+      content_type: contentType,
+      category,
       storage_path: input.upload?.path ?? null,
       external_url: input.externalUrl,
       status: input.status,
