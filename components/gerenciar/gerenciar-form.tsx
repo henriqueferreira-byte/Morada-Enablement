@@ -14,13 +14,15 @@ import {
   toast,
 } from "@/niemeyer/components";
 import { cn } from "@/lib/utils";
-import { publishContent } from "@/lib/actions/gerenciar";
+import { createFeature, publishContent } from "@/lib/actions/gerenciar";
 import { CATEGORY_LABELS, CATEGORY_OPTIONS, CONTENT_TYPE_LABELS, CONTENT_TYPE_OPTIONS } from "@/lib/material-tags";
 import { FileUploader, type UploadedFile } from "./file-uploader";
 
 export type ProductOption = { id: string; name: string };
 export type FeatureOption = { id: string; productId: string; name: string };
 export type TrackOption = { id: string; productId: string; title: string };
+
+const NEW_FEATURE_VALUE = "__new_feature__";
 
 export function GerenciarForm({
   products,
@@ -45,14 +47,44 @@ export function GerenciarForm({
   const [notifySlack, setNotifySlack] = useState(true);
   const [isRequired, setIsRequired] = useState(false);
   const [isPending, startTransition] = useTransition();
+  const [localFeatures, setLocalFeatures] = useState<FeatureOption[]>([]);
+  const [creatingFeature, setCreatingFeature] = useState(false);
+  const [newFeatureName, setNewFeatureName] = useState("");
+  const [isCreatingFeature, startCreatingFeature] = useTransition();
+
+  const allFeatures = useMemo(() => [...features, ...localFeatures], [features, localFeatures]);
 
   const targetOptions = useMemo(
     () =>
       kind === "material"
-        ? features.filter((f) => f.productId === productId).map((f) => ({ id: f.id, label: f.name }))
+        ? allFeatures.filter((f) => f.productId === productId).map((f) => ({ id: f.id, label: f.name }))
         : tracks.filter((t) => t.productId === productId).map((t) => ({ id: t.id, label: t.title })),
-    [kind, productId, features, tracks],
+    [kind, productId, allFeatures, tracks],
   );
+
+  function handleTargetChange(value: string) {
+    if (value === NEW_FEATURE_VALUE) {
+      setCreatingFeature(true);
+      return;
+    }
+    setTargetId(value);
+  }
+
+  function handleCreateFeature() {
+    if (!newFeatureName.trim() || !productId) return;
+    startCreatingFeature(async () => {
+      try {
+        const created = await createFeature(productId, newFeatureName);
+        setLocalFeatures((prev) => [...prev, { id: created.id, productId, name: created.name }]);
+        setTargetId(created.id);
+        setCreatingFeature(false);
+        setNewFeatureName("");
+        toast(`Pasta "${created.name}" criada.`);
+      } catch (err) {
+        toast(err instanceof Error ? err.message : "Não foi possível criar a pasta.");
+      }
+    });
+  }
 
   function resetForm() {
     setTitle("");
@@ -118,6 +150,7 @@ export function GerenciarForm({
               onClick={() => {
                 setKind(option);
                 setTargetId("");
+                setCreatingFeature(false);
               }}
               className={cn(
                 "flex h-8 items-center rounded-full border px-3 text-[13px] transition-colors",
@@ -140,6 +173,7 @@ export function GerenciarForm({
             onValueChange={(value) => {
               setProductId(value);
               setTargetId("");
+              setCreatingFeature(false);
             }}
           >
             <SelectTrigger className="w-full">
@@ -158,7 +192,7 @@ export function GerenciarForm({
           <label className="mb-1.5 block text-xs font-semibold text-neutral-600">
             {kind === "material" ? "Pasta da feature" : "Trilha"}
           </label>
-          <Select value={targetId} onValueChange={setTargetId} disabled={!productId}>
+          <Select value={targetId} onValueChange={handleTargetChange} disabled={!productId}>
             <SelectTrigger className="w-full">
               <SelectValue placeholder={productId ? "Escolha" : "Escolha o produto primeiro"} />
             </SelectTrigger>
@@ -168,8 +202,44 @@ export function GerenciarForm({
                   {option.label}
                 </SelectItem>
               ))}
+              {kind === "material" && (
+                <SelectItem value={NEW_FEATURE_VALUE} className="font-bold text-primary">
+                  + Criar nova pasta
+                </SelectItem>
+              )}
             </SelectContent>
           </Select>
+          {creatingFeature && (
+            <div className="mt-2 flex items-center gap-2">
+              <input
+                autoFocus
+                value={newFeatureName}
+                onChange={(e) => setNewFeatureName(e.target.value)}
+                onKeyDown={(e) => e.key === "Enter" && handleCreateFeature()}
+                placeholder="Nome da nova pasta"
+                className="h-9 w-full rounded-lg border border-neutral-200 bg-transparent px-3 text-sm outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50"
+              />
+              <Button
+                size="sm"
+                isLoading={isCreatingFeature}
+                disabled={!newFeatureName.trim()}
+                onClick={handleCreateFeature}
+              >
+                Criar
+              </Button>
+              <Button
+                variant="ghost"
+                size="sm"
+                disabled={isCreatingFeature}
+                onClick={() => {
+                  setCreatingFeature(false);
+                  setNewFeatureName("");
+                }}
+              >
+                Cancelar
+              </Button>
+            </div>
+          )}
         </div>
       </div>
 

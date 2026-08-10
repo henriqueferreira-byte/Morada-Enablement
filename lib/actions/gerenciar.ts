@@ -47,6 +47,55 @@ function inferSourceLabel(upload: PublishInput["upload"], externalUrl: string | 
   return "Link externo";
 }
 
+const DIACRITICS_PATTERN = new RegExp("[̀-ͯ]", "g");
+
+function slugify(name: string): string {
+  return name
+    .normalize("NFD")
+    .replace(DIACRITICS_PATTERN, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .slice(0, 40);
+}
+
+export async function createFeature(productId: string, name: string) {
+  const { supabase } = await requireAdmin();
+
+  const trimmed = name.trim();
+  if (!trimmed) throw new Error("Dê um nome para a pasta.");
+
+  const baseSlug = slugify(trimmed) || "pasta";
+  const { data: existing } = await supabase
+    .from("features")
+    .select("id, position")
+    .eq("product_id", productId);
+
+  const existingIds = new Set((existing ?? []).map((f) => f.id));
+  let id = `${productId}:${baseSlug}`;
+  let suffix = 2;
+  while (existingIds.has(id)) {
+    id = `${productId}:${baseSlug}-${suffix}`;
+    suffix += 1;
+  }
+
+  const nextPosition = (existing ?? []).reduce((max, f) => Math.max(max, f.position), 0) + 1;
+
+  const { error } = await supabase.from("features").insert({
+    id,
+    product_id: productId,
+    name: trimmed,
+    position: nextPosition,
+  });
+  if (error) throw new Error(error.message);
+
+  revalidatePath("/materiais");
+  revalidatePath(`/materiais/${productId}`);
+  revalidatePath("/gerenciar");
+
+  return { id, name: trimmed };
+}
+
 async function notifySlackWebhook(text: string) {
   const webhookUrl = process.env.SLACK_WEBHOOK_URL;
   if (!webhookUrl) return;
