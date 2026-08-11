@@ -9,6 +9,7 @@ import {
   IconHome,
   IconSettings,
   IconStack2,
+  IconUsersGroup,
 } from "@tabler/icons-react";
 import {
   SidebarShell,
@@ -33,10 +34,12 @@ const NAV_ITEMS = [
 export function SidebarNav({
   products,
   isAdmin,
+  isLeader,
   streak,
 }: {
   products: Product[];
   isAdmin: boolean;
+  isLeader: boolean;
   streak: StreakInfo;
 }) {
   const pathname = usePathname();
@@ -73,6 +76,12 @@ export function SidebarNav({
             <SidebarPanelItem href="/gerenciar" active={pathname.startsWith("/gerenciar")} className="font-semibold">
               <IconSettings className="size-[18px]" />
               Gerenciar
+            </SidebarPanelItem>
+          )}
+          {isLeader && (
+            <SidebarPanelItem href="/lideranca" active={pathname.startsWith("/lideranca")} className="font-semibold">
+              <IconUsersGroup className="size-[18px]" />
+              Painel de liderança
             </SidebarPanelItem>
           )}
 

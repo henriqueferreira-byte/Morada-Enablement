@@ -17,6 +17,7 @@ export default async function AppLayout({ children }: { children: ReactNode }) {
       profile={profile}
       products={products}
       isAdmin={profile.role === "admin"}
+      isLeader={profile.role === "leader"}
       streak={streak}
     >
       {children}

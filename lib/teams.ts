@@ -1,5 +1,6 @@
 export const TEAM_OPTIONS = [
   "suporte",
+  "cs",
   "onboarding",
   "produto",
   "marketing_produto",
@@ -12,11 +13,12 @@ export type Team = (typeof TEAM_OPTIONS)[number];
 
 export const TEAM_LABELS: Record<Team, string> = {
   suporte: "Suporte",
+  cs: "CS",
   onboarding: "Onboarding",
   produto: "Produto",
   marketing_produto: "Marketing de Produto",
   marketing: "Marketing",
-  vendas: "Vendas",
+  vendas: "Comercial",
   tecnologia: "Tecnologia",
 };
 

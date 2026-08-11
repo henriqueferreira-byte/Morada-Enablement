@@ -18,12 +18,14 @@ export function AppChrome({
   profile,
   products,
   isAdmin,
+  isLeader,
   streak,
   children,
 }: {
   profile: Profile;
   products: Product[];
   isAdmin: boolean;
+  isLeader: boolean;
   streak: StreakInfo;
   children: ReactNode;
 }) {
@@ -33,7 +35,7 @@ export function AppChrome({
 
   return (
     <AppShell
-      sidebar={<SidebarNav products={products} isAdmin={isAdmin} streak={streak} />}
+      sidebar={<SidebarNav products={products} isAdmin={isAdmin} isLeader={isLeader} streak={streak} />}
       renderTopNav={({ onMenuClick }) => (
         <TopBar
           profile={profile}

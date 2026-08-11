@@ -14,7 +14,8 @@ export type Profile = {
   avatar_url: string | null;
   team: string | null;
   job_title: string | null;
-  role: "member" | "admin";
+  role: "member" | "admin" | "leader";
+  leads_team: string | null;
   onboarded_at: string | null;
 };
 
@@ -29,7 +30,7 @@ export async function requireUser() {
 
   const { data: profile } = await supabase
     .from("profiles")
-    .select("id, email, full_name, avatar_url, team, job_title, role, onboarded_at")
+    .select("id, email, full_name, avatar_url, team, job_title, role, leads_team, onboarded_at")
     .eq("id", user.id)
     .single();
 
@@ -44,6 +45,15 @@ export async function requireUser() {
 export async function requireAdmin() {
   const ctx = await requireUser();
   if (ctx.profile.role !== "admin") {
+    notFound();
+  }
+  return ctx;
+}
+
+/** Server-side gate for the leadership panel: admins can also peek in; everyone else 404s. */
+export async function requireLeader() {
+  const ctx = await requireUser();
+  if (ctx.profile.role !== "leader" && ctx.profile.role !== "admin") {
     notFound();
   }
   return ctx;

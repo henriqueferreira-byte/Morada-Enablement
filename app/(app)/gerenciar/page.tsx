@@ -1,3 +1,6 @@
+import Link from "next/link";
+import { IconUsers } from "@tabler/icons-react";
+import { Button } from "@/niemeyer/components";
 import { requireAdmin } from "@/lib/auth";
 import { getProducts } from "@/lib/queries/catalog";
 import { getFeedbackFeed, getOpenContentRequests, getRecentPublications } from "@/lib/queries/gerenciar";
@@ -25,11 +28,19 @@ export default async function GerenciarPage() {
 
   return (
     <>
-      <div className="flex flex-col gap-1">
-        <h1 className="font-heading text-[28px] font-semibold tracking-tight text-foreground">Gerenciar conteúdo</h1>
-        <p className="text-sm text-neutral-600">
-          Suba um material para a pasta de uma feature ou publique uma aula em uma trilha. Só o time de enablement vê esta área.
-        </p>
+      <div className="flex items-start justify-between gap-4">
+        <div className="flex flex-col gap-1">
+          <h1 className="font-heading text-[28px] font-semibold tracking-tight text-foreground">Gerenciar conteúdo</h1>
+          <p className="text-sm text-neutral-600">
+            Suba um material para a pasta de uma feature ou publique uma aula em uma trilha. Só o time de enablement vê esta área.
+          </p>
+        </div>
+        <Button asChild variant="outline" className="shrink-0">
+          <Link href="/gerenciar/usuarios">
+            <IconUsers className="size-4" />
+            Usuários
+          </Link>
+        </Button>
       </div>
 
       <PageTip
