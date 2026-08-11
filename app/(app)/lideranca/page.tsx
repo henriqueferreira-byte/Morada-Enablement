@@ -9,12 +9,17 @@ export default async function LiderancaPage() {
   const { supabase, profile } = await requireLeader();
   const { users: allUsers, tracks } = await getUserDirectory(supabase);
 
+  // leads_team can be 'all', a single team, or a comma-separated list of
+  // teams (e.g. 'onboarding,suporte' — someone who leads more than one).
+  const ledTeams = profile.leads_team?.split(",").filter(Boolean) ?? [];
   const seesAll = profile.role === "admin" || profile.leads_team === "all";
-  const users = seesAll ? allUsers : allUsers.filter((user) => user.team === profile.leads_team);
+  const users = seesAll ? allUsers : allUsers.filter((user) => !!user.team && ledTeams.includes(user.team));
   const scopeLabel = seesAll
     ? "todo o time"
-    : profile.leads_team && isValidTeam(profile.leads_team)
-      ? TEAM_LABELS[profile.leads_team]
+    : ledTeams.length > 0
+      ? ledTeams
+          .map((team) => (isValidTeam(team) ? TEAM_LABELS[team] : team))
+          .join(" e ")
       : "seu time";
 
   return (
