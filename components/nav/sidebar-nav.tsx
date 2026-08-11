@@ -78,7 +78,7 @@ export function SidebarNav({
               Gerenciar
             </SidebarPanelItem>
           )}
-          {isLeader && (
+          {(isLeader || isAdmin) && (
             <SidebarPanelItem href="/lideranca" active={pathname.startsWith("/lideranca")} className="font-semibold">
               <IconUsersGroup className="size-[18px]" />
               Painel de liderança
