@@ -26,6 +26,8 @@ export type TrackRow = {
   owner_name: string | null;
   owner_role: string | null;
   updated_at: string;
+  /** Set only when a real lesson is published (not on metadata edits) — drives the "NOVO" badge and the trilhas sort, so routine admin edits don't masquerade as new content. */
+  content_updated_at: string | null;
   /** Manual flag for tracks whose lessons don't have real content behind them yet — shows an "Em breve" badge instead of the usual progress status. */
   coming_soon: boolean;
   feature_id: string | null;
@@ -34,7 +36,7 @@ export type TrackRow = {
   lessons: LessonRow[];
 };
 
-const TRACK_SELECT = `id, title, description, level, audience, owner_id, owner_name, owner_role, updated_at, coming_soon, feature_id,
+const TRACK_SELECT = `id, title, description, level, audience, owner_id, owner_name, owner_role, updated_at, content_updated_at, coming_soon, feature_id,
        feature:features!tracks_feature_id_fkey (id, name),
        product:products!tracks_product_id_fkey (id, name, accent, description, position),
        lessons ( id, track_id, position, title, kind, duration_min, source_label, storage_path, external_url, published_at )`;

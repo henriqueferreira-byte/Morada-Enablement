@@ -50,7 +50,7 @@ export function AppChrome({
         {children}
       </div>
 
-      <WelcomeModal open={stage === "welcome"} isAdmin={isAdmin} onFinish={() => setStage("profile")} />
+      <WelcomeModal open={stage === "welcome"} isAdmin={isAdmin} isLeader={isLeader} onFinish={() => setStage("profile")} />
 
       <ProfileSetupModal
         open={stage === "profile" || editProfileOpen}

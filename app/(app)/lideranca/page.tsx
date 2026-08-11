@@ -3,6 +3,7 @@ import { getUserDirectory } from "@/lib/queries/users";
 import { TEAM_LABELS, isValidTeam } from "@/lib/teams";
 import { UsersDirectoryTable } from "@/components/gerenciar/users-directory-table";
 import { TeamInsights } from "@/components/lideranca/team-insights";
+import { PageTip } from "@/components/onboarding/page-tip";
 
 export default async function LiderancaPage() {
   const { supabase, profile } = await requireLeader();
@@ -26,6 +27,12 @@ export default async function LiderancaPage() {
           {users.length} {users.length === 1 ? "pessoa" : "pessoas"} em {scopeLabel}: acesso, cargo e trilhas em andamento.
         </p>
       </div>
+
+      <PageTip
+        pageKey="lideranca"
+        title="O que você vê aqui"
+        description="Um raio-x do seu time: quem já engajou, quem ainda não começou e trilhas obrigatórias pendentes. Os cards no topo resumem, a tabela abaixo traz o detalhe de cada pessoa."
+      />
 
       <TeamInsights users={users} tracks={tracks} />
 

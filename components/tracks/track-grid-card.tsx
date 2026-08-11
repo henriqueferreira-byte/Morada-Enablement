@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Badge, Progress } from "@/niemeyer/components";
-import { formatDuration } from "@/lib/format";
+import { formatDuration, isWithinDays } from "@/lib/format";
 import { TRACK_STATUS_META } from "@/lib/track-status";
 import type { TrackRow, TrackProgress } from "@/lib/queries/tracks";
 
@@ -12,6 +12,7 @@ export function TrackGridCard({
   progress: TrackProgress;
 }) {
   const statusMeta = TRACK_STATUS_META[progress.status];
+  const isNew = !!track.content_updated_at && isWithinDays(track.content_updated_at, 7);
 
   return (
     <Link
@@ -36,7 +37,14 @@ export function TrackGridCard({
         )}
       </div>
 
-      <h3 className="font-heading text-lg font-semibold text-foreground">{track.title}</h3>
+      <div className="flex items-center gap-1.5">
+        <h3 className="font-heading text-lg font-semibold text-foreground">{track.title}</h3>
+        {isNew && (
+          <span className="shrink-0 rounded-full border border-primary/25 bg-primary/10 px-1.5 py-0.5 text-[9px] font-bold text-primary">
+            NOVO
+          </span>
+        )}
+      </div>
       {track.description && (
         <p className="text-[13px] text-neutral-600" style={{ textWrap: "pretty" }}>
           {track.description}

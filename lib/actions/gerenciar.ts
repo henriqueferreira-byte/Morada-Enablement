@@ -268,7 +268,19 @@ export async function publishContent(input: PublishInput) {
     });
     if (error) throw new Error(error.message);
 
-    await supabase.from("tracks").update({ is_required: input.isRequired, updated_at: new Date().toISOString() }).eq("id", input.targetId);
+    const trackUpdate: Record<string, unknown> = { is_required: input.isRequired, updated_at: new Date().toISOString() };
+    // A published lesson means the trilha has real content now — drop the
+    // "em preparação" flag automatically instead of relying on the admin to
+    // remember to flip it by hand, and stamp content_updated_at (not the
+    // generic updated_at, which also moves on unrelated metadata edits) so
+    // the "NOVO" badge and trilhas sort reflect genuine new content only.
+    // Drafts don't count: nobody but admins can see them yet, so the banner
+    // is still accurate for everyone else.
+    if (input.status === "published") {
+      trackUpdate.coming_soon = false;
+      trackUpdate.content_updated_at = new Date().toISOString();
+    }
+    await supabase.from("tracks").update(trackUpdate).eq("id", input.targetId);
 
     revalidatePath("/trilhas");
     revalidatePath(`/trilhas/${input.targetId}`);

@@ -3,6 +3,7 @@ import { IconChevronLeft } from "@tabler/icons-react";
 import { requireAdmin } from "@/lib/auth";
 import { getUserDirectory } from "@/lib/queries/users";
 import { UsersDirectoryTable } from "@/components/gerenciar/users-directory-table";
+import { PageTip } from "@/components/onboarding/page-tip";
 
 export default async function UsuariosPage() {
   const { supabase } = await requireAdmin();
@@ -26,6 +27,12 @@ export default async function UsuariosPage() {
           {users.length} {users.length === 1 ? "pessoa cadastrada" : "pessoas cadastradas"} pelo login com Google.
         </p>
       </div>
+
+      <PageTip
+        pageKey="gerenciar-usuarios"
+        title="Quem já entrou no hub"
+        description="Todo mundo que já logou com o Google, com cargo, time, último acesso e as trilhas em que está com progresso — inclusive líderes e admins."
+      />
 
       <UsersDirectoryTable users={users} />
     </>

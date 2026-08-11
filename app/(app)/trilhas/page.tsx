@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Button, EmptyState } from "@/niemeyer/components";
 import { requireUser } from "@/lib/auth";
+import { isWithinDays } from "@/lib/format";
 import { getProducts } from "@/lib/queries/catalog";
 import {
   computeTrackProgress,
@@ -59,6 +60,16 @@ export default async function TrilhasPage({
       if (!haystack.includes(query)) return false;
     }
     return true;
+  });
+
+  // Trilhas with a genuinely new published lesson float to the top with a
+  // "NOVO" badge — content_updated_at only moves on real publishes, not on
+  // metadata edits, so toggling a flag can't masquerade as new content.
+  // Sort is stable, so ties keep their catalog order.
+  filtered.sort((a, b) => {
+    const aNew = !!a.track.content_updated_at && isWithinDays(a.track.content_updated_at, 7);
+    const bNew = !!b.track.content_updated_at && isWithinDays(b.track.content_updated_at, 7);
+    return aNew === bNew ? 0 : aNew ? -1 : 1;
   });
 
   const totalLessons = tracks.reduce((sum, t) => sum + t.lessons.length, 0);

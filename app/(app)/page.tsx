@@ -8,6 +8,7 @@ import { ContinueTrackCard } from "@/components/tracks/continue-track-card";
 import { RequestContentCard } from "@/components/home/request-content-card";
 import { NovidadeCard } from "@/components/home/novidade-card";
 import { KnowledgeBaseBanner } from "@/components/home/knowledge-base-banner";
+import { PageTip } from "@/components/onboarding/page-tip";
 
 export default async function HomePage() {
   const { supabase, user, profile } = await requireUser();
@@ -81,6 +82,12 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
+
+      <PageTip
+        pageKey="home"
+        title="Sua página inicial"
+        description="Aqui ficam as novidades do produto, o que você já começou e materiais recentes. Use o menu à esquerda para navegar por Trilhas, Materiais e seu progresso."
+      />
 
       <KnowledgeBaseBanner />
 

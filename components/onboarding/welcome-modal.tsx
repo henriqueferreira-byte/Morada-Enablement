@@ -7,6 +7,7 @@ import {
   IconHome,
   IconSettings,
   IconStack2,
+  IconUsersGroup,
 } from "@tabler/icons-react";
 import { Button, Dialog, DialogContent } from "@/niemeyer/components";
 import { cn } from "@/lib/utils";
@@ -57,16 +58,26 @@ const ADMIN_SLIDE: Slide = {
     "Suba materiais e aulas, acompanhe o feedback do time sobre as aulas e responda às solicitações de conteúdo — tudo em um único lugar, só para o time de enablement.",
 };
 
+const LEADER_SLIDE: Slide = {
+  icon: IconUsersGroup,
+  eyebrow: "Painel de liderança",
+  title: "Acompanhe seu time",
+  description:
+    "Veja quem do seu time já engajou, quem ainda não começou e trilhas obrigatórias pendentes — tudo num painel só seu.",
+};
+
 export function WelcomeModal({
   open,
   isAdmin,
+  isLeader,
   onFinish,
 }: {
   open: boolean;
   isAdmin: boolean;
+  isLeader: boolean;
   onFinish: () => void;
 }) {
-  const slides = isAdmin ? [...BASE_SLIDES, ADMIN_SLIDE] : BASE_SLIDES;
+  const slides = isAdmin ? [...BASE_SLIDES, ADMIN_SLIDE] : isLeader ? [...BASE_SLIDES, LEADER_SLIDE] : BASE_SLIDES;
   const [index, setIndex] = useState(0);
   const slide = slides[index];
   const isLast = index === slides.length - 1;
