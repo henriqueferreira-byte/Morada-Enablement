@@ -2,6 +2,8 @@
 
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { IconArrowRight } from "@tabler/icons-react";
 import { Button, Progress, toast } from "@/niemeyer/components";
 import { completeLesson, uncompleteLesson } from "@/lib/actions/progress";
 import { deleteLesson } from "@/lib/actions/gerenciar";
@@ -122,6 +124,19 @@ export function TrackDetailClient({
           <div className="my-4 border-t border-neutral-100" />
           <p className="text-xs text-neutral-500">Atualizada {formatRelative(track.updated_at)}</p>
         </div>
+
+        {track.feature && (
+          <Link
+            href={`/materiais/${track.product.id}/${track.feature.id}`}
+            className="flex items-center justify-between gap-3 rounded-xl border border-border bg-card p-4 shadow-xs outline-none transition-colors hover:border-neutral-300 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50"
+          >
+            <div>
+              <p className="text-[13px] font-bold text-foreground">Materiais de {track.feature.name}</p>
+              <p className="text-xs text-neutral-500">Decks, PDFs e links que complementam esta trilha.</p>
+            </div>
+            <IconArrowRight className="size-4 shrink-0 text-neutral-400" />
+          </Link>
+        )}
       </div>
 
       {feedbackLesson && (

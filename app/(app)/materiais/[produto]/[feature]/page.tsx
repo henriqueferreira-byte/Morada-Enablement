@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { IconArrowRight } from "@tabler/icons-react";
 import { Button, EmptyState } from "@/niemeyer/components";
 import { requireUser } from "@/lib/auth";
 import { formatRelative } from "@/lib/format";
@@ -54,6 +55,19 @@ export default async function FeatureMaterialsPage({
           <Link href={`/materiais/${produto}`}>Voltar</Link>
         </Button>
       </div>
+
+      {result.relatedTrack && (
+        <Link
+          href={`/trilhas/${result.relatedTrack.id}`}
+          className="flex items-center justify-between gap-3 rounded-xl border border-border bg-card p-4 shadow-xs outline-none transition-colors hover:border-neutral-300 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50"
+        >
+          <div>
+            <p className="text-[13px] font-bold text-foreground">Trilha: {result.relatedTrack.title}</p>
+            <p className="text-xs text-neutral-500">Aprenda o passo a passo antes de usar estes materiais.</p>
+          </div>
+          <IconArrowRight className="size-4 shrink-0 text-neutral-400" />
+        </Link>
+      )}
 
       {result.materials.length === 0 ? (
         <EmptyState variant="no-data" title="Nenhum arquivo nesta pasta ainda" />

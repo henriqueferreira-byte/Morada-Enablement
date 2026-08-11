@@ -15,7 +15,10 @@ export default async function TrackDetailPage({
 }: {
   params: Promise<{ trilha: string }>;
 }) {
-  const { trilha } = await params;
+  const { trilha: rawTrilha } = await params;
+  // Some browsers percent-encode the literal ":" in track ids (e.g. "institucional:automacoes")
+  // when navigating, and it can arrive undecoded here — decode defensively.
+  const trilha = decodeURIComponent(rawTrilha);
   const { supabase, user, profile } = await requireUser();
 
   const track = await getTrackWithLessons(supabase, trilha);

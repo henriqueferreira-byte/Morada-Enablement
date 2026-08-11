@@ -136,6 +136,7 @@ export async function getFeatureMaterials(
   product: { id: string; name: string; accent: string };
   feature: { id: string; name: string; description: string | null };
   materials: MaterialRow[];
+  relatedTrack: { id: string; title: string } | null;
 } | null> {
   const { data: feature } = await supabase
     .from("features")
@@ -146,12 +147,15 @@ export async function getFeatureMaterials(
 
   if (!feature) return null;
 
-  const { data: materials } = await supabase
-    .from("materials")
-    .select(MATERIAL_SELECT)
-    .eq("feature_id", featureId)
-    .eq("status", "published")
-    .order("updated_at", { ascending: false });
+  const [{ data: materials }, { data: relatedTrack }] = await Promise.all([
+    supabase
+      .from("materials")
+      .select(MATERIAL_SELECT)
+      .eq("feature_id", featureId)
+      .eq("status", "published")
+      .order("updated_at", { ascending: false }),
+    supabase.from("tracks").select("id, title").eq("feature_id", featureId).order("position").limit(1).maybeSingle(),
+  ]);
 
   const productData = feature.product as unknown as { id: string; name: string; accent: string };
 
@@ -159,6 +163,7 @@ export async function getFeatureMaterials(
     product: productData,
     feature: { id: feature.id, name: feature.name, description: feature.description },
     materials: (materials ?? []) as unknown as MaterialRow[],
+    relatedTrack: relatedTrack ?? null,
   };
 }
 

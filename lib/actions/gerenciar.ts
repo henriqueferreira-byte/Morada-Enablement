@@ -96,11 +96,55 @@ export async function createFeature(productId: string, name: string) {
   return { id, name: trimmed };
 }
 
+export async function createTrack(productId: string, featureId: string | null, name: string) {
+  const { supabase } = await requireAdmin();
+
+  const trimmed = name.trim();
+  if (!trimmed) throw new Error("Dê um nome para a trilha.");
+
+  const baseSlug = slugify(trimmed) || "trilha";
+  const { data: existing } = await supabase
+    .from("tracks")
+    .select("id, position")
+    .eq("product_id", productId);
+
+  const existingIds = new Set((existing ?? []).map((t) => t.id));
+  let id = `${productId}:${baseSlug}`;
+  let suffix = 2;
+  while (existingIds.has(id)) {
+    id = `${productId}:${baseSlug}-${suffix}`;
+    suffix += 1;
+  }
+
+  const nextPosition = (existing ?? []).reduce((max, t) => Math.max(max, t.position), 0) + 1;
+
+  const { error } = await supabase.from("tracks").insert({
+    id,
+    product_id: productId,
+    feature_id: featureId,
+    title: trimmed,
+    level: "Essencial",
+    position: nextPosition,
+    coming_soon: true,
+  });
+  if (error) throw new Error(error.message);
+
+  revalidatePath("/trilhas");
+  revalidatePath("/gerenciar");
+  if (featureId) {
+    revalidatePath(`/materiais/${productId}/${featureId}`);
+  }
+
+  return { id, name: trimmed };
+}
+
 export async function updateTrackMeta(
   trackId: string,
-  input: { ownerName: string; ownerRole: string; comingSoon: boolean },
+  input: { ownerName: string; ownerRole: string; comingSoon: boolean; featureId: string | null },
 ) {
   const { supabase } = await requireAdmin();
+
+  const { data: current } = await supabase.from("tracks").select("product_id, feature_id").eq("id", trackId).single();
 
   const { error } = await supabase
     .from("tracks")
@@ -108,6 +152,7 @@ export async function updateTrackMeta(
       owner_name: input.ownerName.trim() || null,
       owner_role: input.ownerRole.trim() || null,
       coming_soon: input.comingSoon,
+      feature_id: input.featureId,
       updated_at: new Date().toISOString(),
     })
     .eq("id", trackId);
@@ -117,6 +162,12 @@ export async function updateTrackMeta(
   revalidatePath(`/trilhas/${trackId}`);
   revalidatePath("/gerenciar");
   revalidatePath("/");
+  if (current?.product_id && current.feature_id) {
+    revalidatePath(`/materiais/${current.product_id}/${current.feature_id}`);
+  }
+  if (current?.product_id && input.featureId) {
+    revalidatePath(`/materiais/${current.product_id}/${input.featureId}`);
+  }
 }
 
 export async function deleteMaterial(id: string) {

@@ -19,7 +19,7 @@ export default async function GerenciarPage() {
       supabase.from("features").select("id, product_id, name").order("position"),
       supabase
         .from("tracks")
-        .select("id, product_id, title, owner_name, owner_role, coming_soon")
+        .select("id, product_id, title, feature_id, owner_name, owner_role, coming_soon")
         .order("position"),
       getRecentPublications(supabase),
       getFeedbackFeed(supabase),
@@ -57,6 +57,7 @@ export default async function GerenciarPage() {
             id: t.id,
             productId: t.product_id,
             title: t.title,
+            featureId: t.feature_id,
             ownerName: t.owner_name,
             ownerRole: t.owner_role,
             comingSoon: t.coming_soon,

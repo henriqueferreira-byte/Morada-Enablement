@@ -14,7 +14,7 @@ import {
   toast,
 } from "@/niemeyer/components";
 import { cn } from "@/lib/utils";
-import { createFeature, deleteTrack, publishContent, updateTrackMeta } from "@/lib/actions/gerenciar";
+import { createFeature, createTrack, deleteTrack, publishContent, updateTrackMeta } from "@/lib/actions/gerenciar";
 import { CATEGORY_LABELS, CATEGORY_OPTIONS, CONTENT_TYPE_LABELS, CONTENT_TYPE_OPTIONS } from "@/lib/material-tags";
 import { FileUploader, type UploadedFile } from "./file-uploader";
 import { ConfirmDeleteDialog } from "./confirm-delete-dialog";
@@ -25,12 +25,15 @@ export type TrackOption = {
   id: string;
   productId: string;
   title: string;
+  featureId: string | null;
   ownerName: string | null;
   ownerRole: string | null;
   comingSoon: boolean;
 };
 
 const NEW_FEATURE_VALUE = "__new_feature__";
+const NEW_TRACK_VALUE = "__new_track__";
+const NO_FEATURE_VALUE = "__no_feature__";
 
 export function GerenciarForm({
   products,
@@ -62,26 +65,38 @@ export function GerenciarForm({
   const [ownerNameDraft, setOwnerNameDraft] = useState("");
   const [ownerRoleDraft, setOwnerRoleDraft] = useState("");
   const [comingSoonDraft, setComingSoonDraft] = useState(false);
+  const [featureIdDraft, setFeatureIdDraft] = useState(NO_FEATURE_VALUE);
   const [isSavingTrackMeta, startSavingTrackMeta] = useTransition();
   const [confirmingTrackDelete, setConfirmingTrackDelete] = useState(false);
+  const [localTracks, setLocalTracks] = useState<TrackOption[]>([]);
+  const [creatingTrack, setCreatingTrack] = useState(false);
+  const [newTrackName, setNewTrackName] = useState("");
+  const [newTrackFeatureId, setNewTrackFeatureId] = useState(NO_FEATURE_VALUE);
+  const [isCreatingTrack, startCreatingTrack] = useTransition();
+  const [creatingTrackPasta, setCreatingTrackPasta] = useState(false);
+  const [newTrackPastaName, setNewTrackPastaName] = useState("");
+  const [isCreatingTrackPasta, startCreatingTrackPasta] = useTransition();
 
   const allFeatures = useMemo(() => [...features, ...localFeatures], [features, localFeatures]);
+  const allTracks = useMemo(() => [...tracks, ...localTracks], [tracks, localTracks]);
+  const productFeatures = useMemo(() => allFeatures.filter((f) => f.productId === productId), [allFeatures, productId]);
 
   const targetOptions = useMemo(
     () =>
       kind === "material"
-        ? allFeatures.filter((f) => f.productId === productId).map((f) => ({ id: f.id, label: f.name }))
-        : tracks.filter((t) => t.productId === productId).map((t) => ({ id: t.id, label: t.title })),
-    [kind, productId, allFeatures, tracks],
+        ? productFeatures.map((f) => ({ id: f.id, label: f.name }))
+        : allTracks.filter((t) => t.productId === productId).map((t) => ({ id: t.id, label: t.title })),
+    [kind, productId, productFeatures, allTracks],
   );
 
-  const selectedTrack = kind === "lesson" ? tracks.find((t) => t.id === targetId) ?? null : null;
+  const selectedTrack = kind === "lesson" ? allTracks.find((t) => t.id === targetId) ?? null : null;
 
   useEffect(() => {
     if (!selectedTrack) return;
     setOwnerNameDraft(selectedTrack.ownerName ?? "");
     setOwnerRoleDraft(selectedTrack.ownerRole ?? "");
     setComingSoonDraft(selectedTrack.comingSoon);
+    setFeatureIdDraft(selectedTrack.featureId ?? NO_FEATURE_VALUE);
   }, [selectedTrack]);
 
   function handleSaveTrackMeta() {
@@ -92,6 +107,7 @@ export function GerenciarForm({
           ownerName: ownerNameDraft,
           ownerRole: ownerRoleDraft,
           comingSoon: comingSoonDraft,
+          featureId: featureIdDraft === NO_FEATURE_VALUE ? null : featureIdDraft,
         });
         toast("Dados da trilha atualizados.");
         router.refresh();
@@ -104,6 +120,10 @@ export function GerenciarForm({
   function handleTargetChange(value: string) {
     if (value === NEW_FEATURE_VALUE) {
       setCreatingFeature(true);
+      return;
+    }
+    if (value === NEW_TRACK_VALUE) {
+      setCreatingTrack(true);
       return;
     }
     setTargetId(value);
@@ -121,6 +141,43 @@ export function GerenciarForm({
         toast(`Pasta "${created.name}" criada.`);
       } catch (err) {
         toast(err instanceof Error ? err.message : "Não foi possível criar a pasta.");
+      }
+    });
+  }
+
+  function handleCreateTrackPasta() {
+    if (!newTrackPastaName.trim() || !productId) return;
+    startCreatingTrackPasta(async () => {
+      try {
+        const created = await createFeature(productId, newTrackPastaName);
+        setLocalFeatures((prev) => [...prev, { id: created.id, productId, name: created.name }]);
+        setNewTrackFeatureId(created.id);
+        setCreatingTrackPasta(false);
+        setNewTrackPastaName("");
+        toast(`Pasta "${created.name}" criada.`);
+      } catch (err) {
+        toast(err instanceof Error ? err.message : "Não foi possível criar a pasta.");
+      }
+    });
+  }
+
+  function handleCreateTrack() {
+    if (!newTrackName.trim() || !productId) return;
+    const featureId = newTrackFeatureId === NO_FEATURE_VALUE ? null : newTrackFeatureId;
+    startCreatingTrack(async () => {
+      try {
+        const created = await createTrack(productId, featureId, newTrackName);
+        setLocalTracks((prev) => [
+          ...prev,
+          { id: created.id, productId, title: created.name, featureId, ownerName: null, ownerRole: null, comingSoon: true },
+        ]);
+        setTargetId(created.id);
+        setCreatingTrack(false);
+        setNewTrackName("");
+        setNewTrackFeatureId(NO_FEATURE_VALUE);
+        toast(`Trilha "${created.name}" criada.`);
+      } catch (err) {
+        toast(err instanceof Error ? err.message : "Não foi possível criar a trilha.");
       }
     });
   }
@@ -190,6 +247,8 @@ export function GerenciarForm({
                 setKind(option);
                 setTargetId("");
                 setCreatingFeature(false);
+                setCreatingTrack(false);
+                setCreatingTrackPasta(false);
               }}
               className={cn(
                 "flex h-8 items-center rounded-full border px-3 text-[13px] transition-colors",
@@ -213,6 +272,8 @@ export function GerenciarForm({
               setProductId(value);
               setTargetId("");
               setCreatingFeature(false);
+              setCreatingTrack(false);
+              setCreatingTrackPasta(false);
             }}
           >
             <SelectTrigger className="w-full">
@@ -246,6 +307,11 @@ export function GerenciarForm({
                   + Criar nova pasta
                 </SelectItem>
               )}
+              {kind === "lesson" && (
+                <SelectItem value={NEW_TRACK_VALUE} className="font-bold text-primary">
+                  + Criar nova trilha
+                </SelectItem>
+              )}
             </SelectContent>
           </Select>
           {creatingFeature && (
@@ -277,6 +343,97 @@ export function GerenciarForm({
               >
                 Cancelar
               </Button>
+            </div>
+          )}
+          {creatingTrack && (
+            <div className="mt-2 flex flex-col gap-2 rounded-lg border border-neutral-200 p-3">
+              <input
+                autoFocus
+                value={newTrackName}
+                onChange={(e) => setNewTrackName(e.target.value)}
+                placeholder="Nome da nova trilha"
+                className="h-9 w-full rounded-lg border border-neutral-200 bg-transparent px-3 text-sm outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50"
+              />
+              <div>
+                <label className="mb-1 block text-[11px] font-semibold text-neutral-500">
+                  Pasta (conecta a trilha aos materiais dessa feature)
+                </label>
+                <Select
+                  value={newTrackFeatureId}
+                  onValueChange={(value) => {
+                    if (value === NEW_FEATURE_VALUE) {
+                      setCreatingTrackPasta(true);
+                      return;
+                    }
+                    setNewTrackFeatureId(value);
+                  }}
+                >
+                  <SelectTrigger className="w-full">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value={NO_FEATURE_VALUE}>Sem pasta específica</SelectItem>
+                    {productFeatures.map((f) => (
+                      <SelectItem key={f.id} value={f.id}>
+                        {f.name}
+                      </SelectItem>
+                    ))}
+                    <SelectItem value={NEW_FEATURE_VALUE} className="font-bold text-primary">
+                      + Criar nova pasta
+                    </SelectItem>
+                  </SelectContent>
+                </Select>
+                {creatingTrackPasta && (
+                  <div className="mt-2 flex items-center gap-2">
+                    <input
+                      autoFocus
+                      value={newTrackPastaName}
+                      onChange={(e) => setNewTrackPastaName(e.target.value)}
+                      onKeyDown={(e) => e.key === "Enter" && handleCreateTrackPasta()}
+                      placeholder="Nome da nova pasta"
+                      className="h-9 w-full rounded-lg border border-neutral-200 bg-transparent px-3 text-sm outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50"
+                    />
+                    <Button
+                      size="sm"
+                      isLoading={isCreatingTrackPasta}
+                      disabled={!newTrackPastaName.trim()}
+                      onClick={handleCreateTrackPasta}
+                    >
+                      Criar
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      disabled={isCreatingTrackPasta}
+                      onClick={() => {
+                        setCreatingTrackPasta(false);
+                        setNewTrackPastaName("");
+                      }}
+                    >
+                      Cancelar
+                    </Button>
+                  </div>
+                )}
+              </div>
+              <div className="flex justify-end gap-2">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  disabled={isCreatingTrack}
+                  onClick={() => {
+                    setCreatingTrack(false);
+                    setNewTrackName("");
+                    setNewTrackFeatureId(NO_FEATURE_VALUE);
+                    setCreatingTrackPasta(false);
+                    setNewTrackPastaName("");
+                  }}
+                >
+                  Cancelar
+                </Button>
+                <Button size="sm" isLoading={isCreatingTrack} disabled={!newTrackName.trim()} onClick={handleCreateTrack}>
+                  Criar trilha
+                </Button>
+              </div>
             </div>
           )}
         </div>
@@ -314,6 +471,25 @@ export function GerenciarForm({
                 className="h-9 w-full rounded-lg border border-neutral-200 bg-white px-3 text-sm outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50"
               />
             </div>
+          </div>
+          <div>
+            <label className="mb-1.5 block text-xs font-semibold text-neutral-600">Pasta</label>
+            <Select value={featureIdDraft} onValueChange={setFeatureIdDraft}>
+              <SelectTrigger className="w-full bg-white">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value={NO_FEATURE_VALUE}>Sem pasta específica</SelectItem>
+                {productFeatures.map((f) => (
+                  <SelectItem key={f.id} value={f.id}>
+                    {f.name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            <p className="mt-1 text-[11px] text-neutral-500">
+              Conecta a trilha aos materiais dessa pasta — aparece um link entre as duas telas.
+            </p>
           </div>
           <ToggleRow
             label="Trilha em preparação"
