@@ -10,6 +10,7 @@ export const TEAM_OPTIONS = [
   "rh",
   "financeiro",
   "cfo",
+  "professional_services",
 ] as const;
 
 export type Team = (typeof TEAM_OPTIONS)[number];
@@ -26,6 +27,7 @@ export const TEAM_LABELS: Record<Team, string> = {
   rh: "RH",
   financeiro: "Financeiro",
   cfo: "CFO",
+  professional_services: "Professional Services",
 };
 
 export function isValidTeam(value: string): value is Team {
