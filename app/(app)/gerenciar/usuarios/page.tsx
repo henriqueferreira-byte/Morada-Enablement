@@ -6,7 +6,7 @@ import { UsersDirectoryTable } from "@/components/gerenciar/users-directory-tabl
 
 export default async function UsuariosPage() {
   const { supabase } = await requireAdmin();
-  const users = await getUserDirectory(supabase);
+  const { users } = await getUserDirectory(supabase);
 
   return (
     <>

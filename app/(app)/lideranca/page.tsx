@@ -2,10 +2,11 @@ import { requireLeader } from "@/lib/auth";
 import { getUserDirectory } from "@/lib/queries/users";
 import { TEAM_LABELS, isValidTeam } from "@/lib/teams";
 import { UsersDirectoryTable } from "@/components/gerenciar/users-directory-table";
+import { TeamInsights } from "@/components/lideranca/team-insights";
 
 export default async function LiderancaPage() {
   const { supabase, profile } = await requireLeader();
-  const allUsers = await getUserDirectory(supabase);
+  const { users: allUsers, tracks } = await getUserDirectory(supabase);
 
   const seesAll = profile.role === "admin" || profile.leads_team === "all";
   const users = seesAll ? allUsers : allUsers.filter((user) => user.team === profile.leads_team);
@@ -25,6 +26,8 @@ export default async function LiderancaPage() {
           {users.length} {users.length === 1 ? "pessoa" : "pessoas"} em {scopeLabel}: acesso, cargo e trilhas em andamento.
         </p>
       </div>
+
+      <TeamInsights users={users} tracks={tracks} />
 
       <UsersDirectoryTable users={users} />
     </>

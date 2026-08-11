@@ -22,13 +22,25 @@ export type DirectoryUser = {
   tracks: UserTrackProgress[];
 };
 
-export async function getUserDirectory(supabase: SupabaseClient): Promise<DirectoryUser[]> {
+export type TrackSummary = {
+  id: string;
+  title: string;
+  isRequired: boolean;
+  totalLessons: number;
+};
+
+export type UserDirectory = {
+  users: DirectoryUser[];
+  tracks: TrackSummary[];
+};
+
+export async function getUserDirectory(supabase: SupabaseClient): Promise<UserDirectory> {
   const [{ data: profiles }, { data: tracksData }, { data: progressRows }] = await Promise.all([
     supabase
       .from("profiles")
       .select("id, email, full_name, avatar_url, team, job_title, role, leads_team, created_at")
       .order("created_at", { ascending: false }),
-    supabase.from("tracks").select("id, title, lessons(id)"),
+    supabase.from("tracks").select("id, title, is_required, lessons(id)"),
     supabase
       .from("lesson_progress")
       .select("user_id, lessons!lesson_progress_lesson_id_fkey(track_id)"),
@@ -36,9 +48,12 @@ export async function getUserDirectory(supabase: SupabaseClient): Promise<Direct
 
   const trackLessonCount = new Map<string, number>();
   const trackTitleById = new Map<string, string>();
+  const trackSummaries: TrackSummary[] = [];
   for (const track of (tracksData ?? []) as any[]) {
-    trackLessonCount.set(track.id, (track.lessons ?? []).length);
+    const totalLessons = (track.lessons ?? []).length;
+    trackLessonCount.set(track.id, totalLessons);
     trackTitleById.set(track.id, track.title);
+    trackSummaries.push({ id: track.id, title: track.title, isRequired: track.is_required, totalLessons });
   }
 
   const doneByUserAndTrack = new Map<string, Map<string, number>>();
@@ -60,7 +75,7 @@ export async function getUserDirectory(supabase: SupabaseClient): Promise<Direct
     // no-op — the directory still renders without "último acesso".
   }
 
-  return (profiles ?? []).map((profile) => {
+  const users: DirectoryUser[] = (profiles ?? []).map((profile) => {
     const perTrack = doneByUserAndTrack.get(profile.id) ?? new Map<string, number>();
     const tracks: UserTrackProgress[] = [...perTrack.entries()].map(([trackId, done]) => ({
       trackId,
@@ -83,4 +98,6 @@ export async function getUserDirectory(supabase: SupabaseClient): Promise<Direct
       tracks,
     };
   });
+
+  return { users, tracks: trackSummaries };
 }
