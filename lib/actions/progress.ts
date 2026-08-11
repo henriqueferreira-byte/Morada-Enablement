@@ -3,6 +3,32 @@
 import { revalidatePath } from "next/cache";
 import { requireUser } from "@/lib/auth";
 
+const SIGNED_URL_TTL_SECONDS = 60;
+const VIDEO_STREAM_TTL_SECONDS = 4 * 60 * 60;
+
+/** Returns a URL to open/download/stream a lesson's file. External links (Drive, YouTube, Loom…) pass through as-is; Storage-backed files get a signed URL — short-lived for open/download, long-lived for "stream" so an in-progress video doesn't expire mid-watch. */
+export async function getLessonAccessUrl(lessonId: string, kind: "open" | "download" | "stream") {
+  const { supabase } = await requireUser();
+
+  const { data: lesson } = await supabase
+    .from("lessons")
+    .select("id, storage_path, external_url")
+    .eq("id", lessonId)
+    .single();
+
+  if (!lesson) throw new Error("Aula não encontrada.");
+  if (lesson.external_url) return { url: lesson.external_url };
+  if (!lesson.storage_path) throw new Error("Aula sem arquivo ou link.");
+
+  const ttl = kind === "stream" ? VIDEO_STREAM_TTL_SECONDS : SIGNED_URL_TTL_SECONDS;
+  const { data: signed, error } = await supabase.storage
+    .from("hub-materials")
+    .createSignedUrl(lesson.storage_path, ttl, { download: kind === "download" });
+
+  if (error || !signed) throw new Error("Não foi possível gerar o link do arquivo.");
+  return { url: signed.signedUrl };
+}
+
 async function revalidateProgressPaths(trackId: string) {
   revalidatePath("/");
   revalidatePath("/trilhas");

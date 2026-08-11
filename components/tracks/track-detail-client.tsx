@@ -59,6 +59,10 @@ export function TrackDetailClient({
     });
   }
 
+  function handleAutoComplete(lessonId: string) {
+    if (!completed.has(lessonId)) handleToggle(lessonId);
+  }
+
   const feedbackLesson = track.lessons.find((l) => l.id === feedbackLessonId);
 
   return (
@@ -79,6 +83,7 @@ export function TrackDetailClient({
             hasRated={rated.has(lesson.id)}
             isPending={isPending}
             onToggle={() => handleToggle(lesson.id)}
+            onAutoComplete={() => handleAutoComplete(lesson.id)}
             isAdmin={isAdmin}
             onDelete={async () => {
               await deleteLesson(lesson.id);
