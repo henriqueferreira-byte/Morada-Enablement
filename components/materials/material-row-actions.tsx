@@ -7,27 +7,35 @@ import { Button, toast } from "@/niemeyer/components";
 import { getMaterialAccessUrl } from "@/lib/actions/materials";
 import { deleteMaterial } from "@/lib/actions/gerenciar";
 import { ConfirmDeleteDialog } from "@/components/gerenciar/confirm-delete-dialog";
+import { MaterialHtmlViewer } from "./material-html-viewer";
 
 export function MaterialRowActions({
   materialId,
   materialTitle,
   isLink,
+  isHtml = false,
   isAdmin,
 }: {
   materialId: string;
   materialTitle: string;
   isLink: boolean;
+  isHtml?: boolean;
   isAdmin: boolean;
 }) {
   const router = useRouter();
   const [pendingKind, setPendingKind] = useState<"open" | "download" | null>(null);
   const [confirmingDelete, setConfirmingDelete] = useState(false);
+  const [viewerUrl, setViewerUrl] = useState<string | null>(null);
 
   async function handle(kind: "open" | "download") {
     setPendingKind(kind);
     try {
       const { url } = await getMaterialAccessUrl(materialId, kind);
-      window.open(url, "_blank", "noreferrer");
+      if (kind === "open" && isHtml) {
+        setViewerUrl(url);
+      } else {
+        window.open(url, "_blank", "noreferrer");
+      }
     } catch {
       toast("Não foi possível abrir o arquivo. Tente novamente.");
     } finally {
@@ -79,6 +87,14 @@ export function MaterialRowActions({
             }}
           />
         </>
+      )}
+      {viewerUrl && (
+        <MaterialHtmlViewer
+          open={!!viewerUrl}
+          onOpenChange={(open) => !open && setViewerUrl(null)}
+          url={viewerUrl}
+          title={materialTitle}
+        />
       )}
     </div>
   );

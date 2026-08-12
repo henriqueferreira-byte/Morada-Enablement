@@ -97,6 +97,7 @@ export function MaterialsTable({
                   materialId={material.id}
                   materialTitle={material.title}
                   isLink={material.ext === "LINK"}
+                  isHtml={material.ext === "HTML"}
                   isAdmin={isAdmin}
                 />
               </TableCell>
