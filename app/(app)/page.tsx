@@ -9,6 +9,7 @@ import { RequestContentCard } from "@/components/home/request-content-card";
 import { NovidadeCard } from "@/components/home/novidade-card";
 import { KnowledgeBaseBanner } from "@/components/home/knowledge-base-banner";
 import { PageTip } from "@/components/onboarding/page-tip";
+import { DollyCorner } from "@/components/mascot/dolly-corner";
 
 export default async function HomePage() {
   const { supabase, user, profile } = await requireUser();
@@ -26,6 +27,8 @@ export default async function HomePage() {
 
   return (
     <>
+      <DollyCorner />
+
       <section
         className="relative overflow-hidden rounded-2xl p-8 text-white"
         style={{ background: "linear-gradient(135deg,#00224d 0%,#0058c4 45%,#0aa6f0 100%)" }}

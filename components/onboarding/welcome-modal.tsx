@@ -11,6 +11,7 @@ import {
 } from "@tabler/icons-react";
 import { Button, Dialog, DialogContent } from "@/niemeyer/components";
 import { cn } from "@/lib/utils";
+import { Dolly } from "@/components/mascot/dolly";
 
 type Slide = {
   icon: typeof IconHome;
@@ -103,9 +104,13 @@ export function WelcomeModal({
             className="absolute -right-10 -top-20 size-52 rounded-full blur-2xl"
             style={{ background: "radial-gradient(circle, rgba(0,255,224,.32), transparent 62%)" }}
           />
-          <span className="relative flex size-16 items-center justify-center rounded-2xl bg-white/15 text-white backdrop-blur-sm">
-            <Icon className="size-8" />
-          </span>
+          {index === 0 ? (
+            <Dolly size={112} className="relative" />
+          ) : (
+            <span className="relative flex size-16 items-center justify-center rounded-2xl bg-white/15 text-white backdrop-blur-sm">
+              <Icon className="size-8" />
+            </span>
+          )}
         </div>
 
         <div className="flex flex-col gap-2 pt-2">

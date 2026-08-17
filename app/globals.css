@@ -8,3 +8,45 @@
   --font-heading: var(--font-outfit), "Outfit", system-ui, sans-serif;
   --font-body: var(--font-lato), "Lato", system-ui, sans-serif;
 }
+
+/* Dolly (mascot) waving hello — a gentle rock pivoting from her feet,
+ * not a full spin, so it reads as a wave rather than a wobble. */
+@keyframes dolly-wave {
+  0%, 100% {
+    transform: rotate(-4deg);
+  }
+  50% {
+    transform: rotate(6deg);
+  }
+}
+
+.animate-dolly-wave {
+  transform-origin: bottom center;
+  animation: dolly-wave 1.6s ease-in-out infinite;
+}
+
+/* Dolly idling in a page corner — still almost all the time, with a brief
+ * wave near the end of each long cycle so she reads as "quietinha" rather
+ * than a constant back-and-forth wobble. */
+@keyframes dolly-idle {
+  0%, 78%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  82% {
+    transform: translateY(-3px) rotate(-6deg);
+  }
+  86% {
+    transform: translateY(0) rotate(8deg);
+  }
+  90% {
+    transform: translateY(-2px) rotate(-5deg);
+  }
+  94% {
+    transform: translateY(0) rotate(0deg);
+  }
+}
+
+.animate-dolly-idle {
+  transform-origin: bottom center;
+  animation: dolly-idle 7s ease-in-out infinite;
+}
