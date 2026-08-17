@@ -33,7 +33,7 @@ export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   const isAuthRoute =
-    pathname === "/login" || pathname.startsWith("/auth");
+    pathname === "/login" || pathname.startsWith("/auth") || pathname.startsWith("/api/dev-login");
 
   const email = user?.email ?? "";
   const domainOk = email.toLowerCase().endsWith(`@${ALLOWED_EMAIL_DOMAIN}`);
