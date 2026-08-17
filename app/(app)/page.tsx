@@ -27,8 +27,6 @@ export default async function HomePage() {
 
   return (
     <>
-      <DollyCorner />
-
       <section
         className="relative overflow-hidden rounded-2xl p-8 text-white"
         style={{ background: "linear-gradient(135deg,#00224d 0%,#0058c4 45%,#0aa6f0 100%)" }}
@@ -85,6 +83,8 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
+
+      <DollyCorner />
 
       <PageTip
         pageKey="home"
