@@ -9,7 +9,6 @@ import { RequestContentCard } from "@/components/home/request-content-card";
 import { NovidadeCard } from "@/components/home/novidade-card";
 import { KnowledgeBaseBanner } from "@/components/home/knowledge-base-banner";
 import { PageTip } from "@/components/onboarding/page-tip";
-import { DollyCorner } from "@/components/mascot/dolly-corner";
 
 export default async function HomePage() {
   const { supabase, user, profile } = await requireUser();
@@ -83,8 +82,6 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
-
-      <DollyCorner />
 
       <PageTip
         pageKey="home"

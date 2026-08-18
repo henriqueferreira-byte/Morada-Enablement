@@ -9,44 +9,54 @@
   --font-body: var(--font-lato), "Lato", system-ui, sans-serif;
 }
 
-/* Dolly (mascot) waving hello — a gentle rock pivoting from her feet,
- * not a full spin, so it reads as a wave rather than a wobble. */
-@keyframes dolly-wave {
-  0%, 100% {
-    transform: rotate(-4deg);
+/* Dolly (mascot): the body image is static — only the arm-sprite overlay
+ * (a 30-frame strip, one raised-arm pose per frame) moves, via
+ * background-position stepping through the strip. This keeps her body
+ * completely still and animates just the hand/arm, frame by frame. */
+@keyframes dolly-arm-wave {
+  from {
+    background-position: 0% 0;
   }
-  50% {
-    transform: rotate(6deg);
+  to {
+    background-position: 100% 0;
   }
 }
 
-.animate-dolly-wave {
-  transform-origin: bottom center;
-  animation: dolly-wave 1.6s ease-in-out infinite;
+.animate-dolly-arm-wave {
+  animation: dolly-arm-wave 3.6s steps(30) infinite;
 }
 
-/* Dolly idling in a page corner — still almost all the time, with a brief
- * wave near the end of each long cycle so she reads as "quietinha" rather
- * than a constant back-and-forth wobble. */
-@keyframes dolly-idle {
-  0%, 78%, 100% {
-    transform: translateY(0) rotate(0deg);
+/* Idling: the arm-sprite stays hidden (just the resting-arm body shows)
+ * almost all the time, with a brief pop-in wave near the end of each long
+ * cycle so she reads as "quietinha" rather than constantly waving. */
+@keyframes dolly-arm-idle {
+  0% {
+    opacity: 0;
+    background-position: 0% 0;
   }
-  82% {
-    transform: translateY(-3px) rotate(-6deg);
+  73% {
+    opacity: 0;
+    background-position: 0% 0;
   }
-  86% {
-    transform: translateY(0) rotate(8deg);
+  76% {
+    opacity: 1;
+    background-position: 0% 0;
+    animation-timing-function: steps(30);
   }
   90% {
-    transform: translateY(-2px) rotate(-5deg);
+    opacity: 1;
+    background-position: 100% 0;
   }
-  94% {
-    transform: translateY(0) rotate(0deg);
+  93% {
+    opacity: 0;
+    background-position: 100% 0;
+  }
+  100% {
+    opacity: 0;
+    background-position: 0% 0;
   }
 }
 
-.animate-dolly-idle {
-  transform-origin: bottom center;
-  animation: dolly-idle 7s ease-in-out infinite;
+.animate-dolly-arm-idle {
+  animation: dolly-arm-idle 7s ease-in-out infinite;
 }

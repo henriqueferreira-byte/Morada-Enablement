@@ -19,6 +19,7 @@ import {
   SidebarPanelItem,
 } from "@/niemeyer/components";
 import { cn } from "@/lib/utils";
+import { Dolly } from "@/components/mascot/dolly";
 import type { Product } from "@/lib/queries/catalog";
 import type { StreakInfo } from "@/lib/queries/streak";
 
@@ -105,12 +106,17 @@ export function SidebarNav({
         </SidebarPanelNav>
 
         <div className="m-2 mt-auto rounded-xl border border-neutral-150 bg-neutral-50 p-3.5">
-          <p className="font-heading text-[13px] font-semibold text-foreground">
-            Ofensiva de {streak.currentStreak} {streak.currentStreak === 1 ? "dia" : "dias"}
-          </p>
-          <p className="mt-0.5 text-xs text-neutral-500">
-            Estude 1 aula por dia útil para manter.
-          </p>
+          <div className="flex items-start gap-2">
+            <Dolly size={36} animation="idle" className="mt-0.5" />
+            <div className="min-w-0 flex-1">
+              <p className="font-heading text-[13px] font-semibold text-foreground">
+                Ofensiva de {streak.currentStreak} {streak.currentStreak === 1 ? "dia" : "dias"}
+              </p>
+              <p className="mt-0.5 text-xs text-neutral-500">
+                Estude 1 aula por dia útil para manter.
+              </p>
+            </div>
+          </div>
           <div className="mt-2.5 flex gap-[5px]">
             {streak.weekDays.map((done, i) => {
               const label = WEEKDAY_LABELS[i] ?? "";
