@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
   IconAward,
+  IconChecklist,
   IconFolder,
   IconHome,
   IconSettings,
@@ -17,6 +18,7 @@ import {
   SidebarPanelHeader,
   SidebarPanelNav,
   SidebarPanelItem,
+  Badge,
 } from "@/niemeyer/components";
 import { cn } from "@/lib/utils";
 import { Dolly } from "@/components/mascot/dolly";
@@ -31,6 +33,8 @@ const NAV_ITEMS = [
   { href: "/materiais", label: "Materiais", icon: IconFolder },
   { href: "/progresso", label: "Meu progresso", icon: IconAward },
 ];
+
+const COMING_SOON_ITEM = { label: "Tarefas gerais", icon: IconChecklist };
 
 export function SidebarNav({
   products,
@@ -73,6 +77,13 @@ export function SidebarNav({
               {item.label}
             </SidebarPanelItem>
           ))}
+          <SidebarPanelItem className="cursor-default font-semibold text-neutral-400 hover:bg-transparent">
+            <COMING_SOON_ITEM.icon className="size-[18px]" />
+            <span className="flex-1 truncate">{COMING_SOON_ITEM.label}</span>
+            <Badge variant="warning" className="h-5 shrink-0 px-1.5 text-[10px]">
+              Em breve
+            </Badge>
+          </SidebarPanelItem>
           {isAdmin && (
             <SidebarPanelItem href="/gerenciar" active={pathname.startsWith("/gerenciar")} className="font-semibold">
               <IconSettings className="size-[18px]" />
