@@ -34,11 +34,17 @@ export type UserDirectory = {
   tracks: TrackSummary[];
 };
 
+function mostRecent(a: string | null, b: string | null): string | null {
+  if (!a) return b;
+  if (!b) return a;
+  return new Date(a) > new Date(b) ? a : b;
+}
+
 export async function getUserDirectory(supabase: SupabaseClient): Promise<UserDirectory> {
   const [{ data: profiles }, { data: tracksData }, { data: progressRows }] = await Promise.all([
     supabase
       .from("profiles")
-      .select("id, email, full_name, avatar_url, team, job_title, role, leads_team, created_at")
+      .select("id, email, full_name, avatar_url, team, job_title, role, leads_team, created_at, last_seen_at")
       .order("created_at", { ascending: false }),
     supabase.from("tracks").select("id, title, is_required, lessons(id)"),
     supabase
@@ -65,8 +71,12 @@ export async function getUserDirectory(supabase: SupabaseClient): Promise<UserDi
     perTrack.set(trackId, (perTrack.get(trackId) ?? 0) + 1);
   }
 
-  // Last sign-in lives on auth.users, which is only reachable with the
-  // service-role key — best-effort, since that key may be absent locally.
+  // auth.users.last_sign_in_at only updates on a fresh sign-in, not on every
+  // visit, so it goes stale for long-lived sessions — proxy.ts now stamps
+  // profiles.last_seen_at on real visits instead. Fall back to
+  // last_sign_in_at (whichever is more recent) for users who haven't hit
+  // that tracking yet. Auth lookup is best-effort since the service-role
+  // key may be absent locally.
   const lastSignInById = new Map<string, string | null>();
   try {
     const { data } = await createAdminClient().auth.admin.listUsers({ perPage: 200 });
@@ -94,7 +104,7 @@ export async function getUserDirectory(supabase: SupabaseClient): Promise<UserDi
       role: profile.role,
       leadsTeam: profile.leads_team,
       createdAt: profile.created_at,
-      lastSignInAt: lastSignInById.get(profile.id) ?? null,
+      lastSignInAt: mostRecent(profile.last_seen_at, lastSignInById.get(profile.id) ?? null),
       tracks,
     };
   });
