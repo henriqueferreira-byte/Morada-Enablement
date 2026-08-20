@@ -60,6 +60,19 @@ export async function proxy(request: NextRequest) {
     return NextResponse.redirect(url);
   }
 
+  if (user && domainOk) {
+    // auth.users.last_sign_in_at only updates on a fresh sign-in, not on
+    // every visit, so it goes stale for anyone with a long-lived session —
+    // track real visits here instead. Throttled so an active user only
+    // costs one write per 15 minutes rather than one per request.
+    const throttleThreshold = new Date(Date.now() - 15 * 60 * 1000).toISOString();
+    await supabase
+      .from("profiles")
+      .update({ last_seen_at: new Date().toISOString() })
+      .eq("id", user.id)
+      .or(`last_seen_at.is.null,last_seen_at.lt.${throttleThreshold}`);
+  }
+
   return response;
 }
 
